@@ -8,7 +8,7 @@
 
 A simple theme that aims to recreate the experience of Nintendo's Switch console. switchOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/).
 
-Platform logos courtesy of @lilbud.
+Platform logos courtesy of [lilbud](https://github.com/lilbud/es-theme-switch).
 
 ## Installation
 
@@ -17,7 +17,7 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 ## Version history
 v0.2
-- Adding new platform logos courtesy of @lilbud
+- Adding new platform logos courtesy of [lilbud](https://github.com/lilbud/es-theme-switch)
 
 v0.1
 - Initial release
