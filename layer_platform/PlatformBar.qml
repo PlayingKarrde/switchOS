@@ -68,6 +68,17 @@ ListView {
                 sourceSize { width: 512; height: 512 }
             }
 
+            Image {
+                id: eslogo
+                width: parent.width
+                height: width
+                smooth: true
+                fillMode: Image.PreserveAspectFit
+                source: "../assets/images/logos-es/" + Utils.processPlatformName(modelData.shortName) + ".jpg"
+                asynchronous: true
+                sourceSize { width: 512; height: 512 }
+            }
+
             MouseArea {
                 anchors.fill: wrapper
                 hoverEnabled: true

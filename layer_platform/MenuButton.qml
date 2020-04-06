@@ -7,6 +7,7 @@ Item {
 
     property bool selected: focus
     property real borderWidth: vpx(10)
+    property real label: "No label"
     signal clicked
 
     Rectangle {
@@ -58,6 +59,22 @@ Item {
         anchors.fill: parent
         onClicked: root.clicked()
         hoverEnabled: true
+    }
+
+    Text {
+        id: titleText
+        width: vpx(512)
+        x: vpx(-128)
+        y: vpx(-46)
+        text: label
+        color: theme.accent
+        font.family: titleFont.name
+        font.pixelSize: vpx(22)
+        elide: Text.ElideRight
+        horizontalAlignment: Text.AlignHCenter
+
+        opacity: wrapper.ListView.isCurrentItem ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: 75 } }
     }
 
 }

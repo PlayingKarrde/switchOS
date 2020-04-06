@@ -166,7 +166,7 @@ function processPlatformName(platform) {
       return "segacd";
       break;
     case "nec turbografx-16":
-      return "turbografx16";
+      return "tg16";
       break;
     case "sony psp":
       return "psp";
@@ -199,7 +199,7 @@ function processPlatformName(platform) {
       return "wii";
       break;
     case "nintendo wii u":
-      return "wii u";
+      return "wiiu";
       break;
     case "nintendo 3ds":
       return "3ds";
