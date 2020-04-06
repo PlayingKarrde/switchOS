@@ -50,7 +50,7 @@ ListView {
 
             width: vpx(256)
             height: vpx(256)
-            color: Utils.getPlatformColor(modelData.shortName)
+            color: eslogo.source ? "#cccccc" : Utils.getPlatformColor(modelData.shortName)
 
             Image {
                 id: logo
@@ -66,6 +66,7 @@ ListView {
                 anchors.topMargin: vpx(80)
                 antialiasing: true
                 sourceSize { width: 512; height: 512 }
+                visible: !eslogo.source
             }
 
             Image {
