@@ -1,6 +1,6 @@
 # switchOS v0.2
 
-![switchOS Pegasus theme](https://i.imgur.com/Qz5rYE9.jpg)
+![switchOS Pegasus theme](https://i.imgur.com/4EUrWRV.jpg)
 
 ![switchOS Pegasus theme](https://i.imgur.com/yFCqOaY.png)
 
