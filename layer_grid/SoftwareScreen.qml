@@ -161,7 +161,7 @@ FocusScope
                     property bool selected: delegateContainer.GridView.isCurrentItem
                     width: vpx(174)
                     height: vpx(174)
-                    z: -5
+                    z: selected ? 10 : 0
 
 
                     Image {
