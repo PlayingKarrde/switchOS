@@ -148,12 +148,12 @@ FocusScope
             }
         }
     ]
-    
+
 
     // Background
     Rectangle {
         id: background
-        anchors 
+        anchors
         {
             left: parent.left; right: parent.right
             top: parent.top; bottom: parent.bottom
@@ -168,11 +168,11 @@ FocusScope
 
 
     // Platform screen
-    PlatformScreen 
+    PlatformScreen
     {
         id: platformScreen
         focus: true
-        anchors 
+        anchors
         {
             left: parent.left; right: parent.right
             top: parent.top; bottom: helpBar.top
@@ -191,13 +191,13 @@ FocusScope
             top: parent.top; bottom: helpBar.top
         }
     }
-    
+
 
     // Help bar
     Item
     {
         id: helpBar
-        anchors 
+        anchors
         {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
@@ -206,11 +206,11 @@ FocusScope
         }
 
         Rectangle {
-            
+
             anchors.fill: parent
             color: theme.main
         }
-        
+
         Rectangle {
             anchors.left: parent.left; anchors.right: parent.right
             height: vpx(1)
@@ -226,7 +226,7 @@ FocusScope
             }
             showBack: !platformScreen.focus
         }
-        
+
     }
 
     SoundEffect {
@@ -237,16 +237,16 @@ FocusScope
 
     SoundEffect {
       id: toSoftware
-      source: "assets/audio/Enter & Back.wav"
+      source: "assets/audio/EnterBack.wav"
       volume: 1.0
     }
-    
+
     SoundEffect {
       id: fillList
       source: "assets/audio/Icons.wav"
       volume: 1.0
     }
-    
+
     SoundEffect {
       id: backSfx
       source: "assets/audio/Nock.wav"
@@ -255,7 +255,7 @@ FocusScope
 
     SoundEffect {
         id: launchSfx
-        source: "assets/audio/Popup + Run Title.wav"
+        source: "assets/audio/PopupRunTitle.wav"
         volume: 1.0
     }
 
@@ -266,4 +266,3 @@ FocusScope
     }
 
 }
-
