@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.11
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
-import QtQml 2.0
+//import QtQml 2.0
 
 FocusScope
 {
