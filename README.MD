@@ -1,4 +1,4 @@
-# switchOS v0.2
+# switchOS v0.2.1
 
 ![switchOS Pegasus theme](https://i.imgur.com/4EUrWRV.jpg)
 
@@ -16,6 +16,9 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 
 ## Version history
+v.0.2.1
+- Removed Qt.QML inclusion as it apparently is no longer supported
+
 v0.2
 - Adding new platform logos courtesy of [lilbud](https://github.com/lilbud/es-theme-switch)
 
