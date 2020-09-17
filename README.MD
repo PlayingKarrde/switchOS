@@ -16,7 +16,10 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 
 ## Version history
-v.0.2.1
+v0.2.2
+- Fixed bottom bar alignment on non-16:9 screens
+
+v0.2.1
 - Removed Qt.QML inclusion as it apparently is no longer supported
 
 v0.2

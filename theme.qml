@@ -201,9 +201,10 @@ FocusScope
         {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
-            top: parent.top; topMargin: vpx(647)
+            //top: parent.bott; topMargin: vpx(647)
             bottom: parent.bottom
         }
+        height: vpx(75)
 
         Rectangle {
 
