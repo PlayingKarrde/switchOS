@@ -7,7 +7,7 @@ Item {
 
     property bool selected: focus
     property real borderWidth: vpx(10)
-    property real label: "No label"
+    property string label: "No label"
     signal clicked
 
     Rectangle {
@@ -73,7 +73,7 @@ Item {
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignHCenter
 
-        opacity: wrapper.ListView.isCurrentItem ? 1 : 0
+        //opacity: wrapper.ListView.isCurrentItem ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 75 } }
     }
 

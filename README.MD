@@ -16,6 +16,11 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 
 ## Version history
+v0.3
+- Added proper support for variable aspect ratios without decreasing size. Now properly supports 4:3 aspect ratios and should look correct on smaller screens
+- Added logos or collection text for missing eslogos
+- Fixed issue with navigation audio
+
 v0.2.2
 - Fixed bottom bar alignment on non-16:9 screens
 

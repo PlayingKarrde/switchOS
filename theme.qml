@@ -15,6 +15,10 @@ FocusScope
     property int collectionIndex: 0
     property int currentGameIndex: 0
     property int screenmargin: vpx(30)
+    property real screenwidth: width
+    property real screenheight: height
+    property bool widescreen: ((height/width) < 0.75)
+    property real helpbarheight: Math.round(screenheight * 0.1041) // Calculated manually based on mockup
 
     function modulo(a,n) {
         return (a % n + n) % n;
@@ -201,10 +205,9 @@ FocusScope
         {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
-            //top: parent.bott; topMargin: vpx(647)
             bottom: parent.bottom
         }
-        height: vpx(75)
+        height: helpbarheight
 
         Rectangle {
 
@@ -214,7 +217,7 @@ FocusScope
 
         Rectangle {
             anchors.left: parent.left; anchors.right: parent.right
-            height: vpx(1)
+            height: 1
             color: theme.secondary
         }
 
@@ -223,7 +226,7 @@ FocusScope
             width: parent.width
             height: parent.height
             anchors {
-                bottom: parent.bottom; bottomMargin: vpx(12)
+                bottom: parent.bottom;
             }
             showBack: !platformScreen.focus
         }

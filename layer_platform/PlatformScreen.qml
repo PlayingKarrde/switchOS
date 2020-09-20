@@ -20,54 +20,73 @@ FocusScope
             platformSwitcher.focus = true;
         }*/
 
-        // Top bar
-        Image
-        {
-            id: profileIcon
-            anchors
-            {
-                top: parent.top; topMargin: vpx(34)
+        Item {
+        id: topbar
+
+            
+            height: Math.round(screenheight * 0.2569)
+            anchors {
                 left: parent.left; leftMargin: vpx(60)
-            }
-            width: vpx(60)
-            height: vpx(60)
-            source: "../assets/images/profile_icon.svg"
-        }
-
-        DropShadow {
-            id: profileIconShadow
-            anchors.fill: profileIcon
-            horizontalOffset: 0
-            verticalOffset: 0
-            radius: 6.0
-            samples: 6
-            color: "#1F000000"
-            source: profileIcon
-        }
-
-        Text
-        {
-            id: sysTime
-
-            function set() {
-                sysTime.text = Qt.formatTime(new Date(), "hh:mm")
+                right: parent.right; rightMargin: vpx(60)
+                top: parent.top; topMargin: Math.round(screenheight * 0.0472)
             }
 
-            Timer {
-                id: textTimer
-                interval: 60000 // Run the timer every minute
-                repeat: true
-                running: true
-                triggeredOnStart: true
-                onTriggered: sysTime.set()
+            // Top bar
+            Image
+            {
+                id: profileIcon
+                anchors
+                {
+                    top: parent.top;
+                    left: parent.left;
+                }
+                width: Math.round(screenheight * 0.0833)
+                height: width
+                source: "../assets/images/profile_icon.png"
+                sourceSize { width: 128; height:128 }
+                smooth: true
+                antialiasing: true
             }
 
-            x: parent.width - contentWidth - vpx(55)
-            y: vpx(55)
-            color: theme.text
-            font.pixelSize: vpx(20)
-            horizontalAlignment: Text.Right
+            DropShadow {
+                id: profileIconShadow
+                anchors.fill: profileIcon
+                horizontalOffset: 0
+                verticalOffset: 0
+                radius: 6.0
+                samples: 6
+                color: "#1F000000"
+                source: profileIcon
+            }
+
+            Text
+            {
+                id: sysTime
+
+                function set() {
+                    sysTime.text = Qt.formatTime(new Date(), "hh:mm")
+                }
+
+                Timer {
+                    id: textTimer
+                    interval: 60000 // Run the timer every minute
+                    repeat: true
+                    running: true
+                    triggeredOnStart: true
+                    onTriggered: sysTime.set()
+                }
+
+                anchors {
+                    verticalCenter: profileIcon.verticalCenter;
+                    right: parent.right
+                }
+                color: theme.text
+                font.pixelSize: Math.round(screenheight*0.0277)
+                horizontalAlignment: Text.Right
+            }
         }
+
+        
 
         // Platform menu
         PlatformBar
@@ -77,21 +96,21 @@ FocusScope
             {
                 left: parent.left; leftMargin: vpx(98)
                 right: parent.right
-                top: parent.top; topMargin: vpx(185)
+                top: topbar.bottom;
             }
-            height: vpx(256)
+            height: Math.round(screenheight * 0.3555)
             focus: true
+            
         }
 
-        /*// Button menu
-        RowLayout {
+        // Button menu
+        /*RowLayout {
             id: buttonMenu
             spacing: vpx(22)
-            width: vpx(194)
-            height: vpx(86)
 
             anchors { 
-                top: parent.top; topMargin: vpx(503) 
+                top: platformSwitcher.bottom;
+                bottom: parent.bottom
             }
             
             x: parent.width/2 - buttonMenu.width/2

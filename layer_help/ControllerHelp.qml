@@ -25,98 +25,93 @@ FocusScope {
 
     width: parent.width
     height: parent.height
-
-    //opacity: (stateMenu || stateVideoPreview) ? 0 : 1
+      
     Behavior on opacity { NumberAnimation { duration: 200 } }
+    
+    Image {
+      id: button1
+      width: Math.round(screenheight*0.04)
+      height: width
+      source: "../assets/images/controller/"+ processButtonArt(api.keys.accept) + ".png"
+      sourceSize.width: 64
+      sourceSize.height: 64
+      anchors {
+        verticalCenter: button1Txt.verticalCenter
+        right: button1Txt.left
+        rightMargin: vpx(5)
+      }
+      
+    }//button1
+
+    ColorOverlay {
+        anchors.fill: button1
+        source: button1
+        color: theme.text
+        cached: true
+    }
 
     Item {
-        id: buttonContainer
-        width: parent.width
-        height: vpx(20)
-        anchors {
-          bottom: parent.bottom
-          bottomMargin: vpx(18)
-        }
+      id: button1Txt
+      width: txt1.width
+      height: txt1.height
+      Text {
+        id: txt1
+        text: buttonText1
+        color: theme.text
+        font.pixelSize: Math.round(screenheight*0.025)
+        font.family: titleFont.name
+        font.bold: true
+      }
+      anchors {
+        verticalCenter: parent.verticalCenter
+        right: parent.right
+        rightMargin: vpx(25)
+      }
+      
+    }//buttonBack
 
-        Image {
-          id: button1
-          height: vpx(24)
-          width: height
-          source: "../assets/images/controller/"+ processButtonArt(api.keys.accept) + ".png"
-          sourceSize.width: vpx(32)
-          sourceSize.height: vpx(32)
-          anchors {
-            right: button1Txt.left
-            rightMargin: vpx(5)
-          }
-        }//button1
+    Image {
+      id: button2
+      width: Math.round(screenheight*0.04)
+      height: width
+      source: "../assets/images/controller/"+ processButtonArt(api.keys.cancel) + ".png"
+      sourceSize.width: 64
+      sourceSize.height: 64
+      anchors {
+        verticalCenter: button2Txt.verticalCenter
+        right: button2Txt.left
+        rightMargin: vpx(5)
+      }
+      visible: showBack
+    }//button2
 
-        ColorOverlay {
-            anchors.fill: button1
-            source: button1
-            color: theme.text
-            cached: true
-        }
+    ColorOverlay {
+        anchors.fill: button2
+        source: button2
+        color: theme.text
+        cached: true
+        visible: showBack
+    }
 
-        Item {
-          id: button1Txt
-          width: txt1.width
-          height: parent.height
-          Text {
-            id: txt1
-            text: buttonText1
-            color: theme.text
-            font.pixelSize: vpx(18)
-            font.family: titleFont.name
-            font.bold: true
-          }
-          anchors {
-            right: parent.right
-            rightMargin: vpx(25)
-          }
-        }//buttonBack
+    Item {
+      id: button2Txt
+      width: txt2.width
+      height: txt2.height
+      Text {
+        id: txt2
+        text: buttonText2
+        color: theme.text
+        font.pixelSize: Math.round(screenheight*0.025)
+        font.family: titleFont.name
+        font.bold: true
+      }
+      anchors {
+        verticalCenter: parent.verticalCenter
+        right: button1.left
+        rightMargin: vpx(20)
+      }
+      visible: showBack
+    }
 
-        Image {
-          id: button2
-          height: vpx(24)
-          width: height
-          source: "../assets/images/controller/"+ processButtonArt(api.keys.cancel) + ".png"
-          sourceSize.width: vpx(32)
-          sourceSize.height: vpx(32)
-          anchors {
-            right: button2Txt.left
-            rightMargin: vpx(5)
-          }
-          visible: showBack
-        }//button2
-
-        ColorOverlay {
-            anchors.fill: button2
-            source: button2
-            color: theme.text
-            cached: true
-            visible: showBack
-        }
-
-        Item {
-          id: button2Txt
-          width: txt2.width
-          height: parent.height
-          Text {
-            id: txt2
-            text: buttonText2
-            color: theme.text
-            font.pixelSize: vpx(18)
-            font.family: titleFont.name
-            font.bold: true
-          }
-          anchors {
-            right: button1.left
-            rightMargin: vpx(20)
-          }
-          visible: showBack
-        }
-        
-      }//buttonContainer
   }//background
 }//root

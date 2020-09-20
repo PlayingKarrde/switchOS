@@ -7,6 +7,8 @@ import "qrc:/qmlutils" as PegasusUtils
 FocusScope
 {
 
+    property int numcolumns: widescreen ? 6 : 3
+
     Item
     {
         id: softwareScreenContainer
@@ -42,20 +44,20 @@ FocusScope
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.right: parent.right
-            height: vpx(88)
+            height: Math.round(screenheight * 0.1222)
             z: 5
 
             Image
             {
                 id: headerIcon
-                width: vpx(44)
-                height: vpx(44)
+                width: Math.round(screenheight*0.0611)
+                height: width
                 source: "../assets/images/allsoft_icon.svg"
                 sourceSize.width: vpx(128)
                 sourceSize.height: vpx(128)
 
                 anchors {
-                    top: parent.top; topMargin: vpx(30)
+                    top: parent.top; topMargin: Math.round(screenheight*0.0416)
                     left: parent.left; leftMargin: vpx(38)
                 }
 
@@ -64,12 +66,11 @@ FocusScope
                     id: collectionTitle
                     text: api.collections.get(collectionIndex).name
                     color: theme.text
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
                     font.family: titleFont.name
-                    font.pixelSize: vpx(22)
+                    font.pixelSize: Math.round(screenheight*0.0277)
                     font.bold: true
                     anchors {
+                        verticalCenter: headerIcon.verticalCenter
                         left: parent.right; leftMargin: vpx(12)
                     }
                 }
@@ -94,7 +95,7 @@ FocusScope
             Rectangle {
                 y: parent.height - vpx(1)
                 anchors.left: parent.left; anchors.right: parent.right
-                height: vpx(1)
+                height: 1
                 color: theme.secondary
             }
             
@@ -126,30 +127,34 @@ FocusScope
                 }
             }
 
+            Keys.onUpPressed:       { navSound.play(); moveCurrentIndexUp() }
+            Keys.onDownPressed:     { navSound.play(); moveCurrentIndexDown() }
+            Keys.onLeftPressed:     { navSound.play(); moveCurrentIndexLeft() }
+            Keys.onRightPressed:    { navSound.play(); moveCurrentIndexRight() }
+
             onCurrentIndexChanged: {
-                navSound.play();
                 currentGameIndex = currentIndex;
                 return;
             }
-            
-            anchors.left: parent.left; leftMargin: vpx(63)
-            anchors.top: topBar.bottom; topMargin: vpx(99)
-            anchors.right: parent.right;
-            anchors.bottom: parent.bottom
 
-            cellWidth: vpx(184)
-            cellHeight: vpx(184)
-            preferredHighlightBegin: vpx(99)
-            preferredHighlightEnd: vpx(470)
+            anchors {
+                left: parent.left; leftMargin: vpx(63)
+                top: topBar.bottom;
+                right: parent.right; rightMargin: vpx(63)
+                bottom: parent.bottom
+            }
+            
+            cellWidth: width / numcolumns
+            cellHeight: cellWidth
+            preferredHighlightBegin: Math.round(screenheight*0.1388)
+            preferredHighlightEnd: Math.round(screenheight*0.6527)
             highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
             snapMode: ListView.SnapToItem
             highlightMoveDuration: 200
-            //clip: true
-            //cacheBuffer: 256
 
             
             model: api.collections.get(collectionIndex).games
-            delegate: gameGridDelegate
+            delegate: gameGridDelegate            
 
             Component 
             {
@@ -159,8 +164,8 @@ FocusScope
                 {
                     id: delegateContainer
                     property bool selected: delegateContainer.GridView.isCurrentItem
-                    width: vpx(174)
-                    height: vpx(174)
+                    width: gameGrid.cellWidth - vpx(10)
+                    height: width
                     z: selected ? 10 : 0
 
 
@@ -261,7 +266,7 @@ FocusScope
                             height: parent.height
                             font.family: titleFont.name
                             color: theme.text//"white"
-                            font.pixelSize: vpx(14)
+                            font.pixelSize: Math.round(screenheight*0.0194)
                             font.bold: true
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
@@ -276,7 +281,7 @@ FocusScope
                     Rectangle {
                         id: titleBubble
                         width: gameTitle.contentWidth + vpx(54)
-                        height: vpx(44)
+                        height: Math.round(screenheight*0.0611)
                         color: "white"
                         radius: vpx(4)
                         
@@ -284,8 +289,13 @@ FocusScope
                         // mapFromItem and mapToItem are probably going to help
                         property int xpos: screenshot.width/2 - width/2
                         x: xpos
-                        y: vpx(-63)
+                        //y: highlightBorder.y//vpx(-63)
                         z: 10 * index
+
+                        anchors {
+                            horizontalCenter: bubbletriangle.horizontalCenter
+                            bottom: bubbletriangle.top
+                        }
                         
                         opacity: selected ? 0.95 : 0
                         //Behavior on opacity { NumberAnimation { duration: 50 } }
@@ -294,12 +304,12 @@ FocusScope
                             id: gameTitle                        
                             text: modelData.title
                             color: theme.accent
-                            font.pixelSize: vpx(18)
+                            font.pixelSize: Math.round(screenheight*0.0222)
                             font.bold: true
                             font.family: titleFont.name
                             
                             anchors { 
-                                top: parent.top; topMargin: vpx(8)
+                                verticalCenter: parent.verticalCenter
                                 left: parent.left; leftMargin: vpx(27)
                             }
                             
@@ -310,21 +320,24 @@ FocusScope
                         id: bubbletriangle
                         source: "../assets/images/triangle.svg"
                         width: vpx(17)
-                        height: vpx(11)
+                        height: Math.round(screenheight*0.0152)
                         opacity: titleBubble.opacity
                         x: screenshot.width/2 - width/2
-                        anchors.top: titleBubble.bottom
+                        anchors.bottom: screenshot.top
                     }
 
                     // Border
                     HighlightBorder
                     {
                         id: highlightBorder
-                        width: vpx(188)
-                        height: vpx(188)
+                        width: screenshot.width + vpx(18)
+                        height: width
 
-                        x: vpx(-7)
-                        y: vpx(-7)
+                        
+                        anchors.centerIn: screenshot
+                        
+                        //x: vpx(-7)
+                        //y: vpx(-7)
                         z: -10
 
                         selected: delegateContainer.GridView.isCurrentItem
