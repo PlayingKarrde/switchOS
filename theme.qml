@@ -17,8 +17,9 @@ FocusScope
     property int screenmargin: vpx(30)
     property real screenwidth: width
     property real screenheight: height
-    property bool widescreen: ((height/width) < 0.75)
+    property bool widescreen: ((height/width) < 0.7)
     property real helpbarheight: Math.round(screenheight * 0.1041) // Calculated manually based on mockup
+    property bool darkThemeActive
 
     function modulo(a,n) {
         return (a % n + n) % n;
@@ -101,6 +102,16 @@ FocusScope
             highlight: api.memory.get('themeHighlight') || themeLight.highlight,
             text: api.memory.get('themeText') || themeLight.text,
             button: api.memory.get('themeButton') || themeLight.button
+        }
+    }
+
+    function swapTheme() {
+        if (darkThemeActive) {
+            darkThemeActive = false;
+            theme.main = themeLight.main;
+        } else {
+            darkThemeActive = true;
+            theme.main = themeDark.main;
         }
     }
 
