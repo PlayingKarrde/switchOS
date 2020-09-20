@@ -1,4 +1,4 @@
-# switchOS v0.2.1
+# switchOS v0.3
 
 ![switchOS Pegasus theme](https://i.imgur.com/4EUrWRV.jpg)
 
