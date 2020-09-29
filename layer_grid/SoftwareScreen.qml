@@ -10,26 +10,22 @@ FocusScope
 
     property int numcolumns: widescreen ? 6 : 3
     property var currentGame: {
-        if (gameGrid.count === 0) {
+        if (gameGrid.count === 0)
             return null;
-        }
-        if (currentCollection.shortName === "auto-favorites") {
+        if (currentCollection.shortName === "auto-favorites")
             return api.allGames.get(allFavorites.mapToSource(currentGameIndex))
-        }
-        if (currentCollection.shortName === "auto-lastplayed") {
-            return api.allGames.get(filterLastPlayed.mapToSource(currentGameIndex))
-        }
+        if (currentCollection.shortName === "auto-lastplayed")
+            return api.allGames.get(allLastPlayed.mapToSource(currentGameIndex))
+
         return currentCollection.games.get(currentGameIndex)
     }
 
     // Text {
     //     text: {
     //         if (currentGame !== null) {
-    //             return currentGame.title
-    //         } else {
-    //             return "none"
+    //             return currentGame.title+"\n"+currentGameIndex+"\ncurrentCollection: "+allCollections[collectionIndex].games.get(0).title
     //         }
-
+    //         return "none"
     //     }
     //     color: "red"
     //     anchors {
@@ -38,6 +34,24 @@ FocusScope
     //     }
     //     z: 999
     // }
+
+    Column {
+        z: 9000
+        Repeater {
+            model: currentCollection.games
+            delegate: Text {
+                text: "title : "+modelData.title+" \/\/ index : "+index
+                color: "red"
+
+            }
+
+        }
+        Text {
+            text: currentGame.title+"("+currentGameIndex+")"
+            color: "red"
+        }
+    }
+
 
     Item
     {
