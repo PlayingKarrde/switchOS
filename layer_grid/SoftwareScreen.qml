@@ -223,7 +223,7 @@ FocusScope
                             top: parent.top; topMargin: selected ? -vpx(5) : 0
                         }
                         color: "#F90F79"
-                        visible: modelData.favorite
+                        visible: modelData.favorite && currentCollection.shortName !== "auto-favorites"
                     }
 
                     /*DropShadow {
