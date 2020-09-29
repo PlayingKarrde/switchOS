@@ -10,21 +10,24 @@ FocusScope
 
     property int numcolumns: widescreen ? 6 : 3
     property var currentGame: {
+        if (gameGrid.count === 0) {
+            return null;
+        }
         if (currentCollection.shortName === "auto-favorites") {
             return api.allGames.get(allFavorites.mapToSource(currentGameIndex))
         }
         return currentCollection.games.get(currentGameIndex)
     }
 
-    // Text {
-    //     text: currentGame.title
-    //     color: "red"
-    //     anchors {
-    //         top: parent.top
-    //         left: parent.left
-    //     }
-    //     z: 999
-    // }
+    Text {
+        text: currentGame.title+"\n"+currentGameIndex
+        color: "red"
+        anchors {
+            top: parent.top
+            left: parent.left
+        }
+        z: 999
+    }
 
     Item
     {
@@ -43,6 +46,9 @@ FocusScope
                 event.accepted = true;
                 if (currentGame !== null) {
                     currentGame.favorite = !currentGame.favorite
+                }
+                if (currentGameIndex <= 0) {
+                    showHomeScreen();
                 }
                 return;
             }
@@ -155,7 +161,7 @@ FocusScope
             Keys.onLeftPressed:     { navSound.play(); moveCurrentIndexLeft() }
             Keys.onRightPressed:    { navSound.play(); moveCurrentIndexRight() }
 
-            currentIndex: currentGameIndex
+            // currentIndex: currentGameIndex
             onCurrentIndexChanged: {
                 currentGameIndex = currentIndex;
                 return;
