@@ -268,8 +268,8 @@ FocusScope
                         //opacity: 0
                         source: {
                             if (currentCollection.shortName == "android") {
-                                if (modelData.assets.tile) {
-                                    return modelData.assets.tile
+                                if (modelData.assets.boxFront) {
+                                    return modelData.assets.boxFront
                                 }
                                 return ""
                             }
