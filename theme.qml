@@ -21,7 +21,7 @@ FocusScope
     property real helpbarheight: Math.round(screenheight * 0.1041) // Calculated manually based on mockup
     property bool darkThemeActive
     property var allCollections: {
-        const collections = api.collections.toVarArray()
+        let collections = api.collections.toVarArray()
         collections.unshift({"name": "Favorites", "shortName": "auto-favorites", "games": allFavorites})
         collections.unshift({"name": "All Games", "shortName": "auto-allgames", "games": api.allGames})
         return collections
@@ -76,10 +76,10 @@ FocusScope
         launchSfx.play()
     }
 
-    function launchGame()
-    {
-        currentCollection.games.get(currentGameIndex).launch();
-    }
+    // function launchGame()
+    // {
+    //     currentGame.launch();
+    // }
 
     // Theme settings
     FontLoader { id: titleFont; source: "fonts/Nintendo_Switch_UI_Font.ttf" }

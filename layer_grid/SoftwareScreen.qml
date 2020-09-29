@@ -1,5 +1,6 @@
 import QtQuick 2.8
 import QtGraphicalEffects 1.0
+import SortFilterProxyModel 0.2
 import "../global"
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
@@ -8,7 +9,22 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
-    property var currentGame: currentCollection.games.get(currentGameIndex)
+    property var currentGame: {
+        if (currentCollection.shortName === "auto-favorites") {
+            return api.allGames.get(allFavorites.mapToSource(currentGameIndex))
+        }
+        return currentCollection.games.get(currentGameIndex)
+    }
+
+    Text {
+        text: currentGame.title
+        color: "red"
+        anchors {
+            top: parent.top
+            left: parent.left
+        }
+        z: 999
+    }
 
     Item
     {
@@ -125,7 +141,10 @@ FocusScope
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
                     //currentItem.currentGame.launch();
-                    launchGame();
+                    // launchGame();
+                    if (currentGame !== null) {
+                        currentGame.launch()
+                    }
                 }
             }
 
@@ -134,6 +153,7 @@ FocusScope
             Keys.onLeftPressed:     { navSound.play(); moveCurrentIndexLeft() }
             Keys.onRightPressed:    { navSound.play(); moveCurrentIndexRight() }
 
+            currentIndex: currentGameIndex
             onCurrentIndexChanged: {
                 currentGameIndex = currentIndex;
                 return;
