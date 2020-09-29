@@ -8,6 +8,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    property var currentGame: currentCollection.games.get(currentGameIndex)
 
     Item
     {
@@ -24,6 +25,7 @@ FocusScope
 
             if (api.keys.isDetails(event)) {
                 event.accepted = true;
+                currentGame.favorite = !currentGame.favorite
                 return;
             }
             if (api.keys.isCancel(event)) {
@@ -211,6 +213,17 @@ FocusScope
                         smooth: true
                         visible: modelData.assets.logo ? modelData.assets.logo : ""
                         z:8
+                    }
+
+                    Rectangle {
+                        width: vpx(20)
+                        height: vpx(35)
+                        anchors {
+                            left: parent.left; leftMargin: vpx(15)
+                            top: parent.top; topMargin: selected ? -vpx(5) : 0
+                        }
+                        color: "#F90F79"
+                        visible: modelData.favorite
                     }
 
                     /*DropShadow {
