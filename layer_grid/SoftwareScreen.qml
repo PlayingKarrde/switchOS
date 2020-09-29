@@ -20,7 +20,14 @@ FocusScope
     }
 
     // Text {
-    //     text: currentGame.title+"\n"+currentGameIndex
+    //     text: {
+    //         if (currentGame !== null) {
+    //             return currentGame.title
+    //         } else {
+    //             return "none"
+    //         }
+
+    //     }
     //     color: "red"
     //     anchors {
     //         top: parent.top
@@ -46,9 +53,9 @@ FocusScope
                 event.accepted = true;
                 if (currentGame !== null) {
                     currentGame.favorite = !currentGame.favorite
-                }
-                if (currentGameIndex <= 0) {
-                    showHomeScreen();
+                    if (gameGrid.count === 0) {
+                        showHomeScreen();
+                    }
                 }
                 return;
             }
