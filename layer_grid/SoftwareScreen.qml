@@ -21,12 +21,7 @@ FocusScope
     }
 
     // Text {
-    //     text: {
-    //         if (currentGame !== null) {
-    //             return currentGame.title+"\n"+currentGameIndex+"\ncurrentCollection: "+allCollections[collectionIndex].games.get(0).title
-    //         }
-    //         return "none"
-    //     }
+    //     text: "name : "+currentCollecion.name+" // shortname : "+currentCollection.shortName
     //     color: "red"
     //     anchors {
     //         top: parent.top
@@ -281,7 +276,7 @@ FocusScope
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectFit
                         smooth: true
-                        visible: modelData.assets.logo ? modelData.assets.logo : ""
+                        visible: gamelogo.source !== ""
                         z:8
                     }
 
