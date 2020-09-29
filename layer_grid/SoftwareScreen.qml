@@ -16,15 +16,15 @@ FocusScope
         return currentCollection.games.get(currentGameIndex)
     }
 
-    Text {
-        text: currentGame.title
-        color: "red"
-        anchors {
-            top: parent.top
-            left: parent.left
-        }
-        z: 999
-    }
+    // Text {
+    //     text: currentGame.title
+    //     color: "red"
+    //     anchors {
+    //         top: parent.top
+    //         left: parent.left
+    //     }
+    //     z: 999
+    // }
 
     Item
     {
@@ -41,7 +41,9 @@ FocusScope
 
             if (api.keys.isDetails(event)) {
                 event.accepted = true;
-                currentGame.favorite = !currentGame.favorite
+                if (currentGame !== null) {
+                    currentGame.favorite = !currentGame.favorite
+                }
                 return;
             }
             if (api.keys.isCancel(event)) {
