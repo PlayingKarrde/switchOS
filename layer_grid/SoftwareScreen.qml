@@ -35,22 +35,22 @@ FocusScope
     //     z: 999
     // }
 
-    Column {
-        z: 9000
-        Repeater {
-            model: currentCollection.games
-            delegate: Text {
-                text: "title : "+modelData.title+" \/\/ index : "+index
-                color: "red"
+    // Column {
+    //     z: 9000
+    //     Repeater {
+    //         model: currentCollection.games
+    //         delegate: Text {
+    //             text: "title : "+modelData.title+" \/\/ index : "+index
+    //             color: "red"
 
-            }
+    //         }
 
-        }
-        Text {
-            text: currentGame.title+"("+currentGameIndex+")"
-            color: "red"
-        }
-    }
+    //     }
+    //     Text {
+    //         text: currentGame.title+"("+currentGameIndex+")"
+    //         color: "red"
+    //     }
+    // }
 
 
     Item
