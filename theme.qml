@@ -22,7 +22,9 @@ FocusScope
     property bool darkThemeActive
     property var allCollections: {
         let collections = api.collections.toVarArray()
+        // if (allFavorites.count > 0) {
         collections.unshift({"name": "Favorites", "shortName": "auto-favorites", "games": allFavorites})
+        // }
         collections.unshift({"name": "All Games", "shortName": "auto-allgames", "games": api.allGames})
         return collections
     }
