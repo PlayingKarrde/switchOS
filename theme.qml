@@ -20,6 +20,19 @@ FocusScope
     property bool widescreen: ((height/width) < 0.7)
     property real helpbarheight: Math.round(screenheight * 0.1041) // Calculated manually based on mockup
     property bool darkThemeActive
+    property var allCollections: {
+        const collections = api.collections.toVarArray()
+        // collections.unshift({"name": "Favorites", "shortName": "auto-favorites", "games": allFavorites})
+        collections.unshift({"name": "All Games", "shortName": "auto-allgames", "games": api.allGames})
+        return collections
+    }
+    property var currentCollection: allCollections[collectionIndex]
+
+    SortFilterProxyModel {
+        id: allFavorites
+        sourceModel: api.allGames
+        filters: ValueFilter { roleName: "favorite"; value: true; }
+    }
 
     function modulo(a,n) {
         return (a % n + n) % n;
@@ -35,7 +48,7 @@ FocusScope
 
     function jumpToCollection(idx) {
         api.memory.set('gameCollIndex' + collectionIndex, currentGameIndex); // save game index of current collection
-        collectionIndex = modulo(idx, api.collections.count); // new collection index
+        collectionIndex = modulo(idx, allCollections.length); // new collection index
         currentGameIndex = 0; // Jump to the top of the list each time collection is changed
     }
 
@@ -65,7 +78,7 @@ FocusScope
 
     function launchGame()
     {
-        api.collections.get(collectionIndex).games.get(currentGameIndex).launch();
+        currentCollection.games.get(currentGameIndex).launch();
     }
 
     // Theme settings

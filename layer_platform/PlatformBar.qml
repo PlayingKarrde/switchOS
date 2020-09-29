@@ -9,7 +9,7 @@ ListView {
     //anchors.fill: parent
     spacing: vpx(14)
     orientation: ListView.Horizontal
-    
+
     displayMarginBeginning: vpx(107)
     displayMarginEnd: vpx(107)
 
@@ -40,10 +40,10 @@ ListView {
             event.accepted = true;
             gotoSoftware();
         }
-        
+
     }
 
-    model: api.collections
+    model: allCollections
     delegate: platformBarDelegate
 
     Component {
@@ -147,6 +147,6 @@ ListView {
         }
     }
 
-    
+
 }
 
