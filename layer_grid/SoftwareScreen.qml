@@ -15,7 +15,7 @@ FocusScope
         if (currentCollection.shortName === "auto-favorites")
             return api.allGames.get(allFavorites.mapToSource(currentGameIndex))
         if (currentCollection.shortName === "auto-lastplayed")
-            return api.allGames.get(allLastPlayed.mapToSource(currentGameIndex))
+            return api.allGames.get(filterLastPlayed.mapToSource(currentGameIndex))
 
         return currentCollection.games.get(currentGameIndex)
     }
