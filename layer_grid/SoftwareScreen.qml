@@ -20,15 +20,15 @@ FocusScope
         return currentCollection.games.get(currentGameIndex)
     }
 
-    Text {
-        text: currentGame.title+"("+currentGameIndex+")"
-        color: "red"
-        anchors {
-            top: parent.top
-            left: parent.left
-        }
-        z: 999
-    }
+    // Text {
+    //     text: currentGame.title+"("+currentGameIndex+")"
+    //     color: "red"
+    //     anchors {
+    //         top: parent.top
+    //         left: parent.left
+    //     }
+    //     z: 999
+    // }
 
     // Column {
     //     z: 9000
