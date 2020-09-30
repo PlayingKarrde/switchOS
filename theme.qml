@@ -29,6 +29,12 @@ FocusScope
         return collections
     }
     property var currentCollection: allCollections[collectionIndex]
+    property int maximumPlayedGames: {
+        if (allLastPlayed.count >= 17) {
+            return 17
+        }
+        return allLastPlayed.count
+    }
 
     SortFilterProxyModel {
         id: allFavorites
@@ -45,7 +51,7 @@ FocusScope
     SortFilterProxyModel {
         id: filterLastPlayed
         sourceModel: allLastPlayed
-        filters: IndexFilter { maximumIndex: 17 }
+        filters: IndexFilter { maximumIndex: maximumPlayedGames }
     }
 
     function modulo(a,n) {
