@@ -21,10 +21,10 @@ ListView {
     highlightMoveVelocity: -1
     keyNavigationWraps: true
 
-    onCurrentIndexChanged: {
+    /*onCurrentIndexChanged: {
       //navSound.play()
       return;
-    }
+    }*/
 
     Keys.onLeftPressed: {  decrementCurrentIndex(); navSound.play(); }
     Keys.onRightPressed: {  incrementCurrentIndex(); navSound.play();  }
