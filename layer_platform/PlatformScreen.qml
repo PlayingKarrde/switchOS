@@ -64,7 +64,7 @@ FocusScope
                 id: sysTime
 
                 function set() {
-                    sysTime.text = Qt.formatTime(new Date(), "hh:mm")
+                    sysTime.text = Qt.formatTime(new Date(), "h:mmap")
                 }
 
                 Timer {
