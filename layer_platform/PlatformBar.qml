@@ -43,7 +43,7 @@ ListView {
         
     }
 
-    model: api.collections
+    model: gamesListModel
     delegate: platformBarDelegate
 
     Component {
@@ -51,15 +51,48 @@ ListView {
         Rectangle {
             id: wrapper
             property bool selected: ListView.isCurrentItem
+            property var gameData: searchtext ? modelData : listRecent.currentGame(idx)
+            property bool isGame: idx >= 0
 
             width: platformLayout.height//vpx(256)
             height: width//vpx(256)
-            color: eslogo.source ? "#cccccc" : Utils.getPlatformColor(modelData.shortName)
+            color: "#cccccc"
 
             Image {
                 id: logo
 
-                width: parent.width - vpx(30)
+                anchors.fill: parent
+                anchors.centerIn: parent
+                anchors.margins: vpx(30)
+                property var logoImage: {
+                    if (gameData != null) {
+                        if (gameData.collections.get(0).shortName === "retropie")
+                            return gameData.assets.boxFront;
+                        else if (gameData.collections.get(0).shortName === "steam")
+                            return root.logo(gameData);
+                        else 
+                            return gameData.assets.logo;
+                    } else {
+                        return ""
+                    }
+
+                }
+                /*gameData ? 
+                    (gameData.collections.get(0).shortName === "retropie") ? 
+                        gameData.assets.boxFront : 
+                    (gameData.collections.get(0).shortName === "steam") ? 
+                        logo(gameData) : 
+                    gameData.assets.logo : 
+                ""*/
+
+                source: gameData ? logoImage || "" : ""
+                sourceSize: Qt.size(parent.width, parent.height)
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                smooth: true
+                z: 10
+
+                /*width: parent.width - vpx(30)
                 height: vpx(75)
                 smooth: true
                 fillMode: Image.PreserveAspectFit
@@ -68,7 +101,7 @@ ListView {
                 anchors.centerIn: parent
                 antialiasing: true
                 sourceSize { width: 128; height: 128 }
-                visible: eslogo.paintedWidth < 1
+                visible: eslogo.paintedWidth < 1*/
             }
 
             Text
@@ -92,8 +125,8 @@ ListView {
                 width: parent.width
                 height: width
                 smooth: true
-                fillMode: Image.PreserveAspectFit
-                source: "../assets/images/logos-es/" + Utils.processPlatformName(modelData.shortName) + ".jpg"
+                fillMode: Image.PreserveAspectCrop
+                source: gameData ? gameData.assets.screenshots[0] || "" : ""
                 asynchronous: true
                 sourceSize { width: 512; height: 512 }
             }
@@ -116,7 +149,7 @@ ListView {
 
             Text {
                 id: platformTitle
-                text: modelData.name
+                text: idx > -1 ? gameData.title : name
                 color: theme.accent
                 font.family: titleFont.name
                 font.pixelSize: Math.round(screenheight*0.03)
@@ -147,6 +180,5 @@ ListView {
         }
     }
 
-    
 }
 

@@ -9,6 +9,56 @@ FocusScope
 {
     id: root
 
+    // Build the games list but with extra menu options at the start and end
+    ListModel {
+    id: gamesListModel
+
+        property var activeCollection: listRecent.games
+
+        Component.onCompleted: {
+            clear();
+            buildList();
+        }
+
+        onActiveCollectionChanged: {
+            clear();
+            buildList();
+        }
+
+        function buildList() {
+            /*append({
+                "name":         "Explore", 
+                "idx":          -1, 
+                "icon":         "assets/images/navigation/Explore.png",
+                "background":   ""
+            })*/
+            for(var i=0; i<activeCollection.count; i++) {
+                append(createListElement(i));
+            }/*
+            append({
+                "name":         "Top Games", 
+                "idx":          -2,
+                "icon":         "assets/images/navigation/Top Rated.png",
+                "background":   ""
+            })//*/
+            append({
+                "name":         "All Software", 
+                "idx":          -3,
+                "icon":         "assets/images/allsoft_icon.svg",
+                "background":   ""
+            })
+        }
+
+        function createListElement(i) {
+            return {
+                name:       listRecent.games.get(i).title,
+                idx:        i,
+                icon:       listRecent.games.get(i).assets.logo,
+                background: listRecent.games.get(i).assets.screenshots[0]
+            }
+        }
+    }
+
     Item
     {
         id: platformScreenContainer

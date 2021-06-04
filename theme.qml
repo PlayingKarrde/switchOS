@@ -8,10 +8,18 @@ import "utils.js" as Utils
 import "layer_platform"
 import "layer_grid"
 import "layer_help"
+import "Lists"
 
 FocusScope
 {
     id: root
+    ListLastPlayed  { id: listRecent; max: 12}
+
+    property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property var currentGame
+    property string searchtext
+
     property int collectionIndex: 0
     property int currentGameIndex: 0
     property int screenmargin: vpx(30)
