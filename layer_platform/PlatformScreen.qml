@@ -133,6 +133,7 @@ FocusScope
                 color: theme.text
                 font.pixelSize: Math.round(screenheight*0.0277)
                 horizontalAlignment: Text.Right
+                font.capitalization: Font.SmallCaps
             }
         }
 
