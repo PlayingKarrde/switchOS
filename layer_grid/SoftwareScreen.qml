@@ -77,6 +77,26 @@ FocusScope
                 }
             }
 
+
+            //TODO Needs to be a sort option button
+            // Sort Options: "By Time Last Played", "By Total Play Time", "By Title", "By Publisher"
+            Text
+                {
+                    id: sortType
+
+                    text: "By Time Last Played" //TODO Extract to variable
+
+                    anchors {
+                        verticalCenter: headerIcon.verticalCenter;
+                        right: topBar.right
+                    }
+                    color: theme.text
+                    font.family: titleFont.name
+                    font.weight: Font.Thin
+                    font.pixelSize: Math.round(screenheight*0.02)
+                    horizontalAlignment: Text.Right
+                }
+
             ColorOverlay {
                 anchors.fill: headerIcon
                 source: headerIcon
