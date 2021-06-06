@@ -107,7 +107,7 @@ ListView {
 
             Text
             {
-                text: modelData.name
+                text: gameData.title
                 width: parent.width
                 horizontalAlignment : Text.AlignHCenter
                 font.family: titleFont.name
