@@ -131,13 +131,15 @@ FocusScope
                     right: parent.right
                 }
                 color: theme.text
+                font.family: titleFont.name
+                font.weight: Font.Bold
+                font.letterSpacing: 4
                 font.pixelSize: Math.round(screenheight*0.0277)
                 horizontalAlignment: Text.Right
                 font.capitalization: Font.SmallCaps
             }
         }
 
-        
 
         // Platform menu
         PlatformBar
