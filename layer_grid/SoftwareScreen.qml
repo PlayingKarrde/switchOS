@@ -1,6 +1,7 @@
 import QtQuick 2.8
 import QtGraphicalEffects 1.0
 import "../global"
+import "../Lists"
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
 
@@ -64,7 +65,7 @@ FocusScope
                 Text
                 {
                     id: collectionTitle
-                    text: api.collections.get(collectionIndex).name
+                    text: "All Software"
                     color: theme.text
                     font.family: titleFont.name
                     font.pixelSize: Math.round(screenheight*0.0277)
@@ -153,7 +154,7 @@ FocusScope
             highlightMoveDuration: 200
 
             
-            model: api.collections.get(collectionIndex).games
+            model: listAllRecent.games//api.collections.get(collectionIndex).games
             delegate: gameGridDelegate            
 
             Component 

@@ -14,13 +14,14 @@ FocusScope
 {
     id: root
     ListLastPlayed  { id: listRecent; max: 12}
+    ListLastPlayed  { id: listAllRecent}
 
     property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
     property string searchtext
 
-    property int collectionIndex: 0
+    //property int collectionIndex: 0
     property int currentGameIndex: 0
     property int screenmargin: vpx(30)
     property real screenwidth: width
@@ -33,7 +34,7 @@ FocusScope
         return (a % n + n) % n;
     }
 
-    function nextCollection () {
+    /*function nextCollection () {
         jumpToCollection(collectionIndex + 1);
     }
 
@@ -45,7 +46,7 @@ FocusScope
         api.memory.set('gameCollIndex' + collectionIndex, currentGameIndex); // save game index of current collection
         collectionIndex = modulo(idx, api.collections.count); // new collection index
         currentGameIndex = 0; // Jump to the top of the list each time collection is changed
-    }
+    }*/
 
     function showSoftwareScreen()
     {

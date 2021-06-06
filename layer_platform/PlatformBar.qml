@@ -1,5 +1,6 @@
 import QtQuick 2.8
 import "../global"
+import "../Lists"
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
 
@@ -31,7 +32,7 @@ ListView {
 
     function gotoSoftware()
     {
-            jumpToCollection(currentIndex);
+            //jumpToCollection(currentIndex);
             showSoftwareScreen();
     }
 
