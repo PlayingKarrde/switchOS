@@ -65,7 +65,7 @@ FocusScope
                 Text
                 {
                     id: collectionTitle
-                    text: "All Software"
+                    text: currentCollection == -1 ? "All Software" : api.collections.get(currentCollection).name
                     color: theme.text
                     font.family: titleFont.name
                     font.pixelSize: Math.round(screenheight*0.0277)
