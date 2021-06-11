@@ -131,7 +131,11 @@ ListView {
                 onClicked: {
                     if (selected)
                     {
-                        gotoSoftware();
+                        if (currentIndex == 12) {
+                            gotoSoftware();
+                        } else {
+                            launchGame(currentGame);
+                        }
                     }
                     else
                         platformLayout.currentIndex = index
