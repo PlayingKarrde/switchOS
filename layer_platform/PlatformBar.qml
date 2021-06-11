@@ -173,16 +173,12 @@ ListView {
 
     // TODO if autorepeat play a multipleNavSound if I can find one
     Keys.onLeftPressed: {
-            if (currentIndex > 0) {
-                navSound.play();
-                decrementCurrentIndex();
-            }
+        navSound.play();
+        decrementCurrentIndex();
     }
     Keys.onRightPressed: {
-        if (currentIndex < count-1) {
-            navSound.play();
-            incrementCurrentIndex();
-        }
+        navSound.play();
+        incrementCurrentIndex();
     }
 
     function gotoSoftware()
