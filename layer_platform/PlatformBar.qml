@@ -22,27 +22,8 @@ ListView {
     highlightMoveVelocity: -1
     keyNavigationWraps: true
 
-    /*onCurrentIndexChanged: {
-      //navSound.play()
-      return;
-    }*/
-
-    Keys.onLeftPressed: {  decrementCurrentIndex(); navSound.play(); }
-    Keys.onRightPressed: {  incrementCurrentIndex(); navSound.play();  }
-
-    function gotoSoftware()
-    {
-            //jumpToCollection(currentIndex);
-            showSoftwareScreen();
-    }
-
-    Keys.onPressed: {
-         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-            event.accepted = true;
-            gotoSoftware();
-        }
-        
-    }
+    //Keys.onLeftPressed: {  decrementCurrentIndex(); navSound.play(); }
+    //Keys.onRightPressed: {  incrementCurrentIndex(); navSound.play();  }
 
     model: gamesListModel
     delegate: platformBarDelegate
@@ -51,9 +32,18 @@ ListView {
         id: platformBarDelegate
         Rectangle {
             id: wrapper
+
             property bool selected: ListView.isCurrentItem
             property var gameData: searchtext ? modelData : listRecent.currentGame(idx)
             property bool isGame: idx >= 0
+
+            onGameDataChanged: { if (selected) updateData() }
+            onSelectedChanged: { if (selected) updateData() }
+
+            function updateData() {
+                currentGame = gameData;
+                currentScreenID = idx;
+            }
 
             width: platformLayout.height//vpx(256)
             height: width//vpx(256)
@@ -107,7 +97,7 @@ ListView {
 
             Text
             {
-                text: gameData.title
+                text: idx > -1 ? gameData.title : name
                 width: parent.width
                 horizontalAlignment : Text.AlignHCenter
                 font.family: titleFont.name
@@ -181,5 +171,36 @@ ListView {
         }
     }
 
+    // TODO if autorepeat play a multipleNavSound if I can find one
+    Keys.onLeftPressed: {
+            if (currentIndex > 0) {
+                navSound.play();
+                decrementCurrentIndex();
+            }
+    }
+    Keys.onRightPressed: {
+        if (currentIndex < count-1) {
+            navSound.play();
+            incrementCurrentIndex();
+        }
+    }
+
+    function gotoSoftware()
+    {
+            //jumpToCollection(currentIndex);
+            showSoftwareScreen();
+    }
+
+    //TODO if statement to go to software
+    Keys.onPressed: {
+        if (api.keys.isAccept(event) && !event.isAutoRepeat) {
+            event.accepted = true;
+            if (currentIndex == 12) {
+                gotoSoftware();
+            } else {
+                launchGame(currentGame);
+            }
+        }
+    }
 }
 

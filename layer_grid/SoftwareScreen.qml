@@ -153,10 +153,10 @@ FocusScope
             Keys.onLeftPressed:     { navSound.play(); moveCurrentIndexLeft() }
             Keys.onRightPressed:    { navSound.play(); moveCurrentIndexRight() }
 
-            onCurrentIndexChanged: {
+            /*onCurrentIndexChanged: {
                 currentGameIndex = currentIndex;
                 return;
-            }
+            }*/
 
             anchors {
                 left: parent.left; leftMargin: vpx(63)
