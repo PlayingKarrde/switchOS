@@ -80,7 +80,8 @@ FocusScope
 
 
             //TODO Needs to be a sort option button
-            // Sort Options: "By Time Last Played", "By Total Play Time", "By Title", "By Publisher"
+            // Nintendo's Sort Options: "By Time Last Played", "By Total Play Time", "By Title", "By Publisher"
+            // Probably won't do "By Publisher", but the first 3 should be doable
             Text
                 {
                     id: sortType
