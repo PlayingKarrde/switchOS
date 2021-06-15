@@ -9,7 +9,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
-    property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
+    //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     Item
     {
