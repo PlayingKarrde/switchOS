@@ -29,7 +29,7 @@ FocusScope
         if (nextCollection != currentCollection) {
             currentCollection = nextCollection;
             searchtext = ""
-            gameGrid.currentIndex = 0;
+            //gameGrid.currentIndex = 0;
         }
     }
 
@@ -80,6 +80,13 @@ FocusScope
     function playGame()
     {
         root.state = "playgame"
+
+        launchSfx.play()
+    }
+
+    function playSoftware()
+    {
+        root.state = "playsoftware"
 
         launchSfx.play()
     }
@@ -155,6 +162,9 @@ FocusScope
         },
         State {
             name: "playgame";
+        },
+        State {
+            name: "playsoftware";
         }
     ]
 
@@ -184,7 +194,15 @@ FocusScope
             SequentialAnimation {
                 PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
                 PauseAnimation { duration: 200 }
-                ScriptAction { script: launchGame() }
+                ScriptAction { script: launchGame(currentGame) }
+            }
+        },
+        Transition {
+            to: "playsoftware"
+            SequentialAnimation {
+                PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
+                PauseAnimation { duration: 200 }
+                ScriptAction { script: launchSoftware() }
             }
         },
         Transition {
