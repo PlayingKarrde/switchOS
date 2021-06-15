@@ -21,6 +21,8 @@ ListView {
     highlightMoveDuration: 200
     highlightMoveVelocity: -1
     keyNavigationWraps: true
+    
+    NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
 
     //Keys.onLeftPressed: {  decrementCurrentIndex(); navSound.play(); }
     //Keys.onRightPressed: {  incrementCurrentIndex(); navSound.play();  }
@@ -134,7 +136,8 @@ ListView {
                         if (currentIndex == 12) {
                             gotoSoftware();
                         } else {
-                            launchGame(currentGame);
+                            anim.start();
+                            playGame();//launchGame(currentGame);
                         }
                     }
                     else
@@ -191,14 +194,16 @@ ListView {
             showSoftwareScreen();
     }
 
-    //Software screen is always at index 12, but may be variable if I fix Listrecent to show less than 12 items for collections with less than 12 items
+
+    //Software screen is always at index 12, but would hopefully not exist/be visible if there are less than 12 titles
     Keys.onPressed: {
         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
             event.accepted = true;
             if (currentIndex == 12) {
                 gotoSoftware();
             } else {
-                launchGame(currentGame);
+                anim.start();
+                playGame();//launchGame(currentGame);
             }
         }
     }

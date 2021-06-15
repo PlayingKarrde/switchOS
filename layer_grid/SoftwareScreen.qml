@@ -142,12 +142,13 @@ FocusScope
             id: gameGrid
             focus: true
 
+            NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
+
             Keys.onPressed: {
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
-                    //currentItem.currentGame.launch();
-                    launchSoftware();
-                    //launchGame(currentGame);
+                    anim.start();
+                    playSoftware();
                 }
             }
 
@@ -257,14 +258,14 @@ FocusScope
                             if (selected)
                             {
                                 anim.start();
-                                playGame();
+                                playSoftware();
                             }
                             else
                                 gameGrid.currentIndex = index
                         }
                     }
 
-                    NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
+                    //NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
                     //NumberAnimation { property: "scale"; to: 1.0; duration: 100 }
                     
                     Rectangle {
