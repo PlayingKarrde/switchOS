@@ -60,8 +60,8 @@ ListView {
                         if (gameData.collections.get(0).shortName === "retropie")
                             return gameData.assets.boxFront;
                         else if (gameData.collections.get(0).shortName === "steam")
-                            return root.logo(gameData);
-                        else 
+                            return gameData.assets.logo ? gameData.assets.logo : "" //root.logo(gameData);
+                        else
                             return gameData.assets.logo;
                     } else {
                         return ""
