@@ -191,7 +191,7 @@ ListView {
             showSoftwareScreen();
     }
 
-    //TODO if statement to go to software
+    //Software screen is always at index 12, but may be variable if I fix Listrecent to show less than 12 items for collections with less than 12 items
     Keys.onPressed: {
         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
             event.accepted = true;
