@@ -187,7 +187,7 @@ ListView {
 
     function gotoSoftware()
     {
-            //jumpToCollection(currentIndex);
+            jumpToCollection(currentCollection);
             showSoftwareScreen();
     }
 

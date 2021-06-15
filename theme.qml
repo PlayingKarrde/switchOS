@@ -29,12 +29,12 @@ FocusScope
         if (nextCollection != currentCollection) {
             currentCollection = nextCollection;
             searchtext = ""
-            gameBar.currentIndex = 1;
+            gameGrid.currentIndex = 0;
         }
     }
 
-    //property int collectionIndex: 0
-    //property int currentGameIndex: 0
+    property int collectionIndex: 0
+    property int currentGameIndex: 0
     property int screenmargin: vpx(30)
     property real screenwidth: width
     property real screenheight: height
@@ -46,7 +46,7 @@ FocusScope
         return (a % n + n) % n;
     }
 
-    /*function nextCollection () {
+    function nextColl() {
         jumpToCollection(collectionIndex + 1);
     }
 
@@ -58,7 +58,7 @@ FocusScope
         api.memory.set('gameCollIndex' + collectionIndex, currentGameIndex); // save game index of current collection
         collectionIndex = modulo(idx, api.collections.count); // new collection index
         currentGameIndex = 0; // Jump to the top of the list each time collection is changed
-    }*/
+    }
 
     function showSoftwareScreen()
     {
@@ -87,11 +87,15 @@ FocusScope
     // Launch the current game
     function launchGame(game) {
         api.memory.set('Last Collection', currentCollection);
-        console.log("currentCollection is ",currentCollection)
         if (game != null)
             game.launch();
         else
             currentGame.launch();
+    }
+
+    function launchSoftware() {
+        listAllRecent.currentGame(currentGameIndex).launch();
+            //currentGame.launch();
     }
 
     // Theme settings
@@ -234,8 +238,7 @@ FocusScope
         // Cycle collection forward
         if (api.keys.isNextPage(event) && !event.isAutoRepeat) {
             event.accepted = true;
-            //sfxToggle.play();
-            //navigationMenu();
+            nextColl();
             if (currentCollection < api.collections.count-1) {
                 nextCollection++;
             } else {
@@ -246,8 +249,7 @@ FocusScope
         // Cycle collection back
         if (api.keys.isPrevPage(event) && !event.isAutoRepeat) {
             event.accepted = true;
-            //sfxToggle.play();
-            //navigationMenu();
+            prevCollection();
             if (currentCollection == -1) {
                 nextCollection = api.collections.count-1;
             } else{ 

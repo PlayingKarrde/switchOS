@@ -9,6 +9,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     Item
     {
@@ -17,7 +18,7 @@ FocusScope
         anchors {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
-        }
+        }        
 
         Keys.onPressed: {
             if (event.isAutoRepeat)
@@ -144,7 +145,8 @@ FocusScope
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
                     //currentItem.currentGame.launch();
-                    launchGame();
+                    launchSoftware();
+                    //launchGame(currentGame);
                 }
             }
 
@@ -153,10 +155,10 @@ FocusScope
             Keys.onLeftPressed:     { navSound.play(); moveCurrentIndexLeft() }
             Keys.onRightPressed:    { navSound.play(); moveCurrentIndexRight() }
 
-            /*onCurrentIndexChanged: {
+            onCurrentIndexChanged: {
                 currentGameIndex = currentIndex;
                 return;
-            }*/
+            }
 
             anchors {
                 left: parent.left; leftMargin: vpx(63)
@@ -174,7 +176,7 @@ FocusScope
             highlightMoveDuration: 200
 
             
-            model: listAllRecent.games//api.collections.get(collectionIndex).games
+            model: listAllRecent.games //api.collections.get(collectionIndex).games
             delegate: gameGridDelegate            
 
             Component 
