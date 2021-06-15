@@ -110,6 +110,20 @@ FocusScope
             }
 
             Text
+                {
+                    id: collectionHomeTitle
+                    text: currentCollection == -1 ? "" : api.collections.get(currentCollection).name
+                    color: theme.text
+                    font.family: titleFont.name
+                    font.pixelSize: Math.round(screenheight*0.0277)
+                    font.bold: true
+                    anchors {
+                        verticalCenter: profileIcon.verticalCenter
+                        left: profileIcon.right; leftMargin: vpx(12)
+                    }
+                }
+
+            Text
             {
                 id: sysTime
 
