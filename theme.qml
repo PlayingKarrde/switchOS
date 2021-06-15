@@ -1,4 +1,4 @@
-// SwitchOS
+// skylineOS
 
 import QtQuick 2.12
 import QtQuick.Layouts 1.11
@@ -91,7 +91,7 @@ FocusScope
         launchSfx.play()
     }
 
-    // Launch the current game
+    // Launch the current game from PlatformBar
     function launchGame(game) {
         api.memory.set('Last Collection', currentCollection);
         if (game != null)
@@ -100,6 +100,7 @@ FocusScope
             currentGame.launch();
     }
 
+    // Launch current game from SoftwareScreen
     function launchSoftware() {
         listAllRecent.currentGame(currentGameIndex).launch();
             //currentGame.launch();
@@ -130,15 +131,15 @@ FocusScope
         }
     }
 
-    // Do this properly later
+    // TODO - Do this properly later
     property var theme: {
         return {
-            main: api.memory.get('themeBG') || themeLight.main,
-            secondary: api.memory.get('themeSecondary') || themeLight.secondary,
-            accent: api.memory.get('themeAccent') || themeLight.accent,
-            highlight: api.memory.get('themeHighlight') || themeLight.highlight,
-            text: api.memory.get('themeText') || themeLight.text,
-            button: api.memory.get('themeButton') || themeLight.button
+            main: api.memory.get('themeBG') || themeDark.main,
+            secondary: api.memory.get('themeSecondary') || themeDark.secondary,
+            accent: api.memory.get('themeAccent') || themeDark.accent,
+            highlight: api.memory.get('themeHighlight') || themeDark.highlight,
+            text: api.memory.get('themeText') || themeDark.text,
+            button: api.memory.get('themeButton') || themeDark.button
         }
     }
 
