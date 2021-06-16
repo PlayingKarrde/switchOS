@@ -116,7 +116,7 @@ FocusScope
             accent: "#10AEBE",
             highlight: "white",
             text: "#2C2C2C",
-            button: "white"
+            button: "#cccccc"
         }
     }
 

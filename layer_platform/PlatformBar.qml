@@ -1,4 +1,5 @@
 import QtQuick 2.8
+import QtGraphicalEffects 1.12
 import "../global"
 import "../Lists"
 import "../utils.js" as Utils
@@ -47,16 +48,21 @@ ListView {
                 currentScreenID = idx;
             }
 
-            width: platformLayout.height//vpx(256)
+            width: idx > -3 ? platformLayout.height : platformLayout.height*0.7//vpx(256)
             height: width//vpx(256)
-            color: "#cccccc"
+            radius: idx > -3 ? 0 : width
+            
+            color: theme.button//"#cccccc"
+            
+            anchors.verticalCenter: parent.verticalCenter
+            
 
             Image {
                 id: logo
 
                 anchors.fill: parent
                 anchors.centerIn: parent
-                anchors.margins: vpx(30)
+                anchors.margins: idx > -3 ? vpx(30) : vpx(65)
                 property var logoImage: {
                     if (gameData != null) {
                         if (gameData.collections.get(0).shortName === "retropie")
@@ -78,12 +84,13 @@ ListView {
                     gameData.assets.logo : 
                 ""*/
 
-                source: gameData ? logoImage || "" : ""
+                source: gameData ? logoImage || "" : "../assets/images/allsoft_icon.svg"
                 sourceSize: Qt.size(parent.width, parent.height)
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
                 smooth: true
                 z: 10
+                //visible: idx == -3 ? true : false
 
                 /*width: parent.width - vpx(30)
                 height: vpx(75)
@@ -96,6 +103,13 @@ ListView {
                 sourceSize { width: 128; height: 128 }
                 visible: eslogo.paintedWidth < 1*/
             }
+
+            /*ColorOverlay {
+                anchors.fill: logo
+                source: logo
+                color: theme.text
+                cached: true
+            }*/
 
             Text
             {
@@ -176,6 +190,7 @@ ListView {
             }
 
         }
+
     }
 
     // TODO if autorepeat play a multipleNavSound if I can find one
