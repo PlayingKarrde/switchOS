@@ -84,7 +84,7 @@ ListView {
                     gameData.assets.logo : 
                 ""*/
 
-                source: gameData ? logoImage || "" : "../assets/images/allsoft_icon.svg"
+                source: gameData ? Utils.logo(gameData) || "" : icon //gameData ? logoImage || "" : "../assets/images/allsoft_icon.svg"
                 sourceSize: Qt.size(parent.width, parent.height)
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
