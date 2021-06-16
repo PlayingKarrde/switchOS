@@ -44,7 +44,7 @@ FocusScope
             append({
                 "name":         "All Software", 
                 "idx":          -3,
-                "icon":         "assets/images/allsoft_icon.svg",
+                "icon":         "../assets/images/allsoft_icon.svg",
                 "background":   ""
             })
         }
