@@ -67,9 +67,9 @@ FocusScope {
         right: parent.right
         rightMargin: vpx(25)
       }
-      
-    }//buttonBack
+    }
 
+    //buttonBack
     Image {
       id: button2
       width: Math.round(screenheight*0.04)
@@ -111,6 +111,94 @@ FocusScope {
         rightMargin: vpx(20)
       }
       visible: showBack
+    }
+
+    //Next Page Button
+    Image {
+      id: button3
+      width: Math.round(screenheight*0.04)
+      height: width
+      source: "../assets/images/controller/"+ processButtonArt(api.keys.nextPage) + ".png"
+      sourceSize.width: 64
+      sourceSize.height: 64
+      anchors {
+        verticalCenter: button3Txt.verticalCenter
+        right: button3Txt.left
+        rightMargin: vpx(5)
+      }
+      //visible: showBack
+    }//buttonNext
+
+    ColorOverlay {
+        anchors.fill: button3
+        source: button3
+        color: theme.text
+        cached: true
+        //visible: showBack
+    }
+
+    Item {
+      id: button3Txt
+      width: txt3.width
+      height: txt3.height
+      Text {
+        id: txt3
+        text: "Next Collection"
+        color: theme.text
+        font.pixelSize: Math.round(screenheight*0.025)
+        font.family: titleFont.name
+        font.bold: true
+      }
+      anchors {
+        verticalCenter: parent.verticalCenter
+        right: showBack ? button2.left : button1.left
+        rightMargin: vpx(20)
+      }
+      //visible: showBack
+    }
+
+    //Prev Page Button
+    Image {
+      id: button4
+      width: Math.round(screenheight*0.04)
+      height: width
+      source: "../assets/images/controller/"+ processButtonArt(api.keys.prevPage) + ".png"
+      sourceSize.width: 64
+      sourceSize.height: 64
+      anchors {
+        verticalCenter: button3Txt.verticalCenter
+        right: button4Txt.left
+        rightMargin: vpx(5)
+      }
+      //visible: showBack
+    }//button3
+
+    ColorOverlay {
+        anchors.fill: button4
+        source: button4
+        color: theme.text
+        cached: true
+        //visible: showBack
+    }
+
+    Item {
+      id: button4Txt
+      width: txt4.width
+      height: txt4.height
+      Text {
+        id: txt4
+        text: "Previous Collection"
+        color: theme.text
+        font.pixelSize: Math.round(screenheight*0.025)
+        font.family: titleFont.name
+        font.bold: true
+      }
+      anchors {
+        verticalCenter: parent.verticalCenter
+        right: button3.left
+        rightMargin: vpx(20)
+      }
+      //visible: showBack
     }
 
   }//background

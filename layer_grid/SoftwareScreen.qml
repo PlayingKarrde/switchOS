@@ -1,6 +1,7 @@
 import QtQuick 2.8
 import QtGraphicalEffects 1.0
 import "../global"
+import "../Lists"
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
 
@@ -8,6 +9,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     Item
     {
@@ -16,7 +18,7 @@ FocusScope
         anchors {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
-        }
+        }        
 
         Keys.onPressed: {
             if (event.isAutoRepeat)
@@ -64,7 +66,7 @@ FocusScope
                 Text
                 {
                     id: collectionTitle
-                    text: api.collections.get(collectionIndex).name
+                    text: currentCollection == -1 ? "All Software" : api.collections.get(currentCollection).name
                     color: theme.text
                     font.family: titleFont.name
                     font.pixelSize: Math.round(screenheight*0.0277)
@@ -75,6 +77,27 @@ FocusScope
                     }
                 }
             }
+
+
+            //TODO Needs to be a sort option button
+            // Nintendo's Sort Options: "By Time Last Played", "By Total Play Time", "By Title", "By Publisher"
+            // Probably won't do "By Publisher", but the first 3 should be doable
+            Text
+                {
+                    id: sortType
+
+                    text: "By Time Last Played" //TODO Extract to variable
+
+                    anchors {
+                        verticalCenter: headerIcon.verticalCenter;
+                        right: topBar.right
+                    }
+                    color: theme.text
+                    font.family: titleFont.name
+                    font.weight: Font.Thin
+                    font.pixelSize: Math.round(screenheight*0.02)
+                    horizontalAlignment: Text.Right
+                }
 
             ColorOverlay {
                 anchors.fill: headerIcon
@@ -119,11 +142,13 @@ FocusScope
             id: gameGrid
             focus: true
 
+            NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
+
             Keys.onPressed: {
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
-                    //currentItem.currentGame.launch();
-                    launchGame();
+                    anim.start();
+                    playSoftware();
                 }
             }
 
@@ -153,7 +178,7 @@ FocusScope
             highlightMoveDuration: 200
 
             
-            model: api.collections.get(collectionIndex).games
+            model: listAllRecent.games //api.collections.get(collectionIndex).games
             delegate: gameGridDelegate            
 
             Component 
@@ -233,14 +258,14 @@ FocusScope
                             if (selected)
                             {
                                 anim.start();
-                                playGame();
+                                playSoftware();
                             }
                             else
                                 gameGrid.currentIndex = index
                         }
                     }
 
-                    NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
+                    //NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
                     //NumberAnimation { property: "scale"; to: 1.0; duration: 100 }
                     
                     Rectangle {

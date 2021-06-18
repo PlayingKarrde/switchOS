@@ -1,3 +1,19 @@
+// gameOS theme
+// Copyright (C) 2018-2020 Seth Powell 
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 // This file contains some helper scripts for formatting data
 
 
@@ -123,6 +139,9 @@ function processPlatformName(platform) {
     case "mattel intellivision":
       return "intellivision";
       break;
+    case "sammy atomiswave":
+      return "atomiswave";
+      break;
     case "sega master system":
       return "mastersystem";
       break;
@@ -151,7 +170,7 @@ function processPlatformName(platform) {
       return "neogeocd";
       break;
     case "nintendo 64":
-      return "n64";
+      return "segacd";
       break;
     case "nintendo entertainment system":
       return "nes";
@@ -166,7 +185,7 @@ function processPlatformName(platform) {
       return "segacd";
       break;
     case "nec turbografx-16":
-      return "tg16";
+      return "turbografx16";
       break;
     case "sony psp":
       return "psp";
@@ -218,184 +237,186 @@ function processPlatformName(platform) {
   }
 }
 
-// Get the color for each platform
-// Again not the best but ehh what ya gonna do
-function getPlatformColor(platform) {
-  switch (platform) {
-    case "arcade":
-      return "#CA0543";
+function processButtonArt(button) {
+  var buttonModel;
+  switch (button) {
+    case "accept":
+      buttonModel = api.keys.accept;
       break;
-    case "panasonic 3do":
-      return "#005AAB";
+    case "cancel":
+      buttonModel = api.keys.cancel;
       break;
-    case "3do interactive multiplayer":
-      return "#005AAB";
+    case "filters":
+      buttonModel = api.keys.filters;
       break;
-    case "amstrad cpc":
-      return "#891113";
+    case "details":
+      buttonModel = api.keys.details;
       break;
-    case "apple ii":
-      return "#F5831E";
+    case "nextPage":
+      buttonModel = api.keys.nextPage;
       break;
-    case "atari 800":
-      return "#F60002";
+    case "prevPage":
+      buttonModel = api.keys.prevPage;
       break;
-    case "atari 2600":
-      return "#F60002";
+    case "pageUp":
+      buttonModel = api.keys.pageUp;
       break;
-    case "atari 5200":
-      return "#F60002";
-      break;
-    case "atari 7800":
-      return "#F60002";
-      break;
-    case "atari jaguar":
-      return "#F60002";
-      break;
-    case "atari jaguar cd":
-      return "#F60002";
-      break;
-    case "atari lynx":
-      return "#F60002";
-      break;
-    case "atari st":
-      return "#F60002";
-      break;
-    case "commodore 64":
-      return "#032055";
-      break;
-    case "tandy trs-80":
-      return "#E61B23";
-      break;
-    case "commodore amiga":
-      return "#032055";
-      break;
-    case "sega dreamcast":
-      return "#0085C9";
-      break;
-    case "final burn alpha":
-      return "#F8762E";
-      break;
-    case "sega game gear":
-      return "#0085C9";
-      break;
-    case "nintendo game boy":
-      return "#e4000f";
-      break;
-    case "nintendo game boy advance":
-      return "#e4000f";
-      break;
-    case "nintendo game boy color":
-      return "#e4000f";
-      break;
-    case "nintendo gamecube":
-      return "#e4000f";
-      break;
-    case "sega genesis":
-      return "#0085C9";
-      break;
-    case "mattel intellivision":
-      return "#CB2320";
-      break;
-    case "sega master system":
-      return "#0085C9";
-      break;
-    case "sega mega drive":
-      return "#0085C9";
-      break;
-    case "sega genesis":
-      return "#0085C9";
-      break;
-    case "microsoft msx":
-      return "#0075D1";
-      break;
-    case "nintendo 64":
-      return "#e4000f";
-      break;
-    case "nintendo ds":
-      return "#e4000f";
-      break;
-    case "snk neo geo aes":
-      return "#008CBA";
-      break;
-    case "snk neo geo mvs":
-      return "#008CBA";
-      break;
-    case "snk neo geo cd":
-      return "#008CBA";
-      break;
-    case "nintendo 64":
-      return "#e4000f";
-      break;
-    case "nintendo entertainment system":
-      return "#e4000f";
-      break;
-    case "snk neo geo pocket":
-      return "#008CBA";
-      break;
-    case "snk neo geo pocket color":
-      return "#008CBA";
-      break;
-    case "sega cd":
-      return "#0085C9";
-      break;
-    case "nec turbografx-16":
-      return "#F86346";
-      break;
-    case "sony psp":
-      return "#003E94";
-      break;
-    case "sony playstation":
-      return "#003E94";
-      break;
-    case "sony playstation 2":
-      return "#003E94";
-      break;
-    case "sony playstation 3":
-      return "#003E94";
-      break;
-    case "sony playstation vita":
-      return "#003E94";
-      break;
-    case "sega saturn":
-      return "#0085C9";
-      break;
-    case "sega 32x":
-      return "#0085C9";
-      break;
-    case "super nintendo entertainment system":
-      return "#e4000f";
-      break;
-    case "sega cd":
-      return "#0085C9";
-      break;
-    case "nintendo wii":
-      return "#e4000f";
-      break;
-    case "nintendo wii u":
-      return "#e4000f";
-      break;
-    case "nintendo 3ds":
-      return "#e4000f";
-      break;
-    case "microsoft xbox":
-      return "#10790F";
-      break;
-    case "microsoft xbox 360":
-      return "#10790F";
-      break;
-    case "nintendo switch":
-      return "#e4000f";
-      break;
-    case "windows":
-      return "#0075D1"
-      break;
+      case "pageDown":
+        buttonModel = api.keys.pageDown;
+        break;
     default:
-      return platform;
+      buttonModel = api.keys.accept;
+  }
+
+  var i;
+  for (i = 0; buttonModel.length; i++) {
+    if (buttonModel[i].name().includes("Gamepad")) {
+      var buttonValue = buttonModel[i].key.toString(16)
+      return buttonValue.substring(buttonValue.length-1, buttonValue.length);
+    }
   }
 }
 
+function steamAppID (gameData) {
+  var str = gameData.assets.boxFront.split("header");
+  return str[0];
+}
 
-/*function processButtonArt(buttonModel) {
-  return buttonModel;
-}*/
+function steamBoxArt(gameData) {
+  return steamAppID(gameData) + '/library_600x900_2x.jpg';
+}
+
+function steamLogo(gameData) {
+  return steamAppID(gameData) + "/logo.png"
+}
+
+function steamHero(gameData) {
+  return steamAppID(gameData) + "/library_hero.jpg"
+}
+
+// Just use boxFront?
+function steamHeader(gameData) {
+  return steamAppID(gameData) + "/header.jpg"
+}
+
+function boxArt(data) {
+  if (data != null) {
+    if (data.assets.boxFront.includes("/header.jpg")) 
+      return steamBoxArt(data);
+    else {
+      if (data.assets.boxFront != "")
+        return data.assets.boxFront;
+      else if (data.assets.poster != "")
+        return data.assets.poster;
+      else if (data.assets.banner != "")
+        return data.assets.banner;
+      else if (data.assets.tile != "")
+        return data.assets.tile;
+      else if (data.assets.cartridge != "")
+        return data.assets.cartridge;
+      else if (data.assets.logo != "")
+        return data.assets.logo;
+    }
+  }
+  return "";
+}
+
+function logo(data) {
+  if (data != null) {
+    if (data.assets.boxFront.includes("/header.jpg")) 
+      return steamLogo(data);
+    else {
+      if (data.assets.logo != "")
+        return data.assets.logo;
+    }
+  }
+  return "";
+}
+
+function fanArt(data) {
+  if (data != null) {
+    if (data.assets.boxFront.includes("/header.jpg")) 
+      return steamHero(data);
+    else {
+      if (data.assets.background != "")
+        return data.assets.background;
+      else if (data.assets.screenshots[0])
+        return data.assets.screenshots[0];
+    }
+  }
+  return "";
+}
+
+// Place Steam collections at the beginning of the list
+function reorderCollection(model) {
+  for(var i=0; i<model.count; i++) {
+    if (model.get(i).name == "Steam") {
+      model.move(i,0);
+      return model;
+    }
+  }
+  //model.insert(0,{ "name":"All Games","sortBy":"All Games","shortName":"allgames","summary":"","description":"","games":null,"assets":null })
+  return model;
+}
+
+
+
+// Shuffle function
+function shuffle(model){
+  var currentIndex = model.count, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+      // And swap it with the current element.
+      // the dictionaries maintain their reference so a copy should be made
+      // https://stackoverflow.com/a/36645492/6622587
+      temporaryValue = JSON.parse(JSON.stringify(model.get(currentIndex)))
+      model.set(currentIndex, model.get(randomIndex))
+      model.set(randomIndex, temporaryValue);
+  }
+  
+  return model;
+}
+
+function uniqueGameValues(fieldName) {
+  const set = new Set();
+  api.allGames.toVarArray().forEach(game => {
+      game[fieldName].forEach(v => set.add(v));
+  });
+  return [...set.values()].sort();
+}
+
+function uniqueValuesArray(fieldName) {
+  let arr = [];
+  var allGames = api.allGames.toVarArray();
+  for(var i=0;i<allGames.length;i++) {
+    arr.push(allGames[i][fieldName]);
+  }
+  return arr;
+}
+
+function shuffleArray(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function returnRandom(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}

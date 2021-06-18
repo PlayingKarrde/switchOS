@@ -1,17 +1,38 @@
-// SwitchOS
+// skylineOS
 
-import QtQuick 2.0
+import QtQuick 2.12
+import QtQuick.Layouts 1.11
 import SortFilterProxyModel 0.2
 import QtMultimedia 5.9
+import QtGraphicalEffects 1.12
 import "qrc:/qmlutils" as PegasusUtils
 import "utils.js" as Utils
 import "layer_platform"
 import "layer_grid"
 import "layer_help"
+import "Lists"
 
 FocusScope
 {
     id: root
+    ListLastPlayed  { id: listRecent; max: 12}
+    ListLastPlayed  { id: listAllRecent}
+
+    property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property var currentGame
+    property string searchtext
+
+    onNextCollectionChanged: { changeCollection() }
+
+    function changeCollection() {
+        if (nextCollection != currentCollection) {
+            currentCollection = nextCollection;
+            searchtext = ""
+            //gameGrid.currentIndex = 0;
+        }
+    }
+
     property int collectionIndex: 0
     property int currentGameIndex: 0
     property int screenmargin: vpx(30)
@@ -25,7 +46,7 @@ FocusScope
         return (a % n + n) % n;
     }
 
-    function nextCollection () {
+    function nextColl() {
         jumpToCollection(collectionIndex + 1);
     }
 
@@ -63,9 +84,26 @@ FocusScope
         launchSfx.play()
     }
 
-    function launchGame()
+    function playSoftware()
     {
-        api.collections.get(collectionIndex).games.get(currentGameIndex).launch();
+        root.state = "playsoftware"
+
+        launchSfx.play()
+    }
+
+    // Launch the current game from PlatformBar
+    function launchGame(game) {
+        api.memory.set('Last Collection', currentCollection);
+        if (game != null)
+            game.launch();
+        else
+            currentGame.launch();
+    }
+
+    // Launch current game from SoftwareScreen
+    function launchSoftware() {
+        listAllRecent.currentGame(currentGameIndex).launch();
+            //currentGame.launch();
     }
 
     // Theme settings
@@ -78,7 +116,7 @@ FocusScope
             accent: "#10AEBE",
             highlight: "white",
             text: "#2C2C2C",
-            button: "white"
+            button: "#cccccc"
         }
     }
 
@@ -93,15 +131,15 @@ FocusScope
         }
     }
 
-    // Do this properly later
+    // TODO - Do this properly later
     property var theme: {
         return {
-            main: api.memory.get('themeBG') || themeLight.main,
-            secondary: api.memory.get('themeSecondary') || themeLight.secondary,
-            accent: api.memory.get('themeAccent') || themeLight.accent,
-            highlight: api.memory.get('themeHighlight') || themeLight.highlight,
-            text: api.memory.get('themeText') || themeLight.text,
-            button: api.memory.get('themeButton') || themeLight.button
+            main: api.memory.get('themeBG') || themeDark.main,
+            secondary: api.memory.get('themeSecondary') || themeDark.secondary,
+            accent: api.memory.get('themeAccent') || themeDark.accent,
+            highlight: api.memory.get('themeHighlight') || themeDark.highlight,
+            text: api.memory.get('themeText') || themeDark.text,
+            button: api.memory.get('themeButton') || themeDark.button
         }
     }
 
@@ -125,8 +163,13 @@ FocusScope
         },
         State {
             name: "playgame";
+        },
+        State {
+            name: "playsoftware";
         }
     ]
+
+    property int currentScreenID: -3
 
     transitions: [
         Transition {
@@ -152,7 +195,15 @@ FocusScope
             SequentialAnimation {
                 PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
                 PauseAnimation { duration: 200 }
-                ScriptAction { script: launchGame() }
+                ScriptAction { script: launchGame(currentGame) }
+            }
+        },
+        Transition {
+            to: "playsoftware"
+            SequentialAnimation {
+                PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
+                PauseAnimation { duration: 200 }
+                ScriptAction { script: launchSoftware() }
             }
         },
         Transition {
@@ -178,6 +229,8 @@ FocusScope
 
     Component.onCompleted: {
         state: "platformscreen"
+        currentCollection = api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+        api.memory.unset('Last Collection');
         homeSfx.play()
     }
 
@@ -191,6 +244,155 @@ FocusScope
         {
             left: parent.left; right: parent.right
             top: parent.top; bottom: helpBar.top
+        }
+    }
+
+    // List specific input
+    Keys.onPressed: {
+        // Open collections menu
+        if (api.keys.isFilters(event) && !event.isAutoRepeat) {
+            event.accepted = true;
+        }
+
+        // Cycle collection forward
+        if (api.keys.isNextPage(event) && !event.isAutoRepeat) {
+            event.accepted = true;
+            nextColl();
+            if (currentCollection < api.collections.count-1) {
+                nextCollection++;
+            } else {
+                nextCollection = -1;
+            }
+        }
+
+        // Cycle collection back
+        if (api.keys.isPrevPage(event) && !event.isAutoRepeat) {
+            event.accepted = true;
+            prevCollection();
+            if (currentCollection == -1) {
+                nextCollection = api.collections.count-1;
+            } else{ 
+                nextCollection--;
+            }
+        }
+    }
+
+     // Collection bar
+    Item {
+    id: collectionList
+
+        width: parent.width
+        height: vpx(90)
+        //opacity: gameBar.active ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: 50 } }
+
+        // Build the collections list but with "All Games" as starting element
+        ListModel {
+        id: collectionsModel
+
+            ListElement { name: "All Software"; shortName: "allgames"; games: "0" }
+
+            Component.onCompleted: {
+                for(var i=0; i<api.collections.count; i++) {
+                    append(createListElement(i));
+                }
+            }
+            
+            function createListElement(i) {
+                return {
+                    name:       api.collections.get(i).name,
+                    shortName:  api.collections.get(i).shortName,
+                    games:      api.collections.get(i).games.count.toString()
+                }
+            }
+        }
+        
+        // Collections
+        ListView {
+        id: collectionNav
+
+            anchors {
+                left: parent.left; leftMargin: vpx(75)
+                right: searchButton.left; rightMargin: vpx(150)
+                top: parent.top; bottom: parent.bottom
+            }
+            
+            orientation: ListView.Horizontal
+            preferredHighlightBegin: vpx(0)
+            preferredHighlightEnd: vpx(0)
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            snapMode: ListView.SnapOneItem 
+            highlightMoveDuration: 100
+            currentIndex: currentCollection+1
+            clip: true
+            interactive: false
+            model: collectionsModel
+            delegate: 
+                Text {
+                    property bool selected: ListView.isCurrentItem
+                    text:name
+                    color: "white"
+                    //font.family: selected ? titleFont.name : subtitleFont.name
+                    font.pixelSize: vpx(24)
+                    width: implicitWidth + vpx(35)
+                    height: collectionNav.height
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+            visible: false
+        }
+
+        Rectangle {
+        id: navMask
+
+            anchors.fill: collectionNav
+            gradient: Gradient {
+                orientation: Gradient.Horizontal
+                GradientStop { position: 0.9; color: "white" }
+                GradientStop { position: 1.0; color: "transparent" }
+            }
+            visible: false
+        }
+
+        OpacityMask {
+            anchors.fill: collectionNav
+            source: collectionNav
+            maskSource: navMask
+        }
+
+        // Navigation
+        Image {
+        id: searchButton
+
+            width: vpx(25)
+            height: width
+            source: "assets/images/Search.png"
+            sourceSize: Qt.size(parent.width, parent.height)
+            fillMode: Image.PreserveAspectFit
+            asynchronous: true
+            smooth: true
+            anchors {
+                verticalCenter: parent.verticalCenter
+                right: settingsButton.left; rightMargin: vpx(50)
+            }
+            visible: false // Disabling until ready to implement
+        }
+
+        Image {
+        id: settingsButton
+
+            width: vpx(25)
+            height: width
+            source: "assets/images/Settings.png"
+            sourceSize: Qt.size(parent.width, parent.height)
+            fillMode: Image.PreserveAspectFit
+            asynchronous: true
+            smooth: true
+            anchors {
+                verticalCenter: parent.verticalCenter
+                right: parent.left; rightMargin: vpx(50)
+            }
+            visible: false // Disabling until ready to implement
         }
     }
 

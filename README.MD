@@ -1,21 +1,30 @@
-# switchOS v0.3
+# skylineOS v0.4
 
-![switchOS Pegasus theme](https://i.imgur.com/4EUrWRV.jpg)
+![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
-![switchOS Pegasus theme](https://i.imgur.com/yFCqOaY.png)
+![skylineOS Pegasus theme](assets/images/screenshot_bar_end.png)
 
-## switchOS theme for Pegasus Frontend
+![skylineOS Pegasus theme](assets/images/screenshot_allsoft.png)
 
-A simple theme that aims to recreate the experience of Nintendo's Switch console. switchOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/).
+![skylineOS Pegasus theme](assets/images/screenshot_allsoft_ps1.png)
 
-Platform logos courtesy of [lilbud](https://github.com/lilbud/es-theme-switch).
+## skylineOS theme for Pegasus Frontend
+
+A simple theme that aims to recreate the experience of Nintendo's Switch console. skylineOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/) forked from switchOS.
 
 ## Installation
 
-Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called switchOS.
+Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
 
 ## Version history
+v0.4
+- Added "All Software" collection
+- List and launch recent last played from platform bar for each collection
+- List and launch all last played in software screen for each collection
+- changed time to 12 hour format to better match Switch
+
+
 v0.3
 - Added proper support for variable aspect ratios without decreasing size. Now properly supports 4:3 aspect ratios and should look correct on smaller screens
 - Added logos or collection text for missing eslogos

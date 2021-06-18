@@ -8,7 +8,7 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: theme.accent
-    radius: vpx(3)
+    radius: currentIndex == 12 ? width : vpx(3)
 
     opacity: selected ? 1 : 0
     Behavior on opacity { NumberAnimation { duration: 75 } }
@@ -37,6 +37,7 @@ Rectangle {
         anchors.centerIn: parent
         
         color: theme.highlight
+        opacity: idx > -3 ? 1 : 0
     }
 
 }

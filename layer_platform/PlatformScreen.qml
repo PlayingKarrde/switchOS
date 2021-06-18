@@ -9,6 +9,56 @@ FocusScope
 {
     id: root
 
+    // Build the games list but with extra menu options at the start and end
+    ListModel {
+    id: gamesListModel
+
+        property var activeCollection: listRecent.games
+
+        Component.onCompleted: {
+            clear();
+            buildList();
+        }
+
+        onActiveCollectionChanged: {
+            clear();
+            buildList();
+        }
+
+        function buildList() {
+            /*append({
+                "name":         "Explore", 
+                "idx":          -1, 
+                "icon":         "assets/images/navigation/Explore.png",
+                "background":   ""
+            })*/
+            for(var i=0; i<activeCollection.count; i++) {
+                append(createListElement(i));
+            }/*
+            append({
+                "name":         "Top Games", 
+                "idx":          -2,
+                "icon":         "assets/images/navigation/Top Rated.png",
+                "background":   ""
+            })//*/
+            append({
+                "name":         "All Software", 
+                "idx":          -3,
+                "icon":         "../assets/images/allsoft_icon.svg",
+                "background":   ""
+            })
+        }
+
+        function createListElement(i) {
+            return {
+                name:       listRecent.games.get(i).title,
+                idx:        i,
+                icon:       listRecent.games.get(i).assets.logo,
+                background: listRecent.games.get(i).assets.screenshots[0]
+            }
+        }
+    }
+
     Item
     {
         id: platformScreenContainer
@@ -60,6 +110,20 @@ FocusScope
             }
 
             Text
+                {
+                    id: collectionHomeTitle
+                    text: currentCollection == -1 ? "" : api.collections.get(currentCollection).name
+                    color: theme.text
+                    font.family: titleFont.name
+                    font.pixelSize: Math.round(screenheight*0.0277)
+                    font.bold: true
+                    anchors {
+                        verticalCenter: profileIcon.verticalCenter
+                        left: profileIcon.right; leftMargin: vpx(12)
+                    }
+                }
+
+            Text
             {
                 id: sysTime
 
@@ -81,12 +145,15 @@ FocusScope
                     right: parent.right
                 }
                 color: theme.text
+                font.family: titleFont.name
+                font.weight: Font.Bold
+                font.letterSpacing: 4
                 font.pixelSize: Math.round(screenheight*0.0277)
                 horizontalAlignment: Text.Right
+                font.capitalization: Font.SmallCaps
             }
         }
 
-        
 
         // Platform menu
         PlatformBar
