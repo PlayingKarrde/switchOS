@@ -1,4 +1,4 @@
-# skylineOS v1.0
+# skylineOS v0.4
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
@@ -18,7 +18,7 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 
 ## Version history
-v1.0
+v0.4
 - Added "All Software" collection
 - List and launch recent last played from platform bar for each collection
 - List and launch all last played in software screen for each collection
