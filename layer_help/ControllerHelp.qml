@@ -214,7 +214,7 @@ FocusScope {
         right: button5Txt.left
         rightMargin: vpx(5)
       }
-      visible: showBack
+      visible: false
     }//button5
 
     ColorOverlay {
@@ -222,7 +222,7 @@ FocusScope {
         source: button4
         color: theme.text
         cached: true
-        visible: showBack
+        visible: false
     }
 
     Item {
@@ -242,7 +242,7 @@ FocusScope {
         right: button4.left
         rightMargin: vpx(20)
       }
-      visible: showBack
+      visible: false
     }
 
   }//background

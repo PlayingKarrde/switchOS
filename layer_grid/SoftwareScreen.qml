@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtGraphicalEffects 1.0
 import "../global"
 import "../Lists"
+import "../layer_help"
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
 
@@ -9,9 +10,19 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
-    property var softwareList: listByMostPlayed
-    property var sortTitle: "By Total Play Time"
+    property var softwareList: listByLastPlayed
+    property var sortTitle: "By Time Last Played" // "By Time Last Played" "By Title" "By Total Time Played"
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
+
+    function processButtonArt(buttonModel) {
+        var i;
+        for (i = 0; buttonModel.length; i++) {
+            if (buttonModel[i].name().includes("Gamepad")) {
+            var buttonValue = buttonModel[i].key.toString(16)
+            return buttonValue.substring(buttonValue.length-1, buttonValue.length);
+            }
+        }
+    }
 
     Item
     {
@@ -86,7 +97,7 @@ FocusScope
             // Probably won't do "By Publisher", but the first 3 should be doable
             Text
                 {
-                    id: sortType
+                    id: sortTypeTxt
 
                     text:sortTitle //TODO Extract to variable
 
@@ -104,6 +115,28 @@ FocusScope
             ColorOverlay {
                 anchors.fill: headerIcon
                 source: headerIcon
+                color: theme.text
+                cached: true
+            }
+
+            Image {
+                id: sortIcon
+                width: Math.round(screenheight*0.04)
+                height: width
+                source: "../assets/images/controller/"+ processButtonArt(api.keys.filters) + ".png"
+                sourceSize.width: 64
+                sourceSize.height: 64
+                anchors {
+                    verticalCenter: sortTypeTxt.verticalCenter
+                    right: sortTypeTxt.left
+                    rightMargin: vpx(5)
+                }
+                visible: showBack
+            }
+
+            ColorOverlay {
+                anchors.fill: sortIcon
+                source: sortIcon
                 color: theme.text
                 cached: true
             }
