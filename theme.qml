@@ -23,6 +23,7 @@ FocusScope
     property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
+    property var softwareList: listByTitle
     property string searchtext
 
     onNextCollectionChanged: { changeCollection() }
@@ -104,7 +105,7 @@ FocusScope
 
     // Launch current game from SoftwareScreen
     function launchSoftware() {
-        listAllRecent.currentGame(currentGameIndex).launch();
+        softwareList.currentGame(currentGameIndex).launch();
             //currentGame.launch();
     }
 

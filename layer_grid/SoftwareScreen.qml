@@ -10,8 +10,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
-    property var softwareList: listByLastPlayed
-    property var sortTitle: "By Time Last Played" // "By Time Last Played" "By Title" "By Total Time Played"
+    property var sortTitle: "By Title" // "By Time Last Played" "By Title" "By Total Time Played"
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     function processButtonArt(buttonModel) {
