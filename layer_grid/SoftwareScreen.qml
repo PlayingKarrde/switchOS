@@ -10,6 +10,7 @@ FocusScope
 
     property int numcolumns: widescreen ? 6 : 3
     property var softwareList: listByMostPlayed
+    property var sortTitle: "By Total Play Time"
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     Item
@@ -87,7 +88,7 @@ FocusScope
                 {
                     id: sortType
 
-                    text: "By Time Last Played" //TODO Extract to variable
+                    text:sortTitle //TODO Extract to variable
 
                     anchors {
                         verticalCenter: headerIcon.verticalCenter;
