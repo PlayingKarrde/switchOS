@@ -21,13 +21,20 @@ Item {
 id: root
 
     readonly property alias games: gamesFiltered
-    function currentGame(index) { return api.allGames.get(mostPlayedGames.mapToSource(index)) }
+    //function currentGame(index) { return api.allGames.get(mostPlayedGames.mapToSource(index)) }
+    function currentGame(index) {
+        if (currentCollection == -1)
+            return api.allGames.get(mostPlayedGames.mapToSource(index));
+        else
+            return api.collections.get(currentCollection).games.get(mostPlayedGames.mapToSource(index));
+    }
+
     property int max: mostPlayedGames.count
 
     SortFilterProxyModel {
     id: mostPlayedGames
 
-        sourceModel: api.allGames
+        sourceModel: (currentCollection == -1) ? api.allGames : api.collections.get(currentCollection).games
         sorters: RoleSorter { roleName: "playCount"; sortOrder: Qt.DescendingOrder }
     }
 
