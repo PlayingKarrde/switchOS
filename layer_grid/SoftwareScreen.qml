@@ -9,6 +9,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    property var softwareList: listByMostPlayed
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     Item
@@ -178,7 +179,7 @@ FocusScope
             highlightMoveDuration: 200
 
             
-            model: listAllRecent.games //api.collections.get(collectionIndex).games
+            model: softwareList.games //api.collections.get(collectionIndex).games
             delegate: gameGridDelegate            
 
             Component 
