@@ -10,7 +10,19 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
-    property var sortTitle: "By Title" // "By Time Last Played" "By Title" "By Total Time Played"
+    property var sortTitle: {
+        switch (sortByIndex) {
+            case 0:
+                return "By Time Last Played";
+            case 1:
+                return "By Title";
+            case 2:
+                return "By Total Time Played";
+            default:
+                return ""
+        }
+    }
+    // "By Time Last Played" "By Title" "By Total Time Played"
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     function processButtonArt(buttonModel) {
@@ -47,6 +59,7 @@ FocusScope
             }
             if (api.keys.isFilters(event)) {
                 event.accepted = true;
+                cycleSort();
                 return;
             }
         }
@@ -212,7 +225,7 @@ FocusScope
             highlightMoveDuration: 200
 
             
-            model: softwareList.games //api.collections.get(collectionIndex).games
+            model: softwareList[sortByIndex].games //api.collections.get(collectionIndex).games
             delegate: gameGridDelegate            
 
             Component 
