@@ -16,7 +16,9 @@ FocusScope
 {
     id: root
     ListLastPlayed  { id: listRecent; max: 12}
-    ListLastPlayed  { id: listAllRecent}
+    ListLastPlayed  { id: listByLastPlayed}
+    ListMostPlayed  { id: listByMostPlayed}
+    ListAllGames    { id: listByTitle}
 
     property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
