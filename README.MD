@@ -1,4 +1,4 @@
-# skylineOS v0.4
+# skylineOS v0.5
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
@@ -16,14 +16,18 @@ A simple theme that aims to recreate the experience of Nintendo's Switch console
 
 Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
-
 ## Version history
+v0.5
+- Added sort options on Software Screen
+- Fixed Steam logos on Software Screen
+
 v0.4
 - Added "All Software" collection
 - List and launch recent last played from platform bar for each collection
 - List and launch all last played in software screen for each collection
 - changed time to 12 hour format to better match Switch
 
+Forked from switchOS
 
 v0.3
 - Added proper support for variable aspect ratios without decreasing size. Now properly supports 4:3 aspect ratios and should look correct on smaller screens
