@@ -138,6 +138,14 @@ ListView {
                 sourceSize { width: 512; height: 512 }
             }
 
+            Rectangle {
+                width: parent.width
+                height: parent.height
+                color: "white"
+                opacity: 0.15
+                visible: eslogo.source != ""
+            }
+
 
             MouseArea {
                 anchors.fill: wrapper
