@@ -143,7 +143,6 @@ FocusScope
                     right: sortTypeTxt.left
                     rightMargin: vpx(5)
                 }
-                visible: showBack
             }
 
             ColorOverlay {
@@ -276,8 +275,21 @@ FocusScope
 
                         asynchronous: true
 
+                        property var logoImage: {
+                            if (modelData != null) {
+                                if (modelData.collections.get(0).shortName === "retropie")
+                                    return modelData.assets.boxFront;
+                                else if (modelData.collections.get(0).shortName === "steam")
+                                    return modelData.assets.logo ? modelData.assets.logo : "" //root.logo(gameData);
+                                else
+                                    return modelData.assets.logo;
+                            } else {
+                                return ""
+                            }
+                        }
+
                         //opacity: 0
-                        source: modelData.assets.logo ? modelData.assets.logo : ""
+                        source: modelData ? Utils.logo(modelData) || "" : "" //modelData.assets.logo ? modelData.assets.logo : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectFit
                         smooth: true
