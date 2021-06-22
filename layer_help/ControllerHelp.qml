@@ -113,7 +113,7 @@ FocusScope {
       visible: showBack
     }
 
-    //Next Page Button
+    //Next Collection Button
     Image {
       id: button3
       width: Math.round(screenheight*0.04)
@@ -157,7 +157,7 @@ FocusScope {
       //visible: showBack
     }
 
-    //Prev Page Button
+    //Prev Collection Button
     Image {
       id: button4
       width: Math.round(screenheight*0.04)
@@ -171,7 +171,7 @@ FocusScope {
         rightMargin: vpx(5)
       }
       //visible: showBack
-    }//button3
+    }//button4
 
     ColorOverlay {
         anchors.fill: button4
@@ -187,7 +187,7 @@ FocusScope {
       height: txt4.height
       Text {
         id: txt4
-        text: "Previous Collection"
+        text: "Prev Collection"
         color: theme.text
         font.pixelSize: Math.round(screenheight*0.025)
         font.family: titleFont.name
@@ -199,6 +199,50 @@ FocusScope {
         rightMargin: vpx(20)
       }
       //visible: showBack
+    }
+
+    //Sort Button
+    Image {
+      id: button5
+      width: Math.round(screenheight*0.04)
+      height: width
+      source: "../assets/images/controller/"+ processButtonArt(api.keys.filters) + ".png"
+      sourceSize.width: 64
+      sourceSize.height: 64
+      anchors {
+        verticalCenter: button3Txt.verticalCenter
+        right: button5Txt.left
+        rightMargin: vpx(5)
+      }
+      visible: false
+    }//button5
+
+    ColorOverlay {
+        anchors.fill: button4
+        source: button4
+        color: theme.text
+        cached: true
+        visible: false
+    }
+
+    Item {
+      id: button5Txt
+      width: txt5.width
+      height: txt5.height
+      Text {
+        id: txt5
+        text: "Sort"
+        color: theme.text
+        font.pixelSize: Math.round(screenheight*0.025)
+        font.family: titleFont.name
+        font.bold: true
+      }
+      anchors {
+        verticalCenter: parent.verticalCenter
+        right: button4.left
+        rightMargin: vpx(20)
+      }
+      visible: false
     }
 
   }//background

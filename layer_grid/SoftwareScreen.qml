@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtGraphicalEffects 1.0
 import "../global"
 import "../Lists"
+import "../layer_help"
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
 
@@ -9,7 +10,30 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    property var sortTitle: {
+        switch (sortByIndex) {
+            case 0:
+                return "By Time Last Played";
+            case 1:
+                return "By Title";
+            case 2:
+                return "By Total Time Played";
+            default:
+                return ""
+        }
+    }
+    // "By Time Last Played" "By Title" "By Total Time Played"
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
+
+    function processButtonArt(buttonModel) {
+        var i;
+        for (i = 0; buttonModel.length; i++) {
+            if (buttonModel[i].name().includes("Gamepad")) {
+            var buttonValue = buttonModel[i].key.toString(16)
+            return buttonValue.substring(buttonValue.length-1, buttonValue.length);
+            }
+        }
+    }
 
     Item
     {
@@ -35,6 +59,7 @@ FocusScope
             }
             if (api.keys.isFilters(event)) {
                 event.accepted = true;
+                cycleSort();
                 return;
             }
         }
@@ -84,9 +109,9 @@ FocusScope
             // Probably won't do "By Publisher", but the first 3 should be doable
             Text
                 {
-                    id: sortType
+                    id: sortTypeTxt
 
-                    text: "By Time Last Played" //TODO Extract to variable
+                    text:sortTitle //TODO Extract to variable
 
                     anchors {
                         verticalCenter: headerIcon.verticalCenter;
@@ -102,6 +127,27 @@ FocusScope
             ColorOverlay {
                 anchors.fill: headerIcon
                 source: headerIcon
+                color: theme.text
+                cached: true
+            }
+
+            Image {
+                id: sortIcon
+                width: Math.round(screenheight*0.04)
+                height: width
+                source: "../assets/images/controller/"+ processButtonArt(api.keys.filters) + ".png"
+                sourceSize.width: 64
+                sourceSize.height: 64
+                anchors {
+                    verticalCenter: sortTypeTxt.verticalCenter
+                    right: sortTypeTxt.left
+                    rightMargin: vpx(5)
+                }
+            }
+
+            ColorOverlay {
+                anchors.fill: sortIcon
+                source: sortIcon
                 color: theme.text
                 cached: true
             }
@@ -178,7 +224,7 @@ FocusScope
             highlightMoveDuration: 200
 
             
-            model: listAllRecent.games //api.collections.get(collectionIndex).games
+            model: softwareList[sortByIndex].games //api.collections.get(collectionIndex).games
             delegate: gameGridDelegate            
 
             Component 
@@ -229,8 +275,21 @@ FocusScope
 
                         asynchronous: true
 
+                        property var logoImage: {
+                            if (modelData != null) {
+                                if (modelData.collections.get(0).shortName === "retropie")
+                                    return modelData.assets.boxFront;
+                                else if (modelData.collections.get(0).shortName === "steam")
+                                    return modelData.assets.logo ? modelData.assets.logo : "" //root.logo(gameData);
+                                else
+                                    return modelData.assets.logo;
+                            } else {
+                                return ""
+                            }
+                        }
+
                         //opacity: 0
-                        source: modelData.assets.logo ? modelData.assets.logo : ""
+                        source: modelData ? Utils.logo(modelData) || "" : "" //modelData.assets.logo ? modelData.assets.logo : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectFit
                         smooth: true

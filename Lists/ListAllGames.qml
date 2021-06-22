@@ -23,9 +23,9 @@ id: root
     readonly property alias games: gamesFiltered
     function currentGame(index) {
         if (currentCollection == -1)
-            return api.allGames.get(lastPlayedGames.mapToSource(index));
+            return api.allGames.get(gamesFiltered.mapToSource(index));
         else
-            return api.collections.get(currentCollection).games.get(lastPlayedGames.mapToSource(index));
+            return api.collections.get(currentCollection).games.get(gamesFiltered.mapToSource(index));
     }
     property int max: gamesFiltered.count
     property string searchTerm: ""

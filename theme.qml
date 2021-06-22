@@ -16,11 +16,15 @@ FocusScope
 {
     id: root
     ListLastPlayed  { id: listRecent; max: 12}
-    ListLastPlayed  { id: listAllRecent}
+    ListLastPlayed  { id: listByLastPlayed}
+    ListMostPlayed  { id: listByMostPlayed}
+    ListAllGames    { id: listByTitle}
 
     property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
+    property var softwareList: [listByLastPlayed, listByTitle, listByMostPlayed]
+    property int sortByIndex: 0
     property string searchtext
 
     onNextCollectionChanged: { changeCollection() }
@@ -47,10 +51,12 @@ FocusScope
     }
 
     function nextColl() {
+        turnOnSfx.play();
         jumpToCollection(collectionIndex + 1);
     }
 
     function prevCollection() {
+        turnOffSfx.play();
         jumpToCollection(collectionIndex - 1);
     }
 
@@ -102,7 +108,7 @@ FocusScope
 
     // Launch current game from SoftwareScreen
     function launchSoftware() {
-        listAllRecent.currentGame(currentGameIndex).launch();
+        softwareList[sortByIndex].currentGame(currentGameIndex).launch();
             //currentGame.launch();
     }
 
@@ -409,6 +415,16 @@ FocusScope
         }
     }
 
+    //Changes Sort Option
+    function cycleSort() {
+        turnOnSfx.play()
+        if (sortByIndex < softwareList.length - 1)
+            sortByIndex++;
+        else
+            sortByIndex = 0;
+    }
+
+
 
     // Help bar
     Item
@@ -479,6 +495,18 @@ FocusScope
     SoundEffect {
         id: homeSfx
         source: "assets/audio/Home.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: turnOffSfx
+        source: "assets/audio/Turn On.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: turnOnSfx
+        source: "assets/audio/Turn Off.wav"
         volume: 1.0
     }
 
