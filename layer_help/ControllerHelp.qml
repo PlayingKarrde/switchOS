@@ -113,7 +113,7 @@ FocusScope {
       visible: showBack
     }
 
-    //Next Page Button
+    //Next Collection Button
     Image {
       id: button3
       width: Math.round(screenheight*0.04)
@@ -157,7 +157,7 @@ FocusScope {
       //visible: showBack
     }
 
-    //Prev Page Button
+    //Prev Collection Button
     Image {
       id: button4
       width: Math.round(screenheight*0.04)
@@ -187,7 +187,7 @@ FocusScope {
       height: txt4.height
       Text {
         id: txt4
-        text: "Previous Collection"
+        text: "Prev Collection"
         color: theme.text
         font.pixelSize: Math.round(screenheight*0.025)
         font.family: titleFont.name
