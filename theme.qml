@@ -51,10 +51,12 @@ FocusScope
     }
 
     function nextColl() {
+        turnOnSfx.play();
         jumpToCollection(collectionIndex + 1);
     }
 
     function prevCollection() {
+        turnOffSfx.play();
         jumpToCollection(collectionIndex - 1);
     }
 
@@ -106,7 +108,7 @@ FocusScope
 
     // Launch current game from SoftwareScreen
     function launchSoftware() {
-        softwareList.currentGame(currentGameIndex).launch();
+        softwareList[sortByIndex].currentGame(currentGameIndex).launch();
             //currentGame.launch();
     }
 
@@ -497,8 +499,14 @@ FocusScope
     }
 
     SoundEffect {
-        id: turnOnSfx
+        id: turnOffSfx
         source: "assets/audio/Turn On.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: turnOnSfx
+        source: "assets/audio/Turn Off.wav"
         volume: 1.0
     }
 
