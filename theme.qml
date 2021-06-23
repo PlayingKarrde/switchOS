@@ -51,12 +51,10 @@ FocusScope
     }
 
     function nextColl() {
-        turnOnSfx.play();
         jumpToCollection(collectionIndex + 1);
     }
 
     function prevCollection() {
-        turnOffSfx.play();
         jumpToCollection(collectionIndex - 1);
     }
 
@@ -263,6 +261,7 @@ FocusScope
         // Cycle collection forward
         if (api.keys.isNextPage(event) && !event.isAutoRepeat) {
             event.accepted = true;
+            turnOnSfx.play();
             nextColl();
             if (currentCollection < api.collections.count-1) {
                 nextCollection++;
@@ -274,6 +273,7 @@ FocusScope
         // Cycle collection back
         if (api.keys.isPrevPage(event) && !event.isAutoRepeat) {
             event.accepted = true;
+            turnOffSfx.play();
             prevCollection();
             if (currentCollection == -1) {
                 nextCollection = api.collections.count-1;
