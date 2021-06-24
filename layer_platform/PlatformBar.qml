@@ -90,7 +90,7 @@ ListView {
                 asynchronous: true
                 smooth: true
                 z: 10
-                //visible: idx == -3 ? true : false
+                visible: idx > -3 ? true : false
 
                 /*width: parent.width - vpx(30)
                 height: vpx(75)
@@ -104,12 +104,13 @@ ListView {
                 visible: eslogo.paintedWidth < 1*/
             }
 
-            /*ColorOverlay {
+            ColorOverlay {
                 anchors.fill: logo
                 source: logo
-                color: theme.text
+                color: theme.allsoft
+                antialiasing: true
                 cached: true
-            }*/
+            }
 
             Text
             {

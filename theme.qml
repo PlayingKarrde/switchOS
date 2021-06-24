@@ -120,7 +120,8 @@ FocusScope
             accent: "#10AEBE",
             highlight: "white",
             text: "#2C2C2C",
-            button: "#cccccc",
+            button: "white",
+            allsoft: "#515151"
         }
     }
 
@@ -132,6 +133,7 @@ FocusScope
             highlight: "black",
             text: "white",
             button: "#515151",
+            allsoft: "white"
         }
     }
 
