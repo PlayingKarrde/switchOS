@@ -101,7 +101,7 @@ ListView {
                 anchors.centerIn: parent
                 antialiasing: true
                 sourceSize { width: 128; height: 128 }
-                visible: eslogo.paintedWidth < 1*/
+                visible: screenshot.paintedWidth < 1*/
             }
 
             ColorOverlay {
@@ -129,7 +129,7 @@ ListView {
             }
 
             Image {
-                id: eslogo
+                id: screenshot
                 width: parent.width
                 height: width
                 smooth: true
@@ -144,7 +144,7 @@ ListView {
                 height: parent.height
                 color: "white"
                 opacity: 0.15
-                visible: eslogo.source != ""
+                visible: screenshot.source != ""
             }
 
 
@@ -177,8 +177,8 @@ ListView {
                 elide: Text.ElideRight
 
                 anchors {
-                    horizontalCenter: eslogo.horizontalCenter
-                    bottom: eslogo.top; bottomMargin: Math.round(screenheight*0.02)
+                    horizontalCenter: screenshot.horizontalCenter
+                    bottom: screenshot.top; bottomMargin: Math.round(screenheight*0.02)
                 }
 
                 opacity: wrapper.ListView.isCurrentItem ? 1 : 0
