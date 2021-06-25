@@ -202,7 +202,7 @@ FocusScope {
       //visible: showBack
     }
 
-    //Sort Button
+    //Sort/Theme Button
     Image {
       id: button5
       width: Math.round(screenheight*0.04)
@@ -215,7 +215,7 @@ FocusScope {
         right: button5Txt.left
         rightMargin: vpx(5)
       }
-      //visible: false
+      visible: !showBack
     }//button5
 
     ColorOverlay {
@@ -223,7 +223,7 @@ FocusScope {
         source: button5
         color: theme.text
         cached: true
-        //visible: false
+        visible: !showBack
     }
 
     Item {
@@ -243,7 +243,7 @@ FocusScope {
         right: button4.left
         rightMargin: vpx(20)
       }
-      //visible: false
+      visible: !showBack
     }
 
   }//background
