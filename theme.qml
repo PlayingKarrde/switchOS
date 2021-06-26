@@ -357,40 +357,6 @@ FocusScope
             maskSource: navMask
         }
 
-        // Navigation
-        Image {
-        id: searchButton
-
-            width: vpx(25)
-            height: width
-            source: "assets/images/Search.png"
-            sourceSize: Qt.size(parent.width, parent.height)
-            fillMode: Image.PreserveAspectFit
-            asynchronous: true
-            smooth: true
-            anchors {
-                verticalCenter: parent.verticalCenter
-                right: settingsButton.left; rightMargin: vpx(50)
-            }
-            visible: false // Disabling until ready to implement
-        }
-
-        Image {
-        id: settingsButton
-
-            width: vpx(25)
-            height: width
-            source: "assets/images/Settings.png"
-            sourceSize: Qt.size(parent.width, parent.height)
-            fillMode: Image.PreserveAspectFit
-            asynchronous: true
-            smooth: true
-            anchors {
-                verticalCenter: parent.verticalCenter
-                right: parent.left; rightMargin: vpx(50)
-            }
-            visible: false // Disabling until ready to implement
-        }
     }
 
     // All Software screen
