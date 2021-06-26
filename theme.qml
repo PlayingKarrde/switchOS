@@ -120,7 +120,8 @@ FocusScope
             accent: "#10AEBE",
             highlight: "white",
             text: "#2C2C2C",
-            button: "#cccccc"
+            button: "white",
+            allsoft: "#515151"
         }
     }
 
@@ -131,29 +132,18 @@ FocusScope
             accent: "#10AEBE",
             highlight: "black",
             text: "white",
-            button: "#515151"
+            button: "#515151",
+            allsoft: "white"
         }
     }
 
-    // TODO - Do this properly later
-    property var theme: {
-        return {
-            main: api.memory.get('themeBG') || themeDark.main,
-            secondary: api.memory.get('themeSecondary') || themeDark.secondary,
-            accent: api.memory.get('themeAccent') || themeDark.accent,
-            highlight: api.memory.get('themeHighlight') || themeDark.highlight,
-            text: api.memory.get('themeText') || themeDark.text,
-            button: api.memory.get('themeButton') || themeDark.button
-        }
-    }
+    property var theme : api.memory.get('theme') === 'themeLight' ? themeLight : themeDark ;
 
-    function swapTheme() {
-        if (darkThemeActive) {
-            darkThemeActive = false;
-            theme.main = themeLight.main;
-        } else {
-            darkThemeActive = true;
-            theme.main = themeDark.main;
+    function toggleDarkMode(){
+        if(theme === themeLight){
+        api.memory.set('theme', 'themeDark');
+        }else{
+        api.memory.set('theme', 'themeLight');
         }
     }
 
@@ -256,6 +246,7 @@ FocusScope
         // Open collections menu
         if (api.keys.isFilters(event) && !event.isAutoRepeat) {
             event.accepted = true;
+            toggleDarkMode();
         }
 
         // Cycle collection forward

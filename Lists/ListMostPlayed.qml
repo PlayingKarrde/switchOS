@@ -35,7 +35,7 @@ id: root
     id: mostPlayedGames
 
         sourceModel: (currentCollection == -1) ? api.allGames : api.collections.get(currentCollection).games
-        sorters: RoleSorter { roleName: "playCount"; sortOrder: Qt.DescendingOrder }
+        sorters: RoleSorter { roleName: "playTime"; sortOrder: Qt.DescendingOrder }
     }
 
     SortFilterProxyModel {

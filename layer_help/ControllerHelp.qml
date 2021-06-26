@@ -7,6 +7,7 @@ FocusScope {
   property string controllerButton1: "A"
   property string buttonText2: "Back"
   property string controllerButton2: "B"
+  property string filterText: showBack ? "Sort" : "Theme"
 
   property bool showBack: true
 
@@ -201,7 +202,7 @@ FocusScope {
       //visible: showBack
     }
 
-    //Sort Button
+    //Sort/Theme Button
     Image {
       id: button5
       width: Math.round(screenheight*0.04)
@@ -214,15 +215,15 @@ FocusScope {
         right: button5Txt.left
         rightMargin: vpx(5)
       }
-      visible: false
+      visible: !showBack
     }//button5
 
     ColorOverlay {
-        anchors.fill: button4
-        source: button4
+        anchors.fill: button5
+        source: button5
         color: theme.text
         cached: true
-        visible: false
+        visible: !showBack
     }
 
     Item {
@@ -231,7 +232,7 @@ FocusScope {
       height: txt5.height
       Text {
         id: txt5
-        text: "Sort"
+        text: filterText
         color: theme.text
         font.pixelSize: Math.round(screenheight*0.025)
         font.family: titleFont.name
@@ -242,7 +243,7 @@ FocusScope {
         right: button4.left
         rightMargin: vpx(20)
       }
-      visible: false
+      visible: !showBack
     }
 
   }//background
