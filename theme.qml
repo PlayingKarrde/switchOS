@@ -187,7 +187,7 @@ FocusScope
         Transition {
             to: "playgame"
             SequentialAnimation {
-                PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
+                PropertyAnimation { target: platformScreen; property: "opacity"; to: 0; duration: 200}
                 PauseAnimation { duration: 200 }
                 ScriptAction { script: launchGame(currentGame) }
             }
