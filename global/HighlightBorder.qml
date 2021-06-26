@@ -8,7 +8,7 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: theme.accent
-    radius: currentIndex == 12 ? width : vpx(3)
+    radius: idx > -3 ? vpx(3) : width
 
     opacity: selected ? 1 : 0
     Behavior on opacity { NumberAnimation { duration: 75 } }
