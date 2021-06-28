@@ -278,12 +278,7 @@ FocusScope
     Item {
     id: collectionList
 
-        width: parent.width
-        height: vpx(90)
-        //opacity: gameBar.active ? 1 : 0
-        Behavior on opacity { NumberAnimation { duration: 50 } }
-
-        // Build the collections list but with "All Games" as starting element
+        // Build the collections list but with "All Software" as starting element
         ListModel {
         id: collectionsModel
 
@@ -303,60 +298,6 @@ FocusScope
                 }
             }
         }
-        
-        // Collections
-        ListView {
-        id: collectionNav
-
-            anchors {
-                left: parent.left; leftMargin: vpx(75)
-                right: searchButton.left; rightMargin: vpx(150)
-                top: parent.top; bottom: parent.bottom
-            }
-            
-            orientation: ListView.Horizontal
-            preferredHighlightBegin: vpx(0)
-            preferredHighlightEnd: vpx(0)
-            highlightRangeMode: ListView.StrictlyEnforceRange
-            snapMode: ListView.SnapOneItem 
-            highlightMoveDuration: 100
-            currentIndex: currentCollection+1
-            clip: true
-            interactive: false
-            model: collectionsModel
-            delegate: 
-                Text {
-                    property bool selected: ListView.isCurrentItem
-                    text:name
-                    color: "white"
-                    //font.family: selected ? titleFont.name : subtitleFont.name
-                    font.pixelSize: vpx(24)
-                    width: implicitWidth + vpx(35)
-                    height: collectionNav.height
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-            visible: false
-        }
-
-        Rectangle {
-        id: navMask
-
-            anchors.fill: collectionNav
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-                GradientStop { position: 0.9; color: "white" }
-                GradientStop { position: 1.0; color: "transparent" }
-            }
-            visible: false
-        }
-
-        OpacityMask {
-            anchors.fill: collectionNav
-            source: collectionNav
-            maskSource: navMask
-        }
-
     }
 
     // All Software screen
