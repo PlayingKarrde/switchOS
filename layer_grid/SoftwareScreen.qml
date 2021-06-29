@@ -104,25 +104,30 @@ FocusScope
             }
 
 
-            //TODO Needs to be a sort option button
             // Nintendo's Sort Options: "By Time Last Played", "By Total Play Time", "By Title", "By Publisher"
-            // Probably won't do "By Publisher", but the first 3 should be doable
-            Text
-                {
-                    id: sortTypeTxt
+            // Probably won't do "By Publisher"
+            Text {
+                id: sortTypeTxt
+                text:sortTitle
 
-                    text:sortTitle //TODO Extract to variable
-
-                    anchors {
-                        verticalCenter: headerIcon.verticalCenter;
-                        right: topBar.right
-                    }
-                    color: theme.text
-                    font.family: titleFont.name
-                    font.weight: Font.Thin
-                    font.pixelSize: Math.round(screenheight*0.02)
-                    horizontalAlignment: Text.Right
+                anchors {
+                    verticalCenter: headerIcon.verticalCenter;
+                    right: topBar.right
                 }
+                color: theme.text
+                font.family: titleFont.name
+                font.weight: Font.Thin
+                font.pixelSize: Math.round(screenheight*0.02)
+                horizontalAlignment: Text.Right
+            }
+
+            MouseArea {
+                anchors.fill: sortTypeTxt
+                hoverEnabled: true
+                onEntered: {}
+                onExited: {}
+                onClicked: cycleSort();
+            }
 
             ColorOverlay {
                 anchors.fill: headerIcon
@@ -385,14 +390,14 @@ FocusScope
                         //Behavior on opacity { NumberAnimation { duration: 50 } }
 
                         Text {
-                            id: gameTitle                        
+                            id: gameTitle
                             text: modelData.title
                             color: theme.accent
                             font.pixelSize: Math.round(screenheight*0.0222)
                             font.bold: true
                             font.family: titleFont.name
                             
-                            anchors { 
+                            anchors {
                                 verticalCenter: parent.verticalCenter
                                 left: parent.left; leftMargin: vpx(27)
                             }

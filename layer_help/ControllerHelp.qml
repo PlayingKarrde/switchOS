@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 
 FocusScope {
   id: root
-  property string buttonText1: showBack ? "Start" : "OK"
+  property string buttonText1: "Start"
   property string controllerButton1: "A"
   property string buttonText2: "Back"
   property string controllerButton2: "B"
@@ -29,6 +29,7 @@ FocusScope {
       
     Behavior on opacity { NumberAnimation { duration: 200 } }
     
+    //button1 - Start
     Image {
       id: button1
       width: Math.round(screenheight*0.04)
@@ -41,8 +42,7 @@ FocusScope {
         right: button1Txt.left
         rightMargin: vpx(5)
       }
-      
-    }//button1
+    }
 
     ColorOverlay {
         anchors.fill: button1
@@ -70,7 +70,7 @@ FocusScope {
       }
     }
 
-    //buttonBack
+    //button2 - Back
     Image {
       id: button2
       width: Math.round(screenheight*0.04)
@@ -84,7 +84,7 @@ FocusScope {
         rightMargin: vpx(5)
       }
       visible: showBack
-    }//button2
+    }
 
     ColorOverlay {
         anchors.fill: button2
@@ -128,7 +128,7 @@ FocusScope {
         rightMargin: vpx(5)
       }
       //visible: showBack
-    }//buttonNext
+    }
 
     ColorOverlay {
         anchors.fill: button3
@@ -155,7 +155,21 @@ FocusScope {
         right: showBack ? button2.left : button1.left
         rightMargin: vpx(20)
       }
-      //visible: showBack
+    }
+
+    MouseArea {
+      anchors.fill: button3Txt
+      hoverEnabled: true
+      onEntered: {}
+      onExited: {}
+      onClicked: { 
+        nextColl();
+        if (currentCollection < api.collections.count-1) {
+            nextCollection++;
+        } else {
+            nextCollection = -1;
+        }
+      }
     }
 
     //Prev Collection Button
@@ -172,7 +186,7 @@ FocusScope {
         rightMargin: vpx(5)
       }
       //visible: showBack
-    }//button4
+    }
 
     ColorOverlay {
         anchors.fill: button4
@@ -202,7 +216,22 @@ FocusScope {
       //visible: showBack
     }
 
-    //Sort/Theme Button
+    MouseArea {
+      anchors.fill: button4Txt
+      hoverEnabled: true
+      onEntered: {}
+      onExited: {}
+      onClicked: {
+        prevCollection();
+        if (currentCollection == -1) {
+            nextCollection = api.collections.count-1;
+        } else{ 
+            nextCollection--;
+        }
+      }
+    }
+
+    //Theme Button
     Image {
       id: button5
       width: Math.round(screenheight*0.04)
@@ -216,7 +245,7 @@ FocusScope {
         rightMargin: vpx(5)
       }
       visible: !showBack
-    }//button5
+    }
 
     ColorOverlay {
         anchors.fill: button5
@@ -244,6 +273,14 @@ FocusScope {
         rightMargin: vpx(20)
       }
       visible: !showBack
+    }
+
+    MouseArea {
+      anchors.fill: button5Txt
+      hoverEnabled: true
+      onEntered: {}
+      onExited: {}
+      onClicked: toggleDarkMode();
     }
 
   }//background
