@@ -1,5 +1,5 @@
 import QtQuick 2.8
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.12
 import "qrc:/qmlutils" as PegasusUtils
 
 Item {
@@ -8,14 +8,48 @@ Item {
     property bool selected: focus
     property real borderWidth: vpx(10)
     property string label: "No label"
+    property string icon: "../assets/images/allsoft_icon.svg"
     signal clicked
 
     Rectangle {
         id: innerCircle
         width: vpx(86); height: vpx(86)
-        z: 5
+        //z: 5
         radius:width/2
         color: theme.button
+    }
+
+    DropShadow {
+        id: innerCircleShadow
+        anchors.fill: innerCircle
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 6.0
+        samples: 6
+        color: "#1F000000"
+        source: innerCircle
+    }
+
+    Image {
+        id: menuIcon
+        anchors.fill: innerCircle
+        anchors.centerIn: innerCircle
+        anchors.margins: vpx(22)
+        source: icon
+        sourceSize: Qt.size(parent.width, parent.height)
+        fillMode: Image.PreserveAspectFit
+        asynchronous: true
+        smooth: true
+        //z: 10
+    }
+
+    ColorOverlay {
+        anchors.fill: menuIcon
+        source: menuIcon
+        color: theme.allsoft
+        antialiasing: true
+        smooth: true
+        cached: true
     }
 
     Rectangle {
@@ -24,6 +58,7 @@ Item {
         height: innerCircle.height + borderWidth
         radius:width/2
         color: theme.accent
+        z: -1
 
         x: innerCircle.x - borderWidth/2
         y: innerCircle.y - borderWidth/2
@@ -36,7 +71,8 @@ Item {
         width: innerCircle.width + borderWidth
         height: innerCircle.height + borderWidth
         radius:width/2
-        color: "white"
+        color: "#c0f0f3"
+        z: -1
 
         x: innerCircle.x - borderWidth/2
         y: innerCircle.y - borderWidth/2
@@ -53,7 +89,6 @@ Item {
         visible: highlight.visible
     }
 
-    
     MouseArea {
         id: mouseArea
         anchors.fill: parent
@@ -63,17 +98,16 @@ Item {
 
     Text {
         id: titleText
-        width: vpx(512)
-        x: vpx(-128)
-        y: vpx(-46)
         text: label
         color: theme.accent
         font.family: titleFont.name
-        font.pixelSize: vpx(22)
-        elide: Text.ElideRight
-        horizontalAlignment: Text.AlignHCenter
-
-        //opacity: wrapper.ListView.isCurrentItem ? 1 : 0
+        font.pixelSize: Math.round(screenheight*0.0277)
+        font.bold: false
+        anchors {
+            top: highlight.bottom; topMargin: vpx(8)
+            horizontalCenter: parent.horizontalCenter
+        }
+        opacity: parent.focus ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 75 } }
     }
 
