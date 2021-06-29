@@ -106,7 +106,7 @@ ListView {
 
                 anchors.centerIn: parent
                 wrapMode: Text.Wrap
-                visible: logo.paintedWidth < 1
+                visible: false//logo.paintedWidth < 1
                 z: 10
             }
 
@@ -126,7 +126,7 @@ ListView {
                 height: parent.height
                 color: "white"
                 opacity: 0.15
-                visible: screenshot.source != ""
+                visible: logo.source != "" && screenshot.source != ""
             }
 
 
@@ -184,7 +184,6 @@ ListView {
 
     }
 
-    // TODO if autorepeat play a multipleNavSound if I can find one
     Keys.onLeftPressed: {
         navSound.play();
         decrementCurrentIndex();
