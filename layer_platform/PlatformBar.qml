@@ -74,15 +74,7 @@ ListView {
                     } else {
                         return ""
                     }
-
                 }
-                /*gameData ? 
-                    (gameData.collections.get(0).shortName === "retropie") ? 
-                        gameData.assets.boxFront : 
-                    (gameData.collections.get(0).shortName === "steam") ? 
-                        logo(gameData) : 
-                    gameData.assets.logo : 
-                ""*/
 
                 source: gameData ? Utils.logo(gameData) || "" : icon //gameData ? logoImage || "" : "../assets/images/allsoft_icon.svg"
                 sourceSize: Qt.size(parent.width, parent.height)
@@ -92,16 +84,6 @@ ListView {
                 z: 10
                 visible: idx > -3 ? true : false
 
-                /*width: parent.width - vpx(30)
-                height: vpx(75)
-                smooth: true
-                fillMode: Image.PreserveAspectFit
-                source: "../assets/images/logos/" + Utils.processPlatformName(modelData.shortName) + ".png"
-                asynchronous: true
-                anchors.centerIn: parent
-                antialiasing: true
-                sourceSize { width: 128; height: 128 }
-                visible: screenshot.paintedWidth < 1*/
             }
 
             ColorOverlay {
@@ -124,7 +106,7 @@ ListView {
 
                 anchors.centerIn: parent
                 wrapMode: Text.Wrap
-                visible: logo.paintedWidth < 1
+                visible: false//logo.paintedWidth < 1
                 z: 10
             }
 
@@ -144,7 +126,7 @@ ListView {
                 height: parent.height
                 color: "white"
                 opacity: 0.15
-                visible: screenshot.source != ""
+                visible: logo.source != "" && screenshot.source != ""
             }
 
 
@@ -202,7 +184,6 @@ ListView {
 
     }
 
-    // TODO if autorepeat play a multipleNavSound if I can find one
     Keys.onLeftPressed: {
         navSound.play();
         decrementCurrentIndex();

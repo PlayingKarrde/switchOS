@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.11
 import "../utils.js" as Utils
 import "qrc:/qmlutils" as PegasusUtils
@@ -27,8 +27,8 @@ FocusScope
 
         function buildList() {
             /*append({
-                "name":         "Explore", 
-                "idx":          -1, 
+                "name":         "Explore",
+                "idx":          -1,
                 "icon":         "assets/images/navigation/Explore.png",
                 "background":   ""
             })*/
@@ -36,13 +36,13 @@ FocusScope
                 append(createListElement(i));
             }/*
             append({
-                "name":         "Top Games", 
+                "name":         "Top Games",
                 "idx":          -2,
                 "icon":         "assets/images/navigation/Top Rated.png",
                 "background":   ""
             })//*/
             append({
-                "name":         "All Software", 
+                "name":         "All Software",
                 "idx":          -3,
                 "icon":         "../assets/images/allsoft_icon.svg",
                 "background":   ""
@@ -159,7 +159,7 @@ FocusScope
         PlatformBar
         {
             id: platformSwitcher
-            anchors 
+            anchors
             {
                 left: parent.left; leftMargin: vpx(98)
                 right: parent.right
@@ -170,14 +170,21 @@ FocusScope
             
         }
 
-        // Button menu
+        // Button menu - disabled for now
         /*RowLayout {
             id: buttonMenu
+
+            property bool selected: buttonMenu.isCurrentItem
             spacing: vpx(22)
 
-            anchors { 
+            anchors {
                 top: platformSwitcher.bottom;
                 bottom: parent.bottom
+            }
+
+            Keys.onUpPressed: {
+                navSound.play();
+                platformSwitcher.focus = true
             }
             
             x: parent.width/2 - buttonMenu.width/2
@@ -185,22 +192,36 @@ FocusScope
             MenuButton {
                 id: themeButton
                 width: vpx(86); height: vpx(86)
+                label: "Toggle Theme"
+                icon: "../assets/images/navigation/theme.svg"
 
-                onClicked: { 
-                    focus = true;
-                    platformSwitcher.focus = false;
+                onClicked: {
+                    if (focus)
+                    {
+                        toggleDarkMode();
+                    }
+                    else
+                        focus = true;
+                }
+
+                Keys.onPressed: {
+                    if (api.keys.isAccept(event) && !event.isAutoRepeat) {
+                        event.accepted = true;
+                        toggleDarkMode();
+                    }
                 }
             }
-
             MenuButton {
                 id: systemButton
                 width: vpx(86); height: vpx(86)
+                label: "System Settings"
+                icon: "../assets/images/navigation/Settings.png"
 
-                onClicked: { 
+                onClicked: {
                     focus = true;
                     platformSwitcher.focus = false;
                 }
             }
-        }//*/
-    }    
+        }*/
+    }
 }

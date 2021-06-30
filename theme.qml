@@ -187,7 +187,7 @@ FocusScope
         Transition {
             to: "playgame"
             SequentialAnimation {
-                PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
+                PropertyAnimation { target: platformScreen; property: "opacity"; to: 0; duration: 200}
                 PauseAnimation { duration: 200 }
                 ScriptAction { script: launchGame(currentGame) }
             }
@@ -278,12 +278,7 @@ FocusScope
     Item {
     id: collectionList
 
-        width: parent.width
-        height: vpx(90)
-        //opacity: gameBar.active ? 1 : 0
-        Behavior on opacity { NumberAnimation { duration: 50 } }
-
-        // Build the collections list but with "All Games" as starting element
+        // Build the collections list but with "All Software" as starting element
         ListModel {
         id: collectionsModel
 
@@ -302,94 +297,6 @@ FocusScope
                     games:      api.collections.get(i).games.count.toString()
                 }
             }
-        }
-        
-        // Collections
-        ListView {
-        id: collectionNav
-
-            anchors {
-                left: parent.left; leftMargin: vpx(75)
-                right: searchButton.left; rightMargin: vpx(150)
-                top: parent.top; bottom: parent.bottom
-            }
-            
-            orientation: ListView.Horizontal
-            preferredHighlightBegin: vpx(0)
-            preferredHighlightEnd: vpx(0)
-            highlightRangeMode: ListView.StrictlyEnforceRange
-            snapMode: ListView.SnapOneItem 
-            highlightMoveDuration: 100
-            currentIndex: currentCollection+1
-            clip: true
-            interactive: false
-            model: collectionsModel
-            delegate: 
-                Text {
-                    property bool selected: ListView.isCurrentItem
-                    text:name
-                    color: "white"
-                    //font.family: selected ? titleFont.name : subtitleFont.name
-                    font.pixelSize: vpx(24)
-                    width: implicitWidth + vpx(35)
-                    height: collectionNav.height
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-            visible: false
-        }
-
-        Rectangle {
-        id: navMask
-
-            anchors.fill: collectionNav
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-                GradientStop { position: 0.9; color: "white" }
-                GradientStop { position: 1.0; color: "transparent" }
-            }
-            visible: false
-        }
-
-        OpacityMask {
-            anchors.fill: collectionNav
-            source: collectionNav
-            maskSource: navMask
-        }
-
-        // Navigation
-        Image {
-        id: searchButton
-
-            width: vpx(25)
-            height: width
-            source: "assets/images/Search.png"
-            sourceSize: Qt.size(parent.width, parent.height)
-            fillMode: Image.PreserveAspectFit
-            asynchronous: true
-            smooth: true
-            anchors {
-                verticalCenter: parent.verticalCenter
-                right: settingsButton.left; rightMargin: vpx(50)
-            }
-            visible: false // Disabling until ready to implement
-        }
-
-        Image {
-        id: settingsButton
-
-            width: vpx(25)
-            height: width
-            source: "assets/images/Settings.png"
-            sourceSize: Qt.size(parent.width, parent.height)
-            fillMode: Image.PreserveAspectFit
-            asynchronous: true
-            smooth: true
-            anchors {
-                verticalCenter: parent.verticalCenter
-                right: parent.left; rightMargin: vpx(50)
-            }
-            visible: false // Disabling until ready to implement
         }
     }
 
