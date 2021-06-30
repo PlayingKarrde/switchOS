@@ -1,4 +1,4 @@
-# skylineOS v0.6
+# skylineOS v0.7
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
@@ -17,6 +17,11 @@ A simple theme that aims to recreate the experience of Nintendo's Switch console
 Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
 ## Version history
+v0.7
+ - Smoother scrolling on the Software Screen. @timbiscuits
+ - Made the Sort, Theme, Prev & Next Collections button prompts clickable for better accessibility.
+ - Behavior change on the game tiles: Now if you have a screenshot, but no logo, game title text does do not appear in the tile. This is useful if you want to set custom artwork as the screenshot that already includes a logo
+
 v0.6
 - Added ability to toggle between light and dark themes
 
