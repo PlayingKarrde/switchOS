@@ -220,6 +220,7 @@ FocusScope
                 bottom: parent.bottom
             }
 			topMargin: Math.round(screenheight*0.12)
+            bottomMargin: Math.round(screenheight*0.12)
             
             cellWidth: width / numcolumns
             cellHeight: cellWidth
