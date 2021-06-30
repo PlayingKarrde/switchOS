@@ -219,7 +219,7 @@ FocusScope
                 right: parent.right; rightMargin: vpx(63)
                 bottom: parent.bottom
             }
-			topMargin: Math.round(screenheight*0.1)
+			topMargin: Math.round(screenheight*0.12)
             
             cellWidth: width / numcolumns
             cellHeight: cellWidth
