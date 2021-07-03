@@ -251,14 +251,21 @@ FocusScope
                         id: screenshot
                         width: parent.width
                         height: parent.height
-                        
                         asynchronous: true
                         //smooth: true
                         source: modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectCrop
-                        
-                    }//*/
+                        layer.enabled: !selected
+                        layer.effect: DropShadow {
+                            transparentBorder: true
+                            horizontalOffset: 0
+                            verticalOffset: 0
+                            color: "#1F000000"
+                            radius: 6.0
+                            z: -2
+                        }
+                    }
 
                     Rectangle
                     {
