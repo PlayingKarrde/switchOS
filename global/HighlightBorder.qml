@@ -36,7 +36,7 @@ Rectangle {
         anchors.centerIn: parent
         
         color: theme.highlight
-        opacity: idx > -3 ? 1 : 0
+        opacity: idx == -3 ? 0 : 1
     }
 
 }
