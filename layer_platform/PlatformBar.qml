@@ -106,10 +106,10 @@ ListView {
 
                 anchors.centerIn: parent
                 wrapMode: Text.Wrap
-                visible: false//logo.paintedWidth < 1
+                visible: logo.source == "" && screenshot.source == ""
                 z: 10
             }
-
+            
             Image {
                 id: screenshot
                 width: parent.width
@@ -181,7 +181,6 @@ ListView {
             }
 
         }
-
     }
 
     Keys.onLeftPressed: {
