@@ -51,8 +51,16 @@ ListView {
             width: idx > -3 ? platformLayout.height : platformLayout.height*0.7//vpx(256)
             height: width//vpx(256)
             radius: idx > -3 ? 0 : width
-            
             color: theme.button//"#cccccc"
+            layer.enabled: !selected
+            layer.effect: DropShadow {
+                transparentBorder: true
+                horizontalOffset: 0
+                verticalOffset: 0
+                color: "#1F000000"
+                radius: 6.0
+                z: -2
+            }
             
             anchors.verticalCenter: parent.verticalCenter
             
@@ -128,21 +136,6 @@ ListView {
                 opacity: 0.15
                 visible: logo.source != "" && screenshot.source != ""
             }
-
-            DropShadow {
-                id: logoshadow
-                anchors.fill: screenshot
-                transparentBorder: true
-                horizontalOffset: 0
-                verticalOffset: 0
-                radius: 5.0
-                samples: 6
-                color: "#1F000000"
-                source: wrapper
-                opacity: 0.5
-                z: -2
-            }
-
 
             MouseArea {
                 anchors.fill: wrapper
