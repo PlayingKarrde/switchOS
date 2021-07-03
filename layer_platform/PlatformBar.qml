@@ -83,7 +83,6 @@ ListView {
                 smooth: true
                 z: 10
                 visible: idx > -3 ? true : false
-
             }
 
             ColorOverlay {
@@ -93,6 +92,7 @@ ListView {
                 antialiasing: true
                 cached: true
             }
+
 
             Text
             {
@@ -109,7 +109,7 @@ ListView {
                 visible: logo.source == "" && screenshot.source == ""
                 z: 10
             }
-            
+
             Image {
                 id: screenshot
                 width: parent.width
@@ -127,6 +127,20 @@ ListView {
                 color: "white"
                 opacity: 0.15
                 visible: logo.source != "" && screenshot.source != ""
+            }
+
+            DropShadow {
+                id: logoshadow
+                anchors.fill: screenshot
+                transparentBorder: true
+                horizontalOffset: 0
+                verticalOffset: 0
+                radius: 5.0
+                samples: 6
+                color: "#1F000000"
+                source: wrapper
+                opacity: 0.5
+                z: -2
             }
 
 
