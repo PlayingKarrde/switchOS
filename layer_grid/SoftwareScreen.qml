@@ -260,7 +260,7 @@ FocusScope
                         
                     }//*/
 
-                    Rectangle 
+                    Rectangle
                     {
                         width: parent.width
                         height: parent.height
@@ -338,14 +338,14 @@ FocusScope
                         id: outerborder
                         width: screenshot.width
                         height: screenshot.height
-                        color: "white"//Utils.getPlatformColor(api.collections.get(collectionIndex).shortName)
+                        color: theme.button//"white"
                         z: -1
 
                         Rectangle
                         {
                             anchors.fill: outerborder
                             anchors.margins: vpx(4)
-                            color: theme.main
+                            color: theme.button
                             z: 7
                         }
 
