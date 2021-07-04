@@ -32,11 +32,11 @@ Rectangle {
     Rectangle {
         width: parent.width - (borderwidth*2)
         height: parent.height - (borderwidth*2)
-        
+        radius: idx && idx == -3 ? width : vpx(3)
         anchors.centerIn: parent
         
-        color: theme.highlight
-        opacity: idx == -3 ? 0 : 1
+        color: idx && idx == -3 ? theme.button : theme.highlight
+        opacity: 1
     }
 
 }
