@@ -10,6 +10,7 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    property int idx: 0
     property var sortTitle: {
         switch (sortByIndex) {
             case 0:
@@ -17,12 +18,12 @@ FocusScope
             case 1:
                 return "By Title";
             case 2:
-                return "By Total Time Played";
+                return "By Total Play Time";
             default:
                 return ""
         }
     }
-    // "By Time Last Played" "By Title" "By Total Time Played"
+    // "By Time Last Played" "By Title" "By Total Play Time"
     //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     function processButtonArt(buttonModel) {
