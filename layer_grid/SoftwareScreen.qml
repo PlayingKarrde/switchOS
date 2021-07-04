@@ -11,6 +11,7 @@ FocusScope
 
     property int numcolumns: widescreen ? 6 : 3
     property int idx: 0
+    // "By Time Last Played" "By Title" "By Total Play Time"
     property var sortTitle: {
         switch (sortByIndex) {
             case 0:
@@ -23,8 +24,6 @@ FocusScope
                 return ""
         }
     }
-    // "By Time Last Played" "By Title" "By Total Play Time"
-    //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     function processButtonArt(buttonModel) {
         var i;
@@ -43,7 +42,7 @@ FocusScope
         anchors {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
-        }        
+        }
 
         Keys.onPressed: {
             if (event.isAutoRepeat)
@@ -173,7 +172,6 @@ FocusScope
                 height: 1
                 color: theme.secondary
             }
-            
 
         }
 
