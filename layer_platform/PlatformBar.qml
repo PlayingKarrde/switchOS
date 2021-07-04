@@ -163,7 +163,8 @@ ListView {
                 color: theme.accent
                 font.family: titleFont.name
                 font.pixelSize: Math.round(screenheight*0.03)
-                elide: Text.ElideRight
+                wrapMode: Text.WordWrap
+                //elide: Text.ElideRight
 
                 anchors {
                     horizontalCenter: screenshot.horizontalCenter
@@ -173,6 +174,14 @@ ListView {
                 opacity: wrapper.ListView.isCurrentItem ? 1 : 0
                 Behavior on opacity { NumberAnimation { duration: 75 } }
             }
+
+            /*Component.onCompleted: {
+                if (platformTitle.paintedWidth > vpx(450)) {
+                    platformTitle.width = vpx(450)
+                } else {
+                    platformTitle.width = platformTitle.paintedWidth
+                }
+            }*/
 
             HighlightBorder
             {
