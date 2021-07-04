@@ -260,7 +260,7 @@ FocusScope
                         layer.effect: DropShadow {
                             transparentBorder: true
                             horizontalOffset: 0
-                            verticalOffset: 0
+                            verticalOffset: 2
                             color: "#1F000000"
                             radius: 6.0
                             z: -2
