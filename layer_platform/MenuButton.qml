@@ -29,17 +29,6 @@ Item {
         }
     }
 
-    /*DropShadow {
-        id: innerCircleShadow
-        anchors.fill: innerCircle
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 6.0
-        samples: 6
-        color: "#1F000000"
-        source: innerCircle
-    }*/
-
     Image {
         id: menuIcon
         anchors.fill: innerCircle
@@ -112,7 +101,18 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        onClicked: root.clicked()
+        //onClicked: root.clicked()
+        onClicked: {
+                    if (root.focus)
+                    {
+                        selectSfx.play();
+                        toggleDarkMode();
+                    }
+                    else
+                        root.focus = true;
+                        menuNavSfx.play();
+                        platformSwitcher.currentIndex = -1;
+                }
         hoverEnabled: true
     }
 

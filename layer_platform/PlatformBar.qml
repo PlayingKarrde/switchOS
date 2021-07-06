@@ -9,6 +9,7 @@ import "qrc:/qmlutils" as PegasusUtils
 ListView {
     id: platformLayout
     //anchors.fill: parent
+    property int _index: 0
     spacing: vpx(14)
     orientation: ListView.Horizontal
     
@@ -24,9 +25,6 @@ ListView {
     keyNavigationWraps: true
     
     NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
-
-    //Keys.onLeftPressed: {  decrementCurrentIndex(); navSound.play(); }
-    //Keys.onRightPressed: {  incrementCurrentIndex(); navSound.play();  }
 
     model: gamesListModel
     delegate: platformBarDelegate
@@ -155,7 +153,11 @@ ListView {
                         }
                     }
                     else
-                        platformLayout.currentIndex = index
+                        navSound.play();
+                        platformSwitcher.currentIndex = index
+                        platformSwitcher.focus = true
+                        buttonMenu.focus = false
+
                 }
             }
 
@@ -208,6 +210,17 @@ ListView {
     Keys.onRightPressed: {
         navSound.play();
         incrementCurrentIndex();
+    }
+
+    Keys.onUpPressed:{
+        borderSfx.play();
+    }
+
+    Keys.onDownPressed: {
+        _index = currentIndex;
+        menuNavSfx.play();
+        themeButton.focus = true
+        platformSwitcher.currentIndex = -1
     }
 
     function gotoSoftware()

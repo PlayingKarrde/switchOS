@@ -275,13 +275,5 @@ FocusScope {
       visible: !showBack
     }
 
-    MouseArea {
-      anchors.fill: button5Txt
-      hoverEnabled: true
-      onEntered: {}
-      onExited: {}
-      onClicked: toggleDarkMode();
-    }
-
   }//background
 }//root
