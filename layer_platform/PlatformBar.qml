@@ -129,6 +129,7 @@ ListView {
                 sourceSize { width: 512; height: 512 }
             }
 
+            //white overlay on screenshot for better logo visibility over screenshot
             Rectangle {
                 width: parent.width
                 height: parent.height

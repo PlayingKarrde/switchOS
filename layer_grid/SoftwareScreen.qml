@@ -266,13 +266,14 @@ FocusScope
                         }
                     }
 
+                    //white overlay on screenshot for better logo visibility over screenshot
                     Rectangle
                     {
                         width: parent.width
                         height: parent.height
                         color: "white"
                         opacity: 0.15
-                        visible: screenshot.source != ""
+                        visible: logo.source != "" && screenshot.source != ""
                     }
 
                     // Logo
