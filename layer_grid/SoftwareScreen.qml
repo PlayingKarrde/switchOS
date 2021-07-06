@@ -227,7 +227,7 @@ FocusScope
             preferredHighlightEnd: Math.round(screenheight*0.6527)
             highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
             snapMode: ListView.SnapToItem
-            highlightMoveDuration: 200
+            highlightMoveDuration: 150 //150 is default
 
             
             model: softwareList[sortByIndex].games //api.collections.get(collectionIndex).games
