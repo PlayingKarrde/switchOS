@@ -17,6 +17,7 @@ Rectangle {
         verticalOffset: 2
         color: "#1F000000"
         radius: 6.0
+        samples: 6
         z: -2
     }
     opacity: selected ? 1 : 0

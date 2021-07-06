@@ -17,9 +17,19 @@ Item {
         //z: 5
         radius:width/2
         color: theme.button
+        layer.enabled: true
+        layer.effect: DropShadow {
+            transparentBorder: true
+            horizontalOffset: 0
+            verticalOffset: 0
+            color: "#1F000000"
+            radius: 6.0
+            samples: 6
+            z: -2
+        }
     }
 
-    DropShadow {
+    /*DropShadow {
         id: innerCircleShadow
         anchors.fill: innerCircle
         horizontalOffset: 0
@@ -28,7 +38,7 @@ Item {
         samples: 6
         color: "#1F000000"
         source: innerCircle
-    }
+    }*/
 
     Image {
         id: menuIcon
@@ -58,6 +68,16 @@ Item {
         height: innerCircle.height + borderWidth
         radius:width/2
         color: theme.accent
+        layer.enabled: true
+        layer.effect: DropShadow {
+            transparentBorder: true
+            horizontalOffset: 0
+            verticalOffset: 0
+            color: "#1F000000"
+            radius: 6.0
+            samples: 6
+            z: -2
+        }
         z: -1
 
         x: innerCircle.x - borderWidth/2
