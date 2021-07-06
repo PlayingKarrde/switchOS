@@ -1,4 +1,5 @@
 import QtQuick 2.8
+import QtGraphicalEffects 1.12
 
 Rectangle {
     property bool selected: false
@@ -9,7 +10,15 @@ Rectangle {
     height: parent.height
     color: theme.accent
     radius: idx && idx == -3 ? width : vpx(3)
-
+    layer.enabled: true
+    layer.effect: DropShadow {
+        transparentBorder: true
+        horizontalOffset: 0
+        verticalOffset: 2
+        color: "#1F000000"
+        radius: 6.0
+        z: -2
+    }
     opacity: selected ? 1 : 0
     Behavior on opacity { NumberAnimation { duration: 75 } }
 
