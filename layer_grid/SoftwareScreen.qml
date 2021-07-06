@@ -335,6 +335,7 @@ FocusScope
                                 playSoftware();
                             }
                             else
+                                navSound.play();
                                 gameGrid.currentIndex = index
                         }
                     }

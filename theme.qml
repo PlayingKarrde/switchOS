@@ -75,10 +75,7 @@ FocusScope
     function showHomeScreen()
     {
         platformScreen.focus = true;
-        backSfx.play();
-        /*platformScreen.visible = true;
-        softwareScreen.visible = false;*/
-        //platformScreen.focus = true;
+        homeSfx.play()
     }
 
     function playGame()
@@ -315,7 +312,6 @@ FocusScope
 
     //Changes Sort Option
     function cycleSort() {
-        turnOnSfx.play()
         if (sortByIndex < softwareList.length - 1)
             sortByIndex++;
         else
@@ -397,15 +393,40 @@ FocusScope
     }
 
     SoundEffect {
-        id: turnOffSfx
+        id: turnOnSfx
         source: "assets/audio/Turn On.wav"
         volume: 1.0
     }
 
     SoundEffect {
-        id: turnOnSfx
+        id: turnOffSfx
         source: "assets/audio/Turn Off.wav"
         volume: 1.0
     }
+
+    SoundEffect {
+        id: selectSfx
+        source: "assets/audio/This One.wav"
+        volume: 1.0
+    }
+
+      SoundEffect {
+        id: settingsSfx
+        source: "assets/audio/Settings.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: menuNavSfx
+        source: "assets/audio/Tick.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: borderSfx
+        source: "assets/audio/Border.wav"
+        volume: 1.0
+    }
+    
 
 }
