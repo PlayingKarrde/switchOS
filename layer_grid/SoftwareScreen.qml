@@ -273,7 +273,7 @@ FocusScope
                         height: parent.height
                         color: "white"
                         opacity: 0.15
-                        visible: logo.source != "" && screenshot.source != ""
+                        visible: gamelogo.source != "" && screenshot.source != ""
                     }
 
                     // Logo
