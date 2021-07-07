@@ -24,7 +24,7 @@ FocusScope
     property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
     property var softwareList: [listByLastPlayed, listByTitle, listByMostPlayed]
-    property int sortByIndex: 0
+    property int sortByIndex: api.memory.has('sortIndex') ? api.memory.get('sortIndex') : 0
     property string searchtext
 
     onNextCollectionChanged: { changeCollection() }
@@ -316,6 +316,7 @@ FocusScope
             sortByIndex++;
         else
             sortByIndex = 0;
+        api.memory.set('sortIndex', sortByIndex)
     }
 
 
