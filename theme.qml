@@ -425,7 +425,7 @@ FocusScope
     SoundEffect {
         id: borderSfx
         source: "assets/audio/Border.wav"
-        volume: 1.0
+        volume: 0.25
     }
     
 
