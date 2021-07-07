@@ -214,7 +214,8 @@ FocusScope
                 }
             }
             
-            /*MenuButton {
+            //Disabled until settings screen is built/implemented
+            MenuButton {
                 id: systemButton
                 width: vpx(86); height: vpx(86)
                 label: "System Settings"
@@ -226,7 +227,9 @@ FocusScope
                         return;
                     }
 
-            }*/
+                }
+                visible: false
+            }
         }
     }
 }
