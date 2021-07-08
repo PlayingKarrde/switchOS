@@ -243,11 +243,11 @@ FocusScope
 
     // List specific input
     Keys.onPressed: {
-        // Open collections menu
-        if (api.keys.isFilters(event) && !event.isAutoRepeat) {
+        // disabled
+        /*if (api.keys.isFilters(event) && !event.isAutoRepeat) {
             event.accepted = true;
             toggleDarkMode();
-        }
+        }*/
 
         // Cycle collection forward
         if (api.keys.isNextPage(event) && !event.isAutoRepeat) {
