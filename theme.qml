@@ -23,8 +23,8 @@ FocusScope
     ListMostPlayed  { id: listByMostPlayed}
     ListAllGames    { id: listByTitle}
 
-    property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
-    property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int currentCollection: -1 //api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int nextCollection: 0 //api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
     property var softwareList: [listByLastPlayed, listByTitle, listByMostPlayed]
     property int sortByIndex: api.memory.has('sortIndex') ? api.memory.get('sortIndex') : 0
@@ -106,6 +106,7 @@ FocusScope
 
     // Launch current game from SoftwareScreen
     function launchSoftware() {
+        api.memory.set('Last Collection', currentCollection);
         softwareList[sortByIndex].currentGame(currentGameIndex).launch();
             //currentGame.launch();
     }
@@ -221,9 +222,10 @@ FocusScope
         color: theme.main
     }
 
+    //starting collection is set here
     Component.onCompleted: {
         state: "platformscreen"
-        currentCollection = api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+        currentCollection = api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1 
         api.memory.unset('Last Collection');
         homeSfx.play()
     }
