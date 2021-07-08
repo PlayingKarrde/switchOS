@@ -95,7 +95,7 @@ ListView {
             ColorOverlay {
                 anchors.fill: logo
                 source: logo
-                color: theme.allsoft
+                color: theme.icon
                 antialiasing: true
                 cached: true
             }
@@ -145,7 +145,7 @@ ListView {
                 onClicked: {
                     if (selected)
                     {
-                        if (currentIndex = softCount) {
+                        if (currentIndex == softCount) {
                             gotoSoftware();
                         } else {
                             anim.start();
@@ -162,12 +162,13 @@ ListView {
             }
 
             Text {
-                id: platformTitle
+                id: topTitle
                 text: idx > -1 ? gameData.title : name
                 color: theme.accent
                 font.family: titleFont.name
                 font.pixelSize: Math.round(screenheight*0.03)
                 wrapMode: Text.WordWrap
+                clip: true
                 //elide: Text.ElideRight
 
                 anchors {
@@ -180,10 +181,10 @@ ListView {
             }
 
             /*Component.onCompleted: {
-                if (platformTitle.paintedWidth > vpx(450)) {
-                    platformTitle.width = vpx(450)
+                if (topTitle.paintedWidth > vpx(450)) {
+                    topTitle.width = vpx(450)
                 } else {
-                    platformTitle.width = platformTitle.paintedWidth
+                    topTitle.width = topTitle.paintedWidth
                 }
             }*/
 
@@ -234,7 +235,7 @@ ListView {
     Keys.onPressed: {
         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
             event.accepted = true;
-            if (currentIndex = softCount) {
+            if (currentIndex == softCount) {
                 gotoSoftware();
             } else {
                 anim.start();
