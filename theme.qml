@@ -121,7 +121,7 @@ FocusScope
             highlight: "white",
             text: "#2C2C2C",
             button: "white",
-            allsoft: "#515151"
+            icon: "#7e7e7e"
         }
     }
 
@@ -133,7 +133,7 @@ FocusScope
             highlight: "black",
             text: "white",
             button: "#515151",
-            allsoft: "white"
+            icon: "white"
         }
     }
 
