@@ -45,7 +45,7 @@ Item {
     ColorOverlay {
         anchors.fill: menuIcon
         source: menuIcon
-        color: theme.allsoft
+        color: theme.icon
         antialiasing: true
         smooth: true
         cached: true
