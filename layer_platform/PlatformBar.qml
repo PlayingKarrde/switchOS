@@ -166,14 +166,15 @@ ListView {
                 text: idx > -1 ? gameData.title : name
                 color: theme.accent
                 font.family: titleFont.name
-                font.pixelSize: Math.round(screenheight*0.03)
+                font.pixelSize: Math.round(screenheight*0.035)
+                font.weight: Font.DemiBold
                 wrapMode: Text.WordWrap
-                clip: true
+                //clip: true
                 //elide: Text.ElideRight
 
                 anchors {
                     horizontalCenter: screenshot.horizontalCenter
-                    bottom: screenshot.top; bottomMargin: Math.round(screenheight*0.02)
+                    bottom: screenshot.top; bottomMargin: Math.round(screenheight*0.025)
                 }
 
                 opacity: wrapper.ListView.isCurrentItem ? 1 : 0
