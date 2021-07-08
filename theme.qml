@@ -129,7 +129,7 @@ FocusScope
         return {
             main: "#2D2D2D",
             secondary: "#EBEBEB",
-            accent: "#10AEBE",
+            accent: "#1d9bf3",
             highlight: "black",
             text: "white",
             button: "#515151",
