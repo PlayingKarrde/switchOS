@@ -26,13 +26,13 @@ Rectangle {
     // Highlight animation (ColorOverlay causes graphical glitches on W10)
     Rectangle {
         anchors.fill: parent
-        color: "#c0f0f3"
+        color: "white"//"#c0f0f3"
         radius: hlBorder.radius
         SequentialAnimation on opacity {
             id: colorAnim
             running: true
             loops: Animation.Infinite
-            NumberAnimation { to: 0.6; duration: 400; easing { type: Easing.OutQuad } }
+            NumberAnimation { to: 0.5; duration: 400; easing { type: Easing.OutQuad } }
             NumberAnimation { to: 0; duration: 500; easing { type: Easing.InQuad } }
             PauseAnimation { duration: 200 }
         }
