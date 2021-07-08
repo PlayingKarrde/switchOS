@@ -274,32 +274,6 @@ FocusScope
         }
     }
 
-     // Collection bar
-    Item {
-    id: collectionList
-
-        // Build the collections list but with "All Software" as starting element
-        ListModel {
-        id: collectionsModel
-
-            ListElement { name: "All Software"; shortName: "allgames"; games: "0" }
-
-            Component.onCompleted: {
-                for(var i=0; i<api.collections.count; i++) {
-                    append(createListElement(i));
-                }
-            }
-            
-            function createListElement(i) {
-                return {
-                    name:       api.collections.get(i).name,
-                    shortName:  api.collections.get(i).shortName,
-                    games:      api.collections.get(i).games.count.toString()
-                }
-            }
-        }
-    }
-
     // All Software screen
     SoftwareScreen {
         id: softwareScreen
