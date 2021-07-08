@@ -145,7 +145,7 @@ ListView {
                 onClicked: {
                     if (selected)
                     {
-                        if (currentIndex == 12) {
+                        if (currentIndex = softCount) {
                             gotoSoftware();
                         } else {
                             anim.start();
@@ -230,11 +230,11 @@ ListView {
     }
 
 
-    //Software screen is always at index 12, but would hopefully not exist/be visible if there are less than 12 titles
+    //TODO Software screen is always at index 12, but would hopefully not exist/be visible if there are less than 12 titles
     Keys.onPressed: {
         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
             event.accepted = true;
-            if (currentIndex == 12) {
+            if (currentIndex = softCount) {
                 gotoSoftware();
             } else {
                 anim.start();

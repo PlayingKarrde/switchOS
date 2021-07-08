@@ -15,7 +15,10 @@ import "Lists"
 FocusScope
 {
     id: root
-    ListLastPlayed  { id: listRecent; max: 12}
+    // number of games that appear on the homescreen, not including the All Software button
+    property int softCount: 12
+
+    ListLastPlayed  { id: listRecent; max: softCount}
     ListLastPlayed  { id: listByLastPlayed}
     ListMostPlayed  { id: listByMostPlayed}
     ListAllGames    { id: listByTitle}
