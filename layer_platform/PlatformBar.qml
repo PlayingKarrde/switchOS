@@ -50,7 +50,7 @@ ListView {
             height: width//vpx(256)
             radius: idx > -3 ? 0 : width
             color: theme.button//"#cccccc"
-            layer.enabled: !selected
+            layer.enabled: !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
             layer.effect: DropShadow {
                 transparentBorder: true
                 horizontalOffset: 0
@@ -69,7 +69,7 @@ ListView {
 
                 anchors.fill: parent
                 anchors.centerIn: parent
-                anchors.margins: idx > -3 ? vpx(30) : vpx(65)
+                anchors.margins: idx > -3 ? vpx(30) : vpx(60)
                 property var logoImage: {
                     if (gameData != null) {
                         if (gameData.collections.get(0).shortName === "retropie")

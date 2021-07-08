@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.12
 
 Rectangle {
     property bool selected: false
-    property int borderwidth: vpx(5)
+    property int borderwidth: idx && idx == -3 ? vpx(7) : vpx(5)
 
     id: hlBorder
     width: parent.width
