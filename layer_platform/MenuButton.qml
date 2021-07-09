@@ -17,17 +17,16 @@ Item {
         //z: 5
         radius:width/2
         color: theme.button
-    }
-
-    DropShadow {
-        id: innerCircleShadow
-        anchors.fill: innerCircle
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 6.0
-        samples: 6
-        color: "#1F000000"
-        source: innerCircle
+        layer.enabled: true
+        layer.effect: DropShadow {
+            transparentBorder: true
+            horizontalOffset: 0
+            verticalOffset: 0
+            color: "#1F000000"
+            radius: 6.0
+            samples: 6
+            z: -2
+        }
     }
 
     Image {
@@ -46,7 +45,7 @@ Item {
     ColorOverlay {
         anchors.fill: menuIcon
         source: menuIcon
-        color: theme.allsoft
+        color: theme.icon
         antialiasing: true
         smooth: true
         cached: true
@@ -58,6 +57,16 @@ Item {
         height: innerCircle.height + borderWidth
         radius:width/2
         color: theme.accent
+        layer.enabled: true
+        layer.effect: DropShadow {
+            transparentBorder: true
+            horizontalOffset: 0
+            verticalOffset: 0
+            color: "#1F000000"
+            radius: 6.0
+            samples: 6
+            z: -2
+        }
         z: -1
 
         x: innerCircle.x - borderWidth/2
@@ -92,7 +101,18 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        onClicked: root.clicked()
+        //onClicked: root.clicked()
+        onClicked: {
+                    if (root.focus)
+                    {
+                        selectSfx.play();
+                        toggleDarkMode();
+                    }
+                    else
+                        root.focus = true;
+                        menuNavSfx.play();
+                        platformSwitcher.currentIndex = -1;
+                }
         hoverEnabled: true
     }
 

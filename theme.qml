@@ -15,16 +15,19 @@ import "Lists"
 FocusScope
 {
     id: root
-    ListLastPlayed  { id: listRecent; max: 12}
+    // number of games that appear on the homescreen, not including the All Software button
+    property int softCount: 12
+
+    ListLastPlayed  { id: listRecent; max: softCount}
     ListLastPlayed  { id: listByLastPlayed}
     ListMostPlayed  { id: listByMostPlayed}
     ListAllGames    { id: listByTitle}
 
-    property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
-    property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int currentCollection: -1 //api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int nextCollection: 0 //api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
     property var softwareList: [listByLastPlayed, listByTitle, listByMostPlayed]
-    property int sortByIndex: 0
+    property int sortByIndex: api.memory.has('sortIndex') ? api.memory.get('sortIndex') : 0
     property string searchtext
 
     onNextCollectionChanged: { changeCollection() }
@@ -75,10 +78,7 @@ FocusScope
     function showHomeScreen()
     {
         platformScreen.focus = true;
-        backSfx.play();
-        /*platformScreen.visible = true;
-        softwareScreen.visible = false;*/
-        //platformScreen.focus = true;
+        homeSfx.play()
     }
 
     function playGame()
@@ -106,6 +106,7 @@ FocusScope
 
     // Launch current game from SoftwareScreen
     function launchSoftware() {
+        api.memory.set('Last Collection', currentCollection);
         softwareList[sortByIndex].currentGame(currentGameIndex).launch();
             //currentGame.launch();
     }
@@ -121,7 +122,7 @@ FocusScope
             highlight: "white",
             text: "#2C2C2C",
             button: "white",
-            allsoft: "#515151"
+            icon: "#7e7e7e"
         }
     }
 
@@ -129,11 +130,11 @@ FocusScope
         return {
             main: "#2D2D2D",
             secondary: "#EBEBEB",
-            accent: "#10AEBE",
+            accent: "#1d9bf3",
             highlight: "black",
             text: "white",
             button: "#515151",
-            allsoft: "white"
+            icon: "white"
         }
     }
 
@@ -221,9 +222,10 @@ FocusScope
         color: theme.main
     }
 
+    //starting collection is set here
     Component.onCompleted: {
         state: "platformscreen"
-        currentCollection = api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+        currentCollection = api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1 
         api.memory.unset('Last Collection');
         homeSfx.play()
     }
@@ -243,11 +245,11 @@ FocusScope
 
     // List specific input
     Keys.onPressed: {
-        // Open collections menu
-        if (api.keys.isFilters(event) && !event.isAutoRepeat) {
+        // disabled
+        /*if (api.keys.isFilters(event) && !event.isAutoRepeat) {
             event.accepted = true;
             toggleDarkMode();
-        }
+        }*/
 
         // Cycle collection forward
         if (api.keys.isNextPage(event) && !event.isAutoRepeat) {
@@ -274,32 +276,6 @@ FocusScope
         }
     }
 
-     // Collection bar
-    Item {
-    id: collectionList
-
-        // Build the collections list but with "All Software" as starting element
-        ListModel {
-        id: collectionsModel
-
-            ListElement { name: "All Software"; shortName: "allgames"; games: "0" }
-
-            Component.onCompleted: {
-                for(var i=0; i<api.collections.count; i++) {
-                    append(createListElement(i));
-                }
-            }
-            
-            function createListElement(i) {
-                return {
-                    name:       api.collections.get(i).name,
-                    shortName:  api.collections.get(i).shortName,
-                    games:      api.collections.get(i).games.count.toString()
-                }
-            }
-        }
-    }
-
     // All Software screen
     SoftwareScreen {
         id: softwareScreen
@@ -315,11 +291,11 @@ FocusScope
 
     //Changes Sort Option
     function cycleSort() {
-        turnOnSfx.play()
         if (sortByIndex < softwareList.length - 1)
             sortByIndex++;
         else
             sortByIndex = 0;
+        api.memory.set('sortIndex', sortByIndex)
     }
 
 
@@ -397,15 +373,40 @@ FocusScope
     }
 
     SoundEffect {
-        id: turnOffSfx
+        id: turnOnSfx
         source: "assets/audio/Turn On.wav"
         volume: 1.0
     }
 
     SoundEffect {
-        id: turnOnSfx
+        id: turnOffSfx
         source: "assets/audio/Turn Off.wav"
         volume: 1.0
     }
+
+    SoundEffect {
+        id: selectSfx
+        source: "assets/audio/This One.wav"
+        volume: 1.0
+    }
+
+      SoundEffect {
+        id: settingsSfx
+        source: "assets/audio/Settings.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: menuNavSfx
+        source: "assets/audio/Tick.wav"
+        volume: 1.0
+    }
+
+    SoundEffect {
+        id: borderSfx
+        source: "assets/audio/Border.wav"
+        volume: 0.25
+    }
+    
 
 }

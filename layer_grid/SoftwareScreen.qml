@@ -10,6 +10,8 @@ FocusScope
 {
 
     property int numcolumns: widescreen ? 6 : 3
+    property int idx: 0
+    // "By Time Last Played" "By Title" "By Total Play Time"
     property var sortTitle: {
         switch (sortByIndex) {
             case 0:
@@ -17,13 +19,11 @@ FocusScope
             case 1:
                 return "By Title";
             case 2:
-                return "By Total Time Played";
+                return "By Total Play Time";
             default:
                 return ""
         }
     }
-    // "By Time Last Played" "By Title" "By Total Time Played"
-    //property var gameData: searchtext ? modelData : listAllRecent.currentGame(idx)
 
     function processButtonArt(buttonModel) {
         var i;
@@ -42,7 +42,7 @@ FocusScope
         anchors {
             left: parent.left; leftMargin: screenmargin
             right: parent.right; rightMargin: screenmargin
-        }        
+        }
 
         Keys.onPressed: {
             if (event.isAutoRepeat)
@@ -172,7 +172,6 @@ FocusScope
                 height: 1
                 color: theme.secondary
             }
-            
 
         }
 
@@ -226,9 +225,9 @@ FocusScope
             cellHeight: cellWidth
             preferredHighlightBegin: Math.round(screenheight*0.1388)
             preferredHighlightEnd: Math.round(screenheight*0.6527)
-            // highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
+            highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
             snapMode: ListView.SnapToItem
-            highlightMoveDuration: 200
+            highlightMoveDuration: 150 //150 is default
 
             
             model: softwareList[sortByIndex].games //api.collections.get(collectionIndex).games
@@ -251,22 +250,31 @@ FocusScope
                         id: screenshot
                         width: parent.width
                         height: parent.height
-                        
                         asynchronous: true
                         //smooth: true
                         source: modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectCrop
-                        
-                    }//*/
+                        layer.enabled: !selected
+                        layer.effect: DropShadow {
+                            transparentBorder: true
+                            horizontalOffset: 0
+                            verticalOffset: 2
+                            color: "#1F000000"
+                            radius: 6.0
+                            samples: 6
+                            z: -2
+                        }
+                    }
 
-                    Rectangle 
+                    //white overlay on screenshot for better logo visibility over screenshot
+                    Rectangle
                     {
                         width: parent.width
                         height: parent.height
                         color: "white"
                         opacity: 0.15
-                        visible: screenshot.source != ""
+                        visible: gamelogo.source != "" && screenshot.source != ""
                     }
 
                     // Logo
@@ -327,6 +335,7 @@ FocusScope
                                 playSoftware();
                             }
                             else
+                                navSound.play();
                                 gameGrid.currentIndex = index
                         }
                     }
@@ -338,14 +347,14 @@ FocusScope
                         id: outerborder
                         width: screenshot.width
                         height: screenshot.height
-                        color: "white"//Utils.getPlatformColor(api.collections.get(collectionIndex).shortName)
+                        color: theme.button//"white"
                         z: -1
 
                         Rectangle
                         {
                             anchors.fill: outerborder
                             anchors.margins: vpx(4)
-                            color: theme.main
+                            color: theme.button
                             z: 7
                         }
 

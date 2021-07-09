@@ -102,7 +102,7 @@ FocusScope
                 id: profileIconShadow
                 anchors.fill: profileIcon
                 horizontalOffset: 0
-                verticalOffset: 0
+                verticalOffset: 2
                 radius: 6.0
                 samples: 6
                 color: "#1F000000"
@@ -170,11 +170,9 @@ FocusScope
             
         }
 
-        // Button menu - disabled for now
-        /*RowLayout {
+        // Button menu
+        RowLayout {
             id: buttonMenu
-
-            property bool selected: buttonMenu.isCurrentItem
             spacing: vpx(22)
 
             anchors {
@@ -185,6 +183,18 @@ FocusScope
             Keys.onUpPressed: {
                 navSound.play();
                 platformSwitcher.focus = true
+                platformSwitcher.currentIndex = platformSwitcher._index
+            }
+
+            Keys.onLeftPressed:{
+                borderSfx.play();
+            }
+            Keys.onRightPressed:{
+                borderSfx.play();
+            }
+
+            Keys.onDownPressed:{
+                borderSfx.play();
             }
             
             x: parent.width/2 - buttonMenu.width/2
@@ -195,33 +205,31 @@ FocusScope
                 label: "Toggle Theme"
                 icon: "../assets/images/navigation/theme.svg"
 
-                onClicked: {
-                    if (focus)
-                    {
-                        toggleDarkMode();
-                    }
-                    else
-                        focus = true;
-                }
-
                 Keys.onPressed: {
                     if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                         event.accepted = true;
+                        selectSfx.play();
                         toggleDarkMode();
                     }
                 }
             }
+            
+            //Disabled until settings screen is built/implemented
             MenuButton {
                 id: systemButton
                 width: vpx(86); height: vpx(86)
                 label: "System Settings"
                 icon: "../assets/images/navigation/Settings.png"
 
-                onClicked: {
-                    focus = true;
-                    platformSwitcher.focus = false;
+                Keys.onPressed: {
+                    if (api.keys.isAccept(event) && !event.isAutoRepeat) {
+                        event.accepted = true;
+                        return;
+                    }
+
                 }
+                visible: false
             }
-        }*/
+        }
     }
 }

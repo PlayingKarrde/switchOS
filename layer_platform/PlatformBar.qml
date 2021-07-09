@@ -9,6 +9,7 @@ import "qrc:/qmlutils" as PegasusUtils
 ListView {
     id: platformLayout
     //anchors.fill: parent
+    property int _index: 0
     spacing: vpx(14)
     orientation: ListView.Horizontal
     
@@ -24,9 +25,6 @@ ListView {
     keyNavigationWraps: true
     
     NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
-
-    //Keys.onLeftPressed: {  decrementCurrentIndex(); navSound.play(); }
-    //Keys.onRightPressed: {  incrementCurrentIndex(); navSound.play();  }
 
     model: gamesListModel
     delegate: platformBarDelegate
@@ -51,8 +49,17 @@ ListView {
             width: idx > -3 ? platformLayout.height : platformLayout.height*0.7//vpx(256)
             height: width//vpx(256)
             radius: idx > -3 ? 0 : width
-            
             color: theme.button//"#cccccc"
+            layer.enabled: !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
+            layer.effect: DropShadow {
+                transparentBorder: true
+                horizontalOffset: 0
+                verticalOffset: 2
+                color: "#1F000000"
+                radius: 6.0
+                samples: 6
+                z: -2
+            }
             
             anchors.verticalCenter: parent.verticalCenter
             
@@ -62,7 +69,7 @@ ListView {
 
                 anchors.fill: parent
                 anchors.centerIn: parent
-                anchors.margins: idx > -3 ? vpx(30) : vpx(65)
+                anchors.margins: idx > -3 ? vpx(30) : vpx(60)
                 property var logoImage: {
                     if (gameData != null) {
                         if (gameData.collections.get(0).shortName === "retropie")
@@ -83,16 +90,16 @@ ListView {
                 smooth: true
                 z: 10
                 visible: idx > -3 ? true : false
-
             }
 
             ColorOverlay {
                 anchors.fill: logo
                 source: logo
-                color: theme.allsoft
+                color: theme.icon
                 antialiasing: true
                 cached: true
             }
+
 
             Text
             {
@@ -106,7 +113,7 @@ ListView {
 
                 anchors.centerIn: parent
                 wrapMode: Text.Wrap
-                visible: false//logo.paintedWidth < 1
+                visible: logo.source == "" && screenshot.source == ""
                 z: 10
             }
 
@@ -121,6 +128,7 @@ ListView {
                 sourceSize { width: 512; height: 512 }
             }
 
+            //white overlay on screenshot for better logo visibility over screenshot
             Rectangle {
                 width: parent.width
                 height: parent.height
@@ -128,7 +136,6 @@ ListView {
                 opacity: 0.15
                 visible: logo.source != "" && screenshot.source != ""
             }
-
 
             MouseArea {
                 anchors.fill: wrapper
@@ -138,7 +145,7 @@ ListView {
                 onClicked: {
                     if (selected)
                     {
-                        if (currentIndex == 12) {
+                        if (currentIndex == softCount) {
                             gotoSoftware();
                         } else {
                             anim.start();
@@ -146,26 +153,41 @@ ListView {
                         }
                     }
                     else
-                        platformLayout.currentIndex = index
+                        navSound.play();
+                        platformSwitcher.currentIndex = index
+                        platformSwitcher.focus = true
+                        buttonMenu.focus = false
+
                 }
             }
 
             Text {
-                id: platformTitle
+                id: topTitle
                 text: idx > -1 ? gameData.title : name
                 color: theme.accent
                 font.family: titleFont.name
-                font.pixelSize: Math.round(screenheight*0.03)
-                elide: Text.ElideRight
+                font.pixelSize: Math.round(screenheight*0.035)
+                font.weight: Font.DemiBold
+                wrapMode: Text.WordWrap
+                //clip: true
+                //elide: Text.ElideRight
 
                 anchors {
                     horizontalCenter: screenshot.horizontalCenter
-                    bottom: screenshot.top; bottomMargin: Math.round(screenheight*0.02)
+                    bottom: screenshot.top; bottomMargin: Math.round(screenheight*0.025)
                 }
 
                 opacity: wrapper.ListView.isCurrentItem ? 1 : 0
                 Behavior on opacity { NumberAnimation { duration: 75 } }
             }
+
+            /*Component.onCompleted: {
+                if (topTitle.paintedWidth > vpx(450)) {
+                    topTitle.width = vpx(450)
+                } else {
+                    topTitle.width = topTitle.paintedWidth
+                }
+            }*/
 
             HighlightBorder
             {
@@ -181,7 +203,6 @@ ListView {
             }
 
         }
-
     }
 
     Keys.onLeftPressed: {
@@ -193,6 +214,17 @@ ListView {
         incrementCurrentIndex();
     }
 
+    Keys.onUpPressed:{
+        borderSfx.play();
+    }
+
+    Keys.onDownPressed: {
+        _index = currentIndex;
+        menuNavSfx.play();
+        themeButton.focus = true
+        platformSwitcher.currentIndex = -1
+    }
+
     function gotoSoftware()
     {
             jumpToCollection(currentCollection);
@@ -200,11 +232,11 @@ ListView {
     }
 
 
-    //Software screen is always at index 12, but would hopefully not exist/be visible if there are less than 12 titles
+    //TODO Software screen is always at index 12, but would hopefully not exist/be visible if there are less than 12 titles
     Keys.onPressed: {
         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
             event.accepted = true;
-            if (currentIndex == 12) {
+            if (currentIndex == softCount) {
                 gotoSoftware();
             } else {
                 anim.start();

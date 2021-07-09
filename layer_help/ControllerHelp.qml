@@ -231,7 +231,7 @@ FocusScope {
       }
     }
 
-    //Theme Button
+    /*//Theme Button
     Image {
       id: button5
       width: Math.round(screenheight*0.04)
@@ -273,15 +273,7 @@ FocusScope {
         rightMargin: vpx(20)
       }
       visible: !showBack
-    }
-
-    MouseArea {
-      anchors.fill: button5Txt
-      hoverEnabled: true
-      onEntered: {}
-      onExited: {}
-      onClicked: toggleDarkMode();
-    }
+    }*/
 
   }//background
 }//root
