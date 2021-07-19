@@ -245,11 +245,15 @@ FocusScope
                     height: width
                     z: selected ? 10 : 0
 
+                    //preference order for Game Tile Backgrounds, tiles always come first due to assumption that it's set manually
                     property var gameBG: {
-                        if (settings.gameBackground == "Screenshot") {
-                            return modelData ? modelData.assets.screenshots[0] || modelData.assets.background || "" : "";
-                        } else {
-                            return modelData ? modelData.assets.background || modelData.assets.screenshots[0] || "" : "";
+                        switch (settings.gameBackground) {
+                            case "Screenshot":
+                                return modelData ? modelData.assets.tile || modelData.assets.screenshots[0] || modelData.assets.background || "" : "";
+                            case "Fanart":
+                                return modelData ? modelData.assets.tile || modelData.assets.tile || modelData.assets.screenshots[0] || "" : "";
+                            default:
+                                return ""
                         }
                     }
 
@@ -303,6 +307,8 @@ FocusScope
                                     return modelData.assets.boxFront;
                                 else if (modelData.collections.get(0).shortName === "steam")
                                     return Utils.logo(modelData) ? Utils.logo(modelData) : "" //root.logo(modelData);
+                                else if (modelData.assets.tile != "")
+                                    return "";
                                 else
                                     return modelData.assets.logo;
                             } else {

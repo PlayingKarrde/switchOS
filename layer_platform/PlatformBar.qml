@@ -76,6 +76,8 @@ ListView {
                             return gameData.assets.boxFront;
                         else if (gameData.collections.get(0).shortName === "steam")
                             return Utils.logo(gameData) ? Utils.logo(gameData) : "" //root.logo(gameData);
+                        else if (gameData.assets.tile != "")
+                            return "";
                         else
                             return gameData.assets.logo;
                     } else {
@@ -83,7 +85,7 @@ ListView {
                     }
                 }
 
-                source: gameData ? logoImage || "" : icon //Utils.logo(gameData)
+                source: gameData ? logoImage : icon //Utils.logo(gameData)
                 sourceSize: Qt.size(parent.width, parent.height)
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
@@ -117,13 +119,17 @@ ListView {
                 z: 10
             }
 
+            //preference order for Game Tile Backgrounds, tiles always come first due to assumption that it's set manually
             property var gameBG: {
-                    if (settings.gameBackground == "Screenshot") {
-                        return gameData ? gameData.assets.screenshots[0] || gameData.assets.background || "" : "";
-                    } else {
-                        return gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "" : "";
-                    }
+                switch (settings.gameBackground) {
+                    case "Screenshot":
+                        return gameData ? gameData.assets.tile || gameData.assets.screenshots[0] || gameData.assets.background || "" : "";
+                    case "Fanart":
+                        return gameData ? gameData.assets.tile || gameData.assets.background || gameData.assets.screenshots[0] || "" : "";
+                    default:
+                        return ""
                 }
+            }
 
             Image {
                 id: gameImage
