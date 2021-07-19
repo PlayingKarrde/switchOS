@@ -75,7 +75,7 @@ ListView {
                         if (gameData.collections.get(0).shortName === "retropie")
                             return gameData.assets.boxFront;
                         else if (gameData.collections.get(0).shortName === "steam")
-                            return gameData.assets.logo ? gameData.assets.logo : "" //root.logo(gameData);
+                            return Utils.logo(gameData) ? Utils.logo(gameData) : "" //root.logo(gameData);
                         else
                             return gameData.assets.logo;
                     } else {
@@ -83,7 +83,7 @@ ListView {
                     }
                 }
 
-                source: gameData ? Utils.logo(gameData) || "" : icon //gameData ? logoImage || "" : "../assets/images/allsoft_icon.svg"
+                source: gameData ? logoImage || "" : icon //Utils.logo(gameData)
                 sourceSize: Qt.size(parent.width, parent.height)
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
@@ -113,17 +113,25 @@ ListView {
 
                 anchors.centerIn: parent
                 wrapMode: Text.Wrap
-                visible: logo.source == "" && screenshot.source == ""
+                visible: logo.source == "" && gameImage.source == ""
                 z: 10
             }
 
+            property var gameBG: {
+                    if (settings.gameBackground == "Screenshot") {
+                        return gameData ? gameData.assets.screenshots[0] || gameData.assets.background || "" : "";
+                    } else {
+                        return gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "" : "";
+                    }
+                }
+
             Image {
-                id: screenshot
+                id: gameImage
                 width: parent.width
                 height: width
                 smooth: true
                 fillMode: Image.PreserveAspectCrop
-                source: gameData ? gameData.assets.screenshots[0] || "" : ""
+                source: gameBG //gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "" : ""
                 asynchronous: true
                 sourceSize { width: 512; height: 512 }
             }
@@ -134,7 +142,7 @@ ListView {
                 height: parent.height
                 color: "white"
                 opacity: 0.15
-                visible: logo.source != "" && screenshot.source != ""
+                visible: logo.source != "" && gameImage.source != ""
             }
 
             MouseArea {
@@ -173,8 +181,8 @@ ListView {
                 //elide: Text.ElideRight
 
                 anchors {
-                    horizontalCenter: screenshot.horizontalCenter
-                    bottom: screenshot.top; bottomMargin: Math.round(screenheight*0.025)
+                    horizontalCenter: gameImage.horizontalCenter
+                    bottom: gameImage.top; bottomMargin: Math.round(screenheight*0.025)
                 }
 
                 opacity: wrapper.ListView.isCurrentItem ? 1 : 0

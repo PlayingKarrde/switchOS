@@ -127,8 +127,11 @@ FocusScope
             {
                 id: sysTime
 
+                //12HR-"h:mmap" 24HR-"hh:mm"
+                property var timeSetting: (settings.timeFormat === "12hr") ? "h:mmap" : "hh:mm";
+
                 function set() {
-                    sysTime.text = Qt.formatTime(new Date(), "h:mmap")
+                    sysTime.text = Qt.formatTime(new Date(), timeSetting) 
                 }
 
                 Timer {
@@ -186,17 +189,10 @@ FocusScope
                 platformSwitcher.currentIndex = platformSwitcher._index
             }
 
-            Keys.onLeftPressed:{
-                borderSfx.play();
-            }
-            Keys.onRightPressed:{
-                borderSfx.play();
-            }
-
             Keys.onDownPressed:{
                 borderSfx.play();
             }
-            
+
             x: parent.width/2 - buttonMenu.width/2
 
             MenuButton {
@@ -212,23 +208,63 @@ FocusScope
                         toggleDarkMode();
                     }
                 }
+
+                Keys.onLeftPressed:{
+                    borderSfx.play();
+                }
+
+                Keys.onRightPressed:{
+                    menuNavSfx.play();
+                    settingsButton.focus = true
+                }
+
+                onClicked: {
+                    if (themeButton.focus)
+                    {
+                        selectSfx.play();
+                        toggleDarkMode();
+                    }
+                    else
+                        themeButton.focus = true;
+                        menuNavSfx.play();
+                        platformSwitcher.currentIndex = -1;
+                }
             }
-            
-            //Disabled until settings screen is built/implemented
+
             MenuButton {
-                id: systemButton
+                id: settingsButton
                 width: vpx(86); height: vpx(86)
-                label: "System Settings"
+                label: "Theme Settings"
                 icon: "../assets/images/navigation/Settings.png"
 
+                //Disabled until settings screen is built/implemented
                 Keys.onPressed: {
                     if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                         event.accepted = true;
-                        return;
+                        showSettingsScreen();
                     }
-
                 }
-                visible: false
+
+                Keys.onLeftPressed:{
+                    menuNavSfx.play();
+                    themeButton.focus = true
+                }
+
+                Keys.onRightPressed:{
+                    borderSfx.play();
+                }
+                onClicked: {
+                    if (settingsButton.focus)
+                    {
+                        selectSfx.play();
+                        showSettingsScreen();
+                    }
+                    else
+                        settingsButton.focus = true;
+                        menuNavSfx.play();
+                        platformSwitcher.currentIndex = -1;
+                }
+                visible: true
             }
         }
     }
