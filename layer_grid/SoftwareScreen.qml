@@ -395,7 +395,7 @@ FocusScope
                         id: titleBubble
                         width: gameTitle.contentWidth + vpx(54)
                         height: Math.round(screenheight*0.0611)
-                        color: "white"
+                        color: theme.button
                         radius: vpx(4)
                         
                         // Need to figure out how to stop it from clipping the margin
@@ -434,9 +434,17 @@ FocusScope
                         source: "../assets/images/triangle.svg"
                         width: vpx(17)
                         height: Math.round(screenheight*0.0152)
-                        opacity: titleBubble.opacity
+                        opacity: 0
                         x: gameImage.width/2 - width/2
                         anchors.bottom: gameImage.top
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: bubbletriangle
+                        source: bubbletriangle
+                        color: theme.button
+                        cached: true
+                        opacity: titleBubble.opacity
                     }
 
                     // Border
