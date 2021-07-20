@@ -251,7 +251,7 @@ FocusScope
                             case "Screenshot":
                                 return modelData ? modelData.assets.tile || modelData.assets.screenshots[0] || modelData.assets.background || "" : "";
                             case "Fanart":
-                                return modelData ? modelData.assets.tile || modelData.assets.tile || modelData.assets.screenshots[0] || "" : "";
+                                return modelData ? modelData.assets.tile || modelData.assets.background || modelData.assets.screenshots[0] || "" : "";
                             default:
                                 return ""
                         }
