@@ -9,12 +9,23 @@ import "qrc:/qmlutils" as PegasusUtils
 import "utils.js" as Utils
 import "layer_platform"
 import "layer_grid"
+import "layer_settings"
 import "layer_help"
 import "Lists"
 
 FocusScope
 {
     id: root
+
+    // Load settings
+    property var settings: {
+        return {
+            gameBackground:     api.memory.has("Game Tile Background") ? api.memory.get("Game Tile Background") : "Screenshot",
+            timeFormat:         api.memory.has("Time Format") ? api.memory.get("Time Format") : "12hr"
+            
+        }
+    }
+
     // number of games that appear on the homescreen, not including the All Software button
     property int softCount: 12
 
@@ -73,6 +84,12 @@ FocusScope
         softwareScreen.visible = true;*/
         softwareScreen.focus = true;
         toSoftware.play();
+    }
+
+    function showSettingsScreen()
+    {
+        settingsScreen.focus = true;
+        settingsSfx.play();
     }
 
     function showHomeScreen()
@@ -157,6 +174,9 @@ FocusScope
             name: "softwarescreen"; when: softwareScreen.focus == true
         },
         State {
+            name: "settingsscreen"; when: settingsScreen.focus == true
+        },
+        State {
             name: "playgame";
         },
         State {
@@ -177,10 +197,28 @@ FocusScope
             }
         },
         Transition {
+            from: "platformscreen"; to: "settingsscreen"
+            SequentialAnimation {
+                PropertyAnimation { target: platformScreen; property: "opacity"; to: 0; duration: 200}
+                PropertyAction { target: platformScreen; property: "visible"; value: false }
+                PropertyAction { target: settingsScreen; property: "visible"; value: true }
+                PropertyAnimation { target: settingsScreen; property: "opacity"; to: 1; duration: 200}
+            }
+        },
+        Transition {
             from: "softwarescreen"; to: "platformscreen"
             SequentialAnimation {
                 PropertyAnimation { target: softwareScreen; property: "opacity"; to: 0; duration: 200}
                 PropertyAction { target: softwareScreen; property: "visible"; value: false }
+                PropertyAction { target: platformScreen; property: "visible"; value: true }
+                PropertyAnimation { target: platformScreen; property: "opacity"; to: 1; duration: 200}
+            }
+        },
+        Transition {
+            from: "settingsscreen"; to: "platformscreen"
+            SequentialAnimation {
+                PropertyAnimation { target: settingsScreen; property: "opacity"; to: 0; duration: 200}
+                PropertyAction { target: settingsScreen; property: "visible"; value: false }
                 PropertyAction { target: platformScreen; property: "visible"; value: true }
                 PropertyAnimation { target: platformScreen; property: "opacity"; to: 1; duration: 200}
             }
@@ -276,6 +314,18 @@ FocusScope
         }
     }
 
+    SettingsScreen {
+        id: settingsScreen
+        opacity: 0
+        visible: false
+        anchors
+        {
+            left: parent.left;// leftMargin: screenmargin
+            right: parent.right;// rightMargin: screenmargin
+            top: parent.top; bottom: helpBar.top
+        }
+    }
+
     // All Software screen
     SoftwareScreen {
         id: softwareScreen
@@ -332,6 +382,7 @@ FocusScope
                 bottom: parent.bottom;
             }
             showBack: !platformScreen.focus
+            showCollControls: !settingsScreen.focus
         }
 
     }

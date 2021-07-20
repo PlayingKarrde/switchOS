@@ -245,14 +245,25 @@ FocusScope
                     height: width
                     z: selected ? 10 : 0
 
+                    //preference order for Game Tile Backgrounds, tiles always come first due to assumption that it's set manually
+                    property var gameBG: {
+                        switch (settings.gameBackground) {
+                            case "Screenshot":
+                                return modelData ? modelData.assets.tile || modelData.assets.screenshots[0] || modelData.assets.background || "" : "";
+                            case "Fanart":
+                                return modelData ? modelData.assets.tile || modelData.assets.tile || modelData.assets.screenshots[0] || "" : "";
+                            default:
+                                return ""
+                        }
+                    }
 
                     Image {
-                        id: screenshot
+                        id: gameImage
                         width: parent.width
                         height: parent.height
                         asynchronous: true
                         //smooth: true
-                        source: modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
+                        source: gameBG//modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectCrop
                         layer.enabled: !selected
@@ -274,15 +285,15 @@ FocusScope
                         height: parent.height
                         color: "white"
                         opacity: 0.15
-                        visible: gamelogo.source != "" && screenshot.source != ""
+                        visible: gamelogo.source != "" && gameImage.source != ""
                     }
 
                     // Logo
                     Image {
                         id: gamelogo
 
-                        width: screenshot.width
-                        height: screenshot.height
+                        width: gameImage.width
+                        height: gameImage.height
                         anchors {
                             fill: parent
                             margins: vpx(6)
@@ -295,7 +306,9 @@ FocusScope
                                 if (modelData.collections.get(0).shortName === "retropie")
                                     return modelData.assets.boxFront;
                                 else if (modelData.collections.get(0).shortName === "steam")
-                                    return modelData.assets.logo ? modelData.assets.logo : "" //root.logo(gameData);
+                                    return Utils.logo(modelData) ? Utils.logo(modelData) : "" //root.logo(modelData);
+                                else if (modelData.assets.tile != "")
+                                    return "";
                                 else
                                     return modelData.assets.logo;
                             } else {
@@ -304,7 +317,7 @@ FocusScope
                         }
 
                         //opacity: 0
-                        source: modelData ? Utils.logo(modelData) || "" : "" //modelData.assets.logo ? modelData.assets.logo : ""
+                        source: modelData ? logoImage || "" : "" //modelData.assets.logo ? modelData.assets.logo : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectFit
                         smooth: true
@@ -324,7 +337,7 @@ FocusScope
                     }*/
 
                     MouseArea {
-                        anchors.fill: screenshot
+                        anchors.fill: gameImage
                         hoverEnabled: true
                         onEntered: {}
                         onExited: {}
@@ -345,8 +358,8 @@ FocusScope
                     
                     Rectangle {
                         id: outerborder
-                        width: screenshot.width
-                        height: screenshot.height
+                        width: gameImage.width
+                        height: gameImage.height
                         color: theme.button//"white"
                         z: -1
 
@@ -387,7 +400,7 @@ FocusScope
                         
                         // Need to figure out how to stop it from clipping the margin
                         // mapFromItem and mapToItem are probably going to help
-                        property int xpos: screenshot.width/2 - width/2
+                        property int xpos: gameImage.width/2 - width/2
                         x: xpos
                         //y: highlightBorder.y//vpx(-63)
                         z: 10 * index
@@ -422,19 +435,19 @@ FocusScope
                         width: vpx(17)
                         height: Math.round(screenheight*0.0152)
                         opacity: titleBubble.opacity
-                        x: screenshot.width/2 - width/2
-                        anchors.bottom: screenshot.top
+                        x: gameImage.width/2 - width/2
+                        anchors.bottom: gameImage.top
                     }
 
                     // Border
                     HighlightBorder
                     {
                         id: highlightBorder
-                        width: screenshot.width + vpx(18)
+                        width: gameImage.width + vpx(18)
                         height: width
 
                         
-                        anchors.centerIn: screenshot
+                        anchors.centerIn: gameImage
                         
                         //x: vpx(-7)
                         //y: vpx(-7)

@@ -101,18 +101,7 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        //onClicked: root.clicked()
-        onClicked: {
-                    if (root.focus)
-                    {
-                        selectSfx.play();
-                        toggleDarkMode();
-                    }
-                    else
-                        root.focus = true;
-                        menuNavSfx.play();
-                        platformSwitcher.currentIndex = -1;
-                }
+        onClicked: root.clicked()
         hoverEnabled: true
     }
 

@@ -3,13 +3,14 @@ import QtGraphicalEffects 1.0
 
 FocusScope {
   id: root
-  property string buttonText1: "Start"
+  property string buttonText1: "OK"
   property string controllerButton1: "A"
   property string buttonText2: "Back"
   property string controllerButton2: "B"
   property string filterText: showBack ? "Sort" : "Theme"
 
   property bool showBack: true
+  property bool showCollControls: true
 
   function processButtonArt(buttonModel) {
     var i;
@@ -127,7 +128,7 @@ FocusScope {
         right: button3Txt.left
         rightMargin: vpx(5)
       }
-      //visible: showBack
+      visible: showCollControls
     }
 
     ColorOverlay {
@@ -135,7 +136,7 @@ FocusScope {
         source: button3
         color: theme.text
         cached: true
-        //visible: showBack
+        visible: showCollControls
     }
 
     Item {
@@ -155,6 +156,7 @@ FocusScope {
         right: showBack ? button2.left : button1.left
         rightMargin: vpx(20)
       }
+      visible: showCollControls
     }
 
     MouseArea {
@@ -185,7 +187,7 @@ FocusScope {
         right: button4Txt.left
         rightMargin: vpx(5)
       }
-      //visible: showBack
+      visible: showCollControls
     }
 
     ColorOverlay {
@@ -193,7 +195,7 @@ FocusScope {
         source: button4
         color: theme.text
         cached: true
-        //visible: showBack
+        visible: showCollControls
     }
 
     Item {
@@ -213,7 +215,7 @@ FocusScope {
         right: button3.left
         rightMargin: vpx(20)
       }
-      //visible: showBack
+      visible: showCollControls
     }
 
     MouseArea {

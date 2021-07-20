@@ -1,4 +1,4 @@
-# skylineOS v0.8
+# skylineOS v0.9
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
@@ -17,6 +17,13 @@ A simple theme that aims to recreate the experience of Nintendo's Switch console
 Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
 ## Version history
+
+v0.9
+
+- Added Settings Screen with the following options:
+  - Switch between Screenshots and Fanart as the first preference for game backgrounds.
+  - Switch time format between 12 and 24 hour formats.
+- tile assets are now pulled for game tiles if set in metadata (Example: assets.tile: {file.path})
 
 v0.8
 
