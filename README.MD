@@ -1,4 +1,4 @@
-# skylineOS v0.9
+# skylineOS v0.9.2
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
@@ -17,6 +17,13 @@ A simple theme that aims to recreate the experience of Nintendo's Switch console
 Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
 ## Version history
+
+v0.9.2
+
+- Added an option to the Settings Screen to set Word Wrap on the hightlight titles of the games (On by default)
+- Fixed the Fanart option so they actually appear on the Software Screen
+- Smoother scrolling on the Software Screen
+- General system stability improvements have been made to enhance the user's experience.
 
 v0.9
 
