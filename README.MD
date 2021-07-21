@@ -24,6 +24,7 @@ v0.9
   - Switch between Screenshots and Fanart as the first preference for game backgrounds.
   - Switch time format between 12 and 24 hour formats.
 - tile assets are now pulled for game tiles if set in metadata (Example: assets.tile: {file.path})
+- General system stability improvements have been made to enhance the user's experience.
 
 v0.8
 
