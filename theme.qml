@@ -21,8 +21,8 @@ FocusScope
     property var settings: {
         return {
             gameBackground:     api.memory.has("Game Tile Background") ? api.memory.get("Game Tile Background") : "Screenshot",
-            timeFormat:         api.memory.has("Time Format") ? api.memory.get("Time Format") : "12hr"
-            
+            timeFormat:         api.memory.has("Time Format") ? api.memory.get("Time Format") : "12hr",
+            wordWrap:           api.memory.has("Word Wrap on Titles") ? api.memory.get("Word Wrap on Titles") : "Yes"
         }
     }
 
@@ -40,6 +40,7 @@ FocusScope
     property var softwareList: [listByLastPlayed, listByTitle, listByMostPlayed]
     property int sortByIndex: api.memory.has('sortIndex') ? api.memory.get('sortIndex') : 0
     property string searchtext
+    property bool wordWrap: (settings.wordWrap === "Yes") ? true : false;
 
     onNextCollectionChanged: { changeCollection() }
 

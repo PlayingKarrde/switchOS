@@ -226,7 +226,7 @@ FocusScope
             preferredHighlightBegin: Math.round(screenheight*0.1388)
             preferredHighlightEnd: Math.round(screenheight*0.6527)
             highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
-            snapMode: ListView.SnapToItem
+            snapMode: ListView.NoSnap
             highlightMoveDuration: 150 //150 is default
 
             
@@ -251,7 +251,7 @@ FocusScope
                             case "Screenshot":
                                 return modelData ? modelData.assets.tile || modelData.assets.screenshots[0] || modelData.assets.background || "" : "";
                             case "Fanart":
-                                return modelData ? modelData.assets.tile || modelData.assets.tile || modelData.assets.screenshots[0] || "" : "";
+                                return modelData ? modelData.assets.tile || modelData.assets.background || modelData.assets.screenshots[0] || "" : "";
                             default:
                                 return ""
                         }
@@ -395,7 +395,7 @@ FocusScope
                         id: titleBubble
                         width: gameTitle.contentWidth + vpx(54)
                         height: Math.round(screenheight*0.0611)
-                        color: "white"
+                        color: theme.button
                         radius: vpx(4)
                         
                         // Need to figure out how to stop it from clipping the margin
@@ -420,10 +420,22 @@ FocusScope
                             font.pixelSize: Math.round(screenheight*0.0222)
                             font.bold: true
                             font.family: titleFont.name
+                            //horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
                             
                             anchors {
                                 verticalCenter: parent.verticalCenter
                                 left: parent.left; leftMargin: vpx(27)
+                            }
+                            
+                        }
+
+                        Component.onCompleted: {
+                            if (wordWrap) {
+                                if (gameTitle.paintedWidth > gameImage.width * 1.75) {
+                                    gameTitle.width = gameImage.width * 1.5 - vpx(54)
+                                    titleBubble.height = titleBubble.height * 1.5
+                                }
                             }
                             
                         }
@@ -434,9 +446,17 @@ FocusScope
                         source: "../assets/images/triangle.svg"
                         width: vpx(17)
                         height: Math.round(screenheight*0.0152)
-                        opacity: titleBubble.opacity
+                        opacity: 0
                         x: gameImage.width/2 - width/2
                         anchors.bottom: gameImage.top
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: bubbletriangle
+                        source: bubbletriangle
+                        color: theme.button
+                        cached: true
+                        opacity: titleBubble.opacity
                     }
 
                     // Border

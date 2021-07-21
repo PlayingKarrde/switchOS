@@ -1,10 +1,6 @@
-# skylineOS v0.9
+# skylineOS v0.9.2
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
-
-![skylineOS Pegasus theme](assets/images/screenshot_bar_end.png)
-
-![skylineOS Pegasus theme](assets/images/screenshot_allsoft.png)
 
 ![skylineOS Pegasus theme](assets/images/screenshot_allsoft_ps1.png)
 
@@ -18,12 +14,20 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 ## Version history
 
+v0.9.2
+
+- Added an option to the Settings Screen to set Word Wrap on the highlight titles of the games (On by default)
+- Fixed the Fanart option so they actually appear on the Software Screen
+- Smoother scrolling on the Software Screen
+- General system stability improvements have been made to enhance the user's experience.
+
 v0.9
 
 - Added Settings Screen with the following options:
   - Switch between Screenshots and Fanart as the first preference for game backgrounds.
   - Switch time format between 12 and 24 hour formats.
 - tile assets are now pulled for game tiles if set in metadata (Example: assets.tile: {file.path})
+- General system stability improvements have been made to enhance the user's experience.
 
 v0.8
 
