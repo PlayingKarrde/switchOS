@@ -20,6 +20,12 @@ FocusScope {
             setting: "12hr,24hr"
         }
 
+        ListElement {
+            settingName: "Word Wrap on Titles"
+            settingSubtitle: "(Requires Reload)"
+            setting: "Yes,No"
+        }
+
     }
 
     property var generalPage: {

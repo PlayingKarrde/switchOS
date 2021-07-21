@@ -420,10 +420,22 @@ FocusScope
                             font.pixelSize: Math.round(screenheight*0.0222)
                             font.bold: true
                             font.family: titleFont.name
+                            //horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
                             
                             anchors {
                                 verticalCenter: parent.verticalCenter
                                 left: parent.left; leftMargin: vpx(27)
+                            }
+                            
+                        }
+
+                        Component.onCompleted: {
+                            if (wordWrap) {
+                                if (gameTitle.paintedWidth > gameImage.width * 1.75) {
+                                    gameTitle.width = gameImage.width * 1.5 - vpx(54)
+                                    titleBubble.height = titleBubble.height * 1.5
+                                }
                             }
                             
                         }

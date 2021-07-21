@@ -182,6 +182,7 @@ ListView {
                 font.family: titleFont.name
                 font.pixelSize: Math.round(screenheight*0.035)
                 font.weight: Font.DemiBold
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 //clip: true
                 //elide: Text.ElideRight
@@ -195,13 +196,13 @@ ListView {
                 Behavior on opacity { NumberAnimation { duration: 75 } }
             }
 
-            /*Component.onCompleted: {
-                if (topTitle.paintedWidth > vpx(450)) {
-                    topTitle.width = vpx(450)
-                } else {
-                    topTitle.width = topTitle.paintedWidth
+            Component.onCompleted: {
+                if (wordWrap) {
+                    if (topTitle.paintedWidth > gameImage.width * 1.75) {
+                        topTitle.width = gameImage.width * 1.5
+                    }
                 }
-            }*/
+            }
 
             HighlightBorder
             {
