@@ -2,10 +2,6 @@
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
-![skylineOS Pegasus theme](assets/images/screenshot_bar_end.png)
-
-![skylineOS Pegasus theme](assets/images/screenshot_allsoft.png)
-
 ![skylineOS Pegasus theme](assets/images/screenshot_allsoft_ps1.png)
 
 ## skylineOS theme for Pegasus Frontend
