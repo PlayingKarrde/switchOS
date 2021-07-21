@@ -16,7 +16,7 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 
 v0.9.2
 
-- Added an option to the Settings Screen to set Word Wrap on the hightlight titles of the games (On by default)
+- Added an option to the Settings Screen to set Word Wrap on the highlight titles of the games (On by default)
 - Fixed the Fanart option so they actually appear on the Software Screen
 - Smoother scrolling on the Software Screen
 - General system stability improvements have been made to enhance the user's experience.
