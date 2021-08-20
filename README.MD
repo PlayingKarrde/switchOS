@@ -1,4 +1,4 @@
-# skylineOS v0.9.2
+# skylineOS v0.9.3
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
@@ -13,6 +13,12 @@ A simple theme that aims to recreate the experience of Nintendo's Switch console
 Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
 ## Version history
+
+v0.9.3
+
+- Disabled the dropshadow on the Software Screen tiles to fix blur
+- Fixed mouse/touch functionality on Settings Screen
+- General system stability improvements have been made to enhance the user's experience.
 
 v0.9.2
 

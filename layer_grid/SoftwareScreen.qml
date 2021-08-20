@@ -266,7 +266,7 @@ FocusScope
                         source: gameBG//modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectCrop
-                        layer.enabled: !selected
+                        layer.enabled: false //FIXME: disabled because it blurs the gameImages. Can't figure out how to get it below the image instead of on top.
                         layer.effect: DropShadow {
                             transparentBorder: true
                             horizontalOffset: 0

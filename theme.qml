@@ -34,8 +34,8 @@ FocusScope
     ListMostPlayed  { id: listByMostPlayed}
     ListAllGames    { id: listByTitle}
 
-    property int currentCollection: -1 //api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
-    property int nextCollection: 0 //api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int currentCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
+    property int nextCollection: api.memory.has('Last Collection') ? api.memory.get('Last Collection') : -1
     property var currentGame
     property var softwareList: [listByLastPlayed, listByTitle, listByMostPlayed]
     property int sortByIndex: api.memory.has('sortIndex') ? api.memory.get('sortIndex') : 0

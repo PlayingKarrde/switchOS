@@ -256,7 +256,6 @@ FocusScope
                 onClicked: {
                     if (settingsButton.focus)
                     {
-                        selectSfx.play();
                         showSettingsScreen();
                     }
                     else

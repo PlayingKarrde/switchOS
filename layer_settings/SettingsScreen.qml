@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.11
 import QtGraphicalEffects 1.0
 
 FocusScope {
-//id: root
+id: root
 
     ListModel {
     id: settingsModel
@@ -12,12 +12,6 @@ FocusScope {
             settingName: "Game Tile Background"
             settingSubtitle: ""
             setting: "Screenshot,Fanart"
-        }
-
-        ListElement {
-            settingName: "Time Format"
-            settingSubtitle: "(Requires Reload)"
-            setting: "12hr,24hr"
         }
 
         ListElement {
@@ -35,7 +29,23 @@ FocusScope {
         }
     }
 
-    property var settingsArr: [generalPage]
+    ListModel {
+        id: homeSettingsModel
+        ListElement {
+            settingName: "Time Format"
+            settingSubtitle: "(Requires Reload)"
+            setting: "12hr,24hr"
+        }
+    }
+
+    property var homePage: {
+        return {
+            pageName: "Home Screen",
+            listmodel: homeSettingsModel
+        }
+    }
+
+    property var settingsArr: [generalPage, homePage]
 
     property real itemheight: vpx(50)
 
@@ -86,7 +96,7 @@ FocusScope {
         }
 
         MouseArea {
-                anchors.fill: headerIcon
+                anchors.fill: parent
                 hoverEnabled: true
                 onEntered: {}
                 onExited: {}
@@ -126,7 +136,7 @@ FocusScope {
 
                 // Page name
                 Text {
-                id: oageNameText
+                id: pageNameText
                 
                     text: modelData.pageName
                     color: theme.text
@@ -146,10 +156,10 @@ FocusScope {
                 // Mouse/touch functionality
                 MouseArea {
                     anchors.fill: parent
-                    hoverEnabled: false
+                    hoverEnabled: true
                     onEntered: { menuNavSfx.play(); }
                     onClicked: {
-                        selectSfx.play();
+                        //menuNavSfx.play();
                         pagelist.currentIndex = index;
                         settingsList.focus = true;
                     }
@@ -318,14 +328,15 @@ FocusScope {
                 // Mouse/touch functionality
                 MouseArea {
                     anchors.fill: parent
-                    //hoverEnabled: false
+                    hoverEnabled: false //settings.MouseHover == "Yes"
                     onEntered: { menuNavSfx.play(); }
                     onClicked: {
-                        sfxToggle.play();
-                        if(selected){ 
+                        if(selected){
+                            selectSfx.play();
                             nextSetting();
                             saveSetting();
                         } else {
+                            //menuNavSfx.play();
                             settingsList.focus = true;
                             settingsList.currentIndex = index;
                         }
