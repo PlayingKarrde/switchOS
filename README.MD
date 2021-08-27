@@ -1,20 +1,24 @@
-# skylineOS v0.9.3
+
+# skylineOS v0.9.4
+
+A clean and simple theme that aims to recreate the experience of Nintendo's Switch console. skylineOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/) forked from switchOS.
 
 ![skylineOS Pegasus theme](assets/images/screenshot_bar_start.png)
 
 ![skylineOS Pegasus theme](assets/images/screenshot_allsoft_ps1.png)
 
-## skylineOS theme for Pegasus Frontend
-
-A simple theme that aims to recreate the experience of Nintendo's Switch console. skylineOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/) forked from switchOS.
-
 ## Installation
 
 Simply download the theme and place it in your [Pegasus theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes/) under a folder called skylineOS.
 
-
 See [wiki](https://github.com/RBertoCases/skylineOS/wiki) for more information.
+
 ## Version history
+
+v0.9.4
+
+- Increased MouseArea for the Sort Button on the Software Screen
+- General system stability improvements have been made to enhance the user's experience.
 
 v0.9.3
 

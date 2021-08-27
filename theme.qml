@@ -321,8 +321,8 @@ FocusScope
         visible: false
         anchors
         {
-            left: parent.left;// leftMargin: screenmargin
-            right: parent.right;// rightMargin: screenmargin
+            left: parent.left; leftMargin: screenmargin
+            right: parent.right; rightMargin: screenmargin
             top: parent.top; bottom: helpBar.top
         }
     }
@@ -342,6 +342,7 @@ FocusScope
 
     //Changes Sort Option
     function cycleSort() {
+        selectSfx.play();
         if (sortByIndex < softwareList.length - 1)
             sortByIndex++;
         else
