@@ -1,5 +1,4 @@
-
-# skylineOS v0.9.4
+# skylineOS v0.10
 
 A clean and simple theme that aims to recreate the experience of Nintendo's Switch console. skylineOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/) forked from switchOS.
 
@@ -15,43 +14,52 @@ See [wiki](https://github.com/RBertoCases/skylineOS/wiki) for more information.
 
 ## Version history
 
+v0.10
+
+- Added a battery indicator on the Home Screen along with a setting for displaying the Percentage
+- Added a Performance setting for disabling Drop Shadows
+- Box art will now be used a last preference for Game Backgrounds
+- Fixed a bug causing major lag on RetroPie (tested on Raspberry Pi 4)
+- General system stability improvements have been made to enhance the user's experience
+
 v0.9.4
 
 - Increased MouseArea for the Sort Button on the Software Screen
-- General system stability improvements have been made to enhance the user's experience.
+- General system stability improvements have been made to enhance the user's experience
 
 v0.9.3
 
 - Disabled the dropshadow on the Software Screen tiles to fix blur
 - Fixed mouse/touch functionality on Settings Screen
-- General system stability improvements have been made to enhance the user's experience.
+- General system stability improvements have been made to enhance the user's experience
+
 
 v0.9.2
 
 - Added an option to the Settings Screen to set Word Wrap on the highlight titles of the games (On by default)
 - Fixed the Fanart option so they actually appear on the Software Screen
 - Smoother scrolling on the Software Screen
-- General system stability improvements have been made to enhance the user's experience.
+- General system stability improvements have been made to enhance the user's experience
 
 v0.9
 
 - Added Settings Screen with the following options:
-  - Switch between Screenshots and Fanart as the first preference for game backgrounds.
-  - Switch time format between 12 and 24 hour formats.
+  - Switch between Screenshots and Fanart as the first preference for game backgrounds
+  - Switch time format between 12 and 24 hour formats
 - tile assets are now pulled for game tiles if set in metadata (Example: assets.tile: {file.path})
-- General system stability improvements have been made to enhance the user's experience.
+- General system stability improvements have been made to enhance the user's experience
 
 v0.8
 
-- Moved the Toggle Theme functionality to a menu button on the Home Screen.
-- The selected Sort Option on the Software Screen is now saved.
-- Made visual and audio adjustments including adding drop shadows and new sound effects.
-- General system stability improvements have been made to enhance the user's experience.
+- Moved the Toggle Theme functionality to a menu button on the Home Screen
+- The selected Sort Option on the Software Screen is now saved
+- Made visual and audio adjustments including adding drop shadows and new sound effects
+- General system stability improvements have been made to enhance the user's experience
 
 v0.7
 
-- Smoother scrolling on the Software Screen. @timbiscuits
-- Made the Sort, Theme, Prev & Next Collections button prompts clickable for better accessibility.
+- Smoother scrolling on the Software Screen @timbiscuits
+- Made the Sort, Theme, Prev & Next Collections button prompts clickable for better accessibility
 - Behavior change on the game tiles: Now if you have a screenshot, but no logo, game title text does do not appear in the tile. This is useful if you want to set custom artwork as the screenshot that already includes a logo
 
 v0.6

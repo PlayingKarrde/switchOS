@@ -9,7 +9,7 @@ id: root
     id: settingsModel
 
         ListElement {
-            settingName: "Game Tile Background"
+            settingName: "Game Background"
             settingSubtitle: ""
             setting: "Screenshot,Fanart"
         }
@@ -33,8 +33,13 @@ id: root
         id: homeSettingsModel
         ListElement {
             settingName: "Time Format"
-            settingSubtitle: "(Requires Reload)"
+            settingSubtitle: ""
             setting: "12hr,24hr"
+        }
+        ListElement {
+            settingName: "Display Battery Percentage"
+            settingSubtitle: "(%)"
+            setting: "No,Yes"
         }
     }
 
@@ -45,7 +50,23 @@ id: root
         }
     }
 
-    property var settingsArr: [generalPage, homePage]
+    ListModel {
+        id: perfSettingsModel
+        ListElement {
+            settingName: "Enable DropShadows"
+            settingSubtitle: ""
+            setting: "Yes, No"
+        }
+    }
+
+    property var performancePage: {
+        return {
+            pageName: "Performance",
+            listmodel: perfSettingsModel
+        }
+    }
+
+    property var settingsArr: [generalPage, homePage, performancePage]
 
     property real itemheight: vpx(50)
 
@@ -65,8 +86,8 @@ id: root
             width: Math.round(screenheight*0.0611)
             height: width
             source: "../assets/images/navigation/Settings.png"
-            sourceSize.width: vpx(128)
-            sourceSize.height: vpx(128)
+            sourceSize.width: vpx(64)
+            sourceSize.height: vpx(64)
 
             anchors {
                 top: parent.top; topMargin: Math.round(screenheight*0.0416)
@@ -97,7 +118,7 @@ id: root
 
         MouseArea {
                 anchors.fill: parent
-                hoverEnabled: true
+                hoverEnabled: false
                 onEntered: {}
                 onExited: {}
                 onClicked: showHomeScreen();
@@ -156,10 +177,10 @@ id: root
                 // Mouse/touch functionality
                 MouseArea {
                     anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: { menuNavSfx.play(); }
+                    hoverEnabled: false
+                    onEntered: { /*navSound.play();*/}
                     onClicked: {
-                        //menuNavSfx.play();
+                        navSound.play();
                         pagelist.currentIndex = index;
                         settingsList.focus = true;
                     }
@@ -168,13 +189,13 @@ id: root
             }
         } 
 
-        Keys.onUpPressed: { menuNavSfx.play(); decrementCurrentIndex() }
-        Keys.onDownPressed: { menuNavSfx.play(); incrementCurrentIndex() }
+        Keys.onUpPressed: { navSound.play(); decrementCurrentIndex() }
+        Keys.onDownPressed: { navSound.play(); incrementCurrentIndex() }
         Keys.onPressed: {
             // Accept
             if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                 event.accepted = true;
-                selectSfx.play();
+                navSound.play();
                 settingsList.focus = true;
             }
             // Back
@@ -216,7 +237,7 @@ id: root
         preferredHighlightEnd: settingsList.height / 2
         highlightRangeMode: ListView.ApplyRange
         highlightMoveDuration: 100
-        clip: true
+        clip: false
 
         Component {
         id: settingsDelegate
@@ -272,7 +293,7 @@ id: root
                 id: settingtext; 
                 
                     text: settingList[savedIndex]; 
-                    color: theme.text
+                    color: theme.accent
                     //font.family: subtitleFont.name
                     font.pixelSize: vpx(20)
                     verticalAlignment: Text.AlignVCenter
@@ -320,7 +341,7 @@ id: root
                     // Back
                     if (api.keys.isCancel(event) && !event.isAutoRepeat) {
                         event.accepted = true;
-                        menuNavSfx.play()
+                        navSound.play()
                         pagelist.focus = true;
                     }
                 }
@@ -329,14 +350,14 @@ id: root
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: false //settings.MouseHover == "Yes"
-                    onEntered: { menuNavSfx.play(); }
+                    onEntered: { /*navSound.play();*/ }
                     onClicked: {
                         if(selected){
                             selectSfx.play();
                             nextSetting();
                             saveSetting();
                         } else {
-                            //menuNavSfx.play();
+                            navSound.play();
                             settingsList.focus = true;
                             settingsList.currentIndex = index;
                         }
@@ -345,8 +366,8 @@ id: root
             }
         } 
 
-        Keys.onUpPressed: { menuNavSfx.play(); decrementCurrentIndex() }
-        Keys.onDownPressed: { menuNavSfx.play(); incrementCurrentIndex() }
+        Keys.onUpPressed: { navSound.play(); decrementCurrentIndex() }
+        Keys.onDownPressed: { navSound.play(); incrementCurrentIndex() }
     }
 
 }

@@ -17,7 +17,7 @@ Item {
         //z: 5
         radius:width/2
         color: theme.button
-        layer.enabled: true
+        layer.enabled: enableDropShadows
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 0
@@ -57,7 +57,7 @@ Item {
         height: innerCircle.height + borderWidth
         radius:width/2
         color: theme.accent
-        layer.enabled: true
+        layer.enabled: enableDropShadows
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 0

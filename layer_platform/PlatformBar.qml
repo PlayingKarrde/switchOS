@@ -1,4 +1,4 @@
-import QtQuick 2.8
+import QtQuick 2.15
 import QtGraphicalEffects 1.12
 import "../global"
 import "../Lists"
@@ -50,7 +50,7 @@ ListView {
             height: width//vpx(256)
             radius: idx > -3 ? 0 : width
             color: theme.button//"#cccccc"
-            layer.enabled: !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
+            layer.enabled: enableDropShadows && !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
             layer.effect: DropShadow {
                 transparentBorder: true
                 horizontalOffset: 0
@@ -62,7 +62,7 @@ ListView {
             }
             
             anchors.verticalCenter: parent.verticalCenter
-            
+
 
             Image {
                 id: logo
@@ -73,7 +73,7 @@ ListView {
                 property var logoImage: {
                     if (gameData != null) {
                         if (gameData.collections.get(0).shortName === "retropie")
-                            return gameData.assets.boxFront;
+                            return "";//gameData.assets.boxFront;
                         else if (gameData.collections.get(0).shortName === "steam")
                             return Utils.logo(gameData) ? Utils.logo(gameData) : "" //root.logo(gameData);
                         else if (gameData.assets.tile != "")
@@ -91,7 +91,7 @@ ListView {
                 asynchronous: true
                 smooth: true
                 z: 10
-                visible: idx > -3 ? true : false
+                visible: idx > -3 && !(gameBG == gameData.assets.boxFront) ? true : false //idx > -3 ? true : false
             }
 
             ColorOverlay {
@@ -119,13 +119,13 @@ ListView {
                 z: 10
             }
 
-            //preference order for Game Tile Backgrounds, tiles always come first due to assumption that it's set manually
+            //preference order for Game Backgrounds, tiles always come first due to assumption that it's set manually
             property var gameBG: {
                 switch (settings.gameBackground) {
                     case "Screenshot":
-                        return gameData ? gameData.assets.tile || gameData.assets.screenshots[0] || gameData.assets.background || "" : "";
+                        return gameData ? gameData.assets.tile || gameData.assets.screenshots[0] || gameData.assets.background || gameData.assets.boxFront || "" : "";
                     case "Fanart":
-                        return gameData ? gameData.assets.tile || gameData.assets.background || gameData.assets.screenshots[0] || "" : "";
+                        return gameData ? gameData.assets.tile || gameData.assets.background || gameData.assets.screenshots[0] || gameData.assets.boxFront || "" : "";
                     default:
                         return ""
                 }
@@ -136,7 +136,7 @@ ListView {
                 width: parent.width
                 height: width
                 smooth: true
-                fillMode: Image.PreserveAspectCrop
+                fillMode: (gameBG == gameData.assets.boxFront) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
                 source: gameBG //gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "" : ""
                 asynchronous: true
                 sourceSize { width: 512; height: 512 }
@@ -198,7 +198,7 @@ ListView {
 
             Component.onCompleted: {
                 if (wordWrap) {
-                    if (topTitle.paintedWidth > gameImage.width * 1.75) {
+                    if (topTitle.paintedWidth > gameImage.width * 1.70) {
                         topTitle.width = gameImage.width * 1.5
                     }
                 }
@@ -235,7 +235,7 @@ ListView {
 
     Keys.onDownPressed: {
         _index = currentIndex;
-        menuNavSfx.play();
+        navSound.play();
         themeButton.focus = true
         platformSwitcher.currentIndex = -1
     }

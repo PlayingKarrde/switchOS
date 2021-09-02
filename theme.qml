@@ -20,9 +20,11 @@ FocusScope
     // Load settings
     property var settings: {
         return {
-            gameBackground:     api.memory.has("Game Tile Background") ? api.memory.get("Game Tile Background") : "Screenshot",
-            timeFormat:         api.memory.has("Time Format") ? api.memory.get("Time Format") : "12hr",
-            wordWrap:           api.memory.has("Word Wrap on Titles") ? api.memory.get("Word Wrap on Titles") : "Yes"
+            gameBackground:         api.memory.has("Game Background") ? api.memory.get("Game Background") : "Screenshot",
+            timeFormat:             api.memory.has("Time Format") ? api.memory.get("Time Format") : "12hr",
+            wordWrap:               api.memory.has("Word Wrap on Titles") ? api.memory.get("Word Wrap on Titles") : "Yes",
+            batteryPercentSetting:  api.memory.has("Display Battery Percentage") ? api.memory.get("Display Battery Percentage") : "No",
+            enableDropShadows:      api.memory.has("Enable DropShadows") ? api.memory.get("Enable DropShadows") : "Yes"
         }
     }
 
@@ -41,6 +43,8 @@ FocusScope
     property int sortByIndex: api.memory.has('sortIndex') ? api.memory.get('sortIndex') : 0
     property string searchtext
     property bool wordWrap: (settings.wordWrap === "Yes") ? true : false;
+    property bool showPercent: (settings.batteryPercentSetting === "Yes") ? true : false;
+    property bool enableDropShadows: (settings.enableDropShadows === "Yes") ? true: false; 
 
     onNextCollectionChanged: { changeCollection() }
 
@@ -130,7 +134,7 @@ FocusScope
     }
 
     // Theme settings
-    FontLoader { id: titleFont; source: "fonts/Nintendo_Switch_UI_Font.ttf" }
+    FontLoader { id: titleFont; source: "assets/fonts/Nintendo_Switch_UI_Font.ttf" }
 
     property var themeLight: {
         return {
@@ -449,11 +453,12 @@ FocusScope
         volume: 1.0
     }
 
-    SoundEffect {
+    /* This sound effect is broken on RetroPie on Raspberry Pi 4. Reason unknown.
+    SoundEffect {  
         id: menuNavSfx
         source: "assets/audio/Tick.wav"
         volume: 1.0
-    }
+    }*/
 
     SoundEffect {
         id: borderSfx

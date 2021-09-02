@@ -10,7 +10,7 @@ Rectangle {
     height: parent.height
     color: theme.accent
     radius: idx && idx == -3 ? width : vpx(3)
-    layer.enabled: true
+    layer.enabled: enableDropShadows
     layer.effect: DropShadow {
         transparentBorder: true
         horizontalOffset: 0

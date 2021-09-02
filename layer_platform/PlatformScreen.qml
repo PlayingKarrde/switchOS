@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.11
 import "../utils.js" as Utils
@@ -64,11 +64,8 @@ FocusScope
         id: platformScreenContainer
         width: parent.width
         height: parent.height
-        
 
-        /*onVisibleChanged: {
-            platformSwitcher.focus = true;
-        }*/
+        property var batteryStatus: isNaN(api.device.batteryPercent) ? "" : parseInt(api.device.batteryPercent*100);
 
         Item {
         id: topbar
@@ -98,16 +95,16 @@ FocusScope
                 antialiasing: true
             }
 
-            DropShadow {
-                id: profileIconShadow
-                anchors.fill: profileIcon
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 6.0
-                samples: 6
-                color: "#1F000000"
-                source: profileIcon
-            }
+            // DropShadow {
+            //     id: profileIconShadow
+            //     anchors.fill: profileIcon
+            //     horizontalOffset: 0
+            //     verticalOffset: 2
+            //     radius: 6.0
+            //     samples: 6
+            //     color: "#1F000000"
+            //     source: profileIcon
+            // }
 
             Text
                 {
@@ -122,38 +119,123 @@ FocusScope
                         left: profileIcon.right; leftMargin: vpx(12)
                     }
                 }
-
-            Text
-            {
-                id: sysTime
-
-                //12HR-"h:mmap" 24HR-"hh:mm"
-                property var timeSetting: (settings.timeFormat === "12hr") ? "h:mmap" : "hh:mm";
-
-                function set() {
-                    sysTime.text = Qt.formatTime(new Date(), timeSetting) 
-                }
-
-                Timer {
-                    id: textTimer
-                    interval: 60000 // Run the timer every minute
-                    repeat: true
-                    running: true
-                    triggeredOnStart: true
-                    onTriggered: sysTime.set()
-                }
-
+            
+            RowLayout {
+                spacing: vpx(15)
                 anchors {
-                    verticalCenter: profileIcon.verticalCenter;
-                    right: parent.right
+                        verticalCenter: profileIcon.verticalCenter;
+                        right: parent.right; rightMargin: vpx(15)
+                    }
+                Text
+                {
+                    id: sysTime
+
+                    //12HR-"h:mmap" 24HR-"hh:mm"
+                    property var timeSetting: (settings.timeFormat === "12hr") ? "h:mmap" : "hh:mm";
+
+                    function set() {
+                        sysTime.text = Qt.formatTime(new Date(), timeSetting) 
+                    }
+
+                    Timer {
+                        id: textTimer
+                        interval: 60000 // Run the timer every minute
+                        repeat: true
+                        running: true
+                        triggeredOnStart: true
+                        onTriggered: sysTime.set()
+                    }
+
+                    onTimeSettingChanged: sysTime.set()
+
+                    // anchors {
+                    //     verticalCenter: profileIcon.verticalCenter;
+                    //     right: parent.right; rightMargin: vpx(15)
+                    // }
+                    color: theme.text
+                    font.family: titleFont.name
+                    font.weight: Font.Bold
+                    font.letterSpacing: 4
+                    font.pixelSize: Math.round(screenheight*0.0277)
+                    horizontalAlignment: Text.Right
+                    font.capitalization: Font.SmallCaps
                 }
-                color: theme.text
-                font.family: titleFont.name
-                font.weight: Font.Bold
-                font.letterSpacing: 4
-                font.pixelSize: Math.round(screenheight*0.0277)
-                horizontalAlignment: Text.Right
-                font.capitalization: Font.SmallCaps
+                Row{
+                    spacing: vpx(5)
+
+                    Text {
+                        id: batteryPercentage
+
+                        function set() {
+                            batteryPercentage.text = platformScreenContainer.batteryStatus+"%";
+                        }
+
+                        Timer {
+                            id: percentTimer
+                            interval: 60000 // Run the timer every minute
+                            repeat: isNaN(api.device.batteryPercent) ? "" : showPercent
+                            running: isNaN(api.device.batteryPercent) ? "" : showPercent
+                            triggeredOnStart: isNaN(api.device.batteryPercent) ? "" : showPercent
+                            onTriggered: batteryPercentage.set()
+                        }
+
+                        // anchors {
+                        //     verticalCenter: profileIcon.verticalCenter;
+                        //     //left: sysTime.right;
+                        //     right: parent.right; rightMargin: vpx(5)
+                        // }
+
+                        color: theme.text
+                        font.family: titleFont.name
+                        font.weight: Font.Bold
+                        font.letterSpacing: 1
+                        font.pixelSize: Math.round(screenheight*0.0277)
+                        horizontalAlignment: Text.Right
+                        Component.onCompleted: font.capitalization = Font.SmallCaps
+                        //font.capitalization: Font.SmallCaps
+                        visible: isNaN(api.device.batteryPercent) ? "" : showPercent
+                    }
+
+                    BatteryIcon{
+                        id: batteryIcon
+                        width: height * 2
+                        height: sysTime.paintedHeight
+                        layer.enabled: true
+                        layer.effect: ColorOverlay {
+                            color: theme.text
+                            antialiasing: true
+                            cached: true
+                        }
+
+                        function set() {
+                            batteryIcon.level = platformScreenContainer.batteryStatus;
+                        }
+
+                        Timer {
+                            id: iconTimer
+                            interval: 60000 // Run the timer every minute
+                            repeat: true
+                            running: true
+                            triggeredOnStart: true
+                            onTriggered: batteryIcon.set()
+                        }
+
+                        // anchors {
+                        //     verticalCenter: profileIcon.verticalCenter;
+                        //     right: parent.right;
+                        // }
+
+                        visible: isNaN(api.device.batteryPercent) ? false : true
+                    }
+                }
+                // ColorOverlay {
+                //     Layout.alignment: batteryIcon
+                //     source: batteryIcon
+                //     color: theme.text
+                //     antialiasing: true
+                //     cached: true
+                //     visible: true
+                // }
             }
         }
 
@@ -214,7 +296,7 @@ FocusScope
                 }
 
                 Keys.onRightPressed:{
-                    menuNavSfx.play();
+                    navSound.play();
                     settingsButton.focus = true
                 }
 
@@ -226,7 +308,7 @@ FocusScope
                     }
                     else
                         themeButton.focus = true;
-                        menuNavSfx.play();
+                        navSound.play();
                         platformSwitcher.currentIndex = -1;
                 }
             }
@@ -246,7 +328,7 @@ FocusScope
                 }
 
                 Keys.onLeftPressed:{
-                    menuNavSfx.play();
+                    navSound.play();
                     themeButton.focus = true
                 }
 
@@ -260,7 +342,7 @@ FocusScope
                     }
                     else
                         settingsButton.focus = true;
-                        menuNavSfx.play();
+                        navSound.play();
                         platformSwitcher.currentIndex = -1;
                 }
                 visible: true

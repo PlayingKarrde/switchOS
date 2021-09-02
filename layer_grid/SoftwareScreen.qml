@@ -1,4 +1,4 @@
-import QtQuick 2.8
+import QtQuick 2.15
 import QtGraphicalEffects 1.0
 import "../global"
 import "../Lists"
@@ -289,13 +289,13 @@ FocusScope
                     height: width
                     z: selected ? 10 : 0
 
-                    //preference order for Game Tile Backgrounds, tiles always come first due to assumption that it's set manually
+                    //preference order for Game Backgrounds, tiles always come first due to assumption that it's set manually
                     property var gameBG: {
                         switch (settings.gameBackground) {
                             case "Screenshot":
-                                return modelData ? modelData.assets.tile || modelData.assets.screenshots[0] || modelData.assets.background || "" : "";
+                                return modelData ? modelData.assets.tile || modelData.assets.screenshots[0] || modelData.assets.background || modelData.assets.boxFront || "" : "";
                             case "Fanart":
-                                return modelData ? modelData.assets.tile || modelData.assets.background || modelData.assets.screenshots[0] || "" : "";
+                                return modelData ? modelData.assets.tile || modelData.assets.background || modelData.assets.screenshots[0] || modelData.assets.boxFront || "" : "";
                             default:
                                 return ""
                         }
@@ -306,10 +306,10 @@ FocusScope
                         width: parent.width
                         height: parent.height
                         asynchronous: true
-                        //smooth: true
+                        //smooth: false
                         source: gameBG//modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
                         sourceSize { width: 256; height: 256 }
-                        fillMode: Image.PreserveAspectCrop
+                        fillMode: (gameBG == modelData.assets.boxFront) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
                         layer.enabled: false //FIXME: disabled because it blurs the gameImages. Can't figure out how to get it below the image instead of on top.
                         layer.effect: DropShadow {
                             transparentBorder: true
@@ -329,12 +329,12 @@ FocusScope
                         height: parent.height
                         color: "white"
                         opacity: 0.15
-                        visible: gamelogo.source != "" && gameImage.source != ""
+                        visible: logo.source != "" && gameImage.source != ""
                     }
 
                     // Logo
                     Image {
-                        id: gamelogo
+                        id: logo
 
                         width: gameImage.width
                         height: gameImage.height
@@ -348,7 +348,7 @@ FocusScope
                         property var logoImage: {
                             if (modelData != null) {
                                 if (modelData.collections.get(0).shortName === "retropie")
-                                    return modelData.assets.boxFront;
+                                    return "";//modelData.assets.boxFront;
                                 else if (modelData.collections.get(0).shortName === "steam")
                                     return Utils.logo(modelData) ? Utils.logo(modelData) : "" //root.logo(modelData);
                                 else if (modelData.assets.tile != "")
@@ -365,19 +365,19 @@ FocusScope
                         sourceSize { width: 256; height: 256 }
                         fillMode: Image.PreserveAspectFit
                         smooth: true
-                        visible: modelData.assets.logo ? modelData.assets.logo : ""
+                        visible: modelData.assets.logo && gameBG != modelData.assets.boxFront ? true : false
                         z:8
                     }
 
                     /*DropShadow {
                         id: logoshadow
-                        anchors.fill: gamelogo
+                        anchors.fill: logo
                         horizontalOffset: 0
                         verticalOffset: 2
                         radius: 4.0
                         samples: 6
                         color: "#80000000"
-                        source: gamelogo
+                        source: logo
                     }*/
 
                     MouseArea {
@@ -422,13 +422,13 @@ FocusScope
                             width: parent.width - vpx(16)
                             height: parent.height
                             font.family: titleFont.name
-                            color: theme.text//"white"
+                            color: theme.text
                             font.pixelSize: Math.round(screenheight*0.0194)
                             font.bold: true
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             wrapMode: Text.Wrap
-                            visible: !modelData.assets.logo
+                            visible: logo.source == "" && gameImage.source == ""//!modelData.assets.logo
                             z: 10
                         }
                     }
