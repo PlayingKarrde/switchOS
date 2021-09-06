@@ -306,7 +306,7 @@ FocusScope
                         width: parent.width
                         height: parent.height
                         asynchronous: true
-                        //smooth: false
+                        smooth: true
                         source: gameBG//modelData.assets.screenshots[0] ? modelData.assets.screenshots[0] : ""
                         sourceSize { width: 256; height: 256 }
                         fillMode: (gameBG == modelData.assets.boxFront) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
