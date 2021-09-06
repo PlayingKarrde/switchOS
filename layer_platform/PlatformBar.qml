@@ -50,7 +50,7 @@ ListView {
             height: width//vpx(256)
             radius: idx > -3 ? 0 : width
             color: theme.button//"#cccccc"
-            layer.enabled: enableDropShadows && !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
+            layer.enabled: false//enableDropShadows && !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
             layer.effect: DropShadow {
                 transparentBorder: true
                 horizontalOffset: 0

@@ -17,7 +17,7 @@ Item {
         //z: 5
         radius:width/2
         color: theme.button
-        layer.enabled: enableDropShadows
+        layer.enabled: false//enableDropShadows
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 0
