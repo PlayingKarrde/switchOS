@@ -46,77 +46,32 @@ ListView {
                 currentScreenID = idx;
             }
 
-            width: idx > -3 ? platformLayout.height : platformLayout.height*0.7//vpx(256)
-            height: width//vpx(256)
-            radius: idx > -3 ? 0 : width
-            color: theme.button//"#cccccc"
-            layer.enabled: false//enableDropShadows && !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
-            layer.effect: DropShadow {
-                transparentBorder: true
-                horizontalOffset: 0
-                verticalOffset: 2
-                color: "#1F000000"
-                radius: 6.0
-                samples: 6
-                z: -2
-            }
-            
+            width: platformLayout.height//isGame ? platformLayout.height : platformLayout.height*0.7
+            height: width
+            color: "transparent"
+
             anchors.verticalCenter: parent.verticalCenter
 
-
-            Image {
-                id: logo
-
-                anchors.fill: parent
-                anchors.centerIn: parent
-                anchors.margins: idx > -3 ? vpx(30) : vpx(60)
-                property var logoImage: {
-                    if (gameData != null) {
-                        if (gameData.collections.get(0).shortName === "retropie")
-                            return "";//gameData.assets.boxFront;
-                        else if (gameData.collections.get(0).shortName === "steam")
-                            return Utils.logo(gameData) ? Utils.logo(gameData) : "" //root.logo(gameData);
-                        else if (gameData.assets.tile != "")
-                            return "";
-                        else
-                            return gameData.assets.logo;
-                    } else {
-                        return ""
-                    }
+            Rectangle{
+                id: background
+                width: isGame ? platformLayout.height : platformLayout.height*0.7
+                height: width
+                radius: isGame ? 0 : width
+                opacity: 1
+                color: theme.button
+                layer.enabled: false//enableDropShadows && !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
+                layer.effect: DropShadow {
+                    transparentBorder: true
+                    horizontalOffset: 0
+                    verticalOffset: 2
+                    color: "#1F000000"
+                    radius: 6.0
+                    samples: 6
+                    z: -2
                 }
-
-                source: gameData ? logoImage : icon //Utils.logo(gameData)
-                sourceSize: Qt.size(parent.width, parent.height)
-                fillMode: Image.PreserveAspectFit
-                asynchronous: true
-                smooth: true
-                z: 10
-                visible: idx > -3 && !(gameBG == gameData.assets.boxFront) ? true : false //idx > -3 ? true : false
-            }
-
-            ColorOverlay {
-                anchors.fill: logo
-                source: logo
-                color: theme.icon
-                antialiasing: true
-                cached: true
-            }
-
-
-            Text
-            {
-                text: idx > -1 ? gameData.title : name
-                width: parent.width
-                horizontalAlignment : Text.AlignHCenter
-                font.family: titleFont.name
-                color: theme.text
-                font.pixelSize: Math.round(screenheight*0.025)
-                font.bold: true
-
+                
                 anchors.centerIn: parent
-                wrapMode: Text.Wrap
-                visible: logo.source == "" && gameImage.source == ""
-                z: 10
+                
             }
 
             //preference order for Game Backgrounds, tiles always come first due to assumption that it's set manually
@@ -133,26 +88,84 @@ ListView {
 
             Image {
                 id: gameImage
-                width: parent.width
+                width: isGame ? platformLayout.height : platformLayout.height*0.7//.width
                 height: width
                 smooth: true
                 fillMode: (gameBG == gameData.assets.boxFront) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
                 source: gameBG //gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "" : ""
                 asynchronous: true
                 sourceSize { width: 512; height: 512 }
+                
+                anchors.centerIn: parent
+                
             }
 
             //white overlay on screenshot for better logo visibility over screenshot
             Rectangle {
-                width: parent.width
-                height: parent.height
+                width: gameImage.width
+                height: gameImage.height
                 color: "white"
                 opacity: 0.15
                 visible: logo.source != "" && gameImage.source != ""
             }
 
+            Image {
+                id: logo
+
+                anchors.fill: gameImage
+                anchors.centerIn: gameImage
+                anchors.margins: isGame ? vpx(30) : vpx(60)
+                property var logoImage: {
+                    if (gameData != null) {
+                        if (gameData.collections.get(0).shortName === "retropie")
+                            return "";//gameData.assets.boxFront;
+                        else if (gameData.collections.get(0).shortName === "steam")
+                            return Utils.logo(gameData) ? Utils.logo(gameData) : "" //root.logo(gameData);
+                        else if (gameData.assets.tile != "")
+                            return "";
+                        else
+                            return gameData.assets.logo;
+                    } else {
+                        return ""
+                    }
+                }
+
+                source: gameData ? logoImage : icon //Utils.logo(gameData)
+                sourceSize: Qt.size(gameImage.width, gameImage.height)
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                smooth: true
+                z: 10
+                visible: isGame && !(gameBG == gameData.assets.boxFront) ? true : false
+            }
+
+            ColorOverlay {
+                anchors.fill: logo
+                source: logo
+                color: theme.icon
+                antialiasing: true
+                cached: true
+            }
+
+
+            Text
+            {
+                text: idx > -1 ? gameData.title : name
+                width: gameImage.width
+                horizontalAlignment : Text.AlignHCenter
+                font.family: titleFont.name
+                color: theme.text
+                font.pixelSize: Math.round(screenheight*0.025)
+                font.bold: true
+
+                anchors.centerIn: gameImage
+                wrapMode: Text.Wrap
+                visible: logo.source == "" && gameImage.source == ""
+                z: 10
+            }
+
             MouseArea {
-                anchors.fill: wrapper
+                anchors.fill: gameImage
                 hoverEnabled: true
                 onEntered: {}
                 onExited: {}
@@ -207,8 +220,11 @@ ListView {
             HighlightBorder
             {
                 id: highlightBorder
-                width: parent.width + vpx(18)//vpx(274)
+                width: gameImage.width + vpx(18)//vpx(274)
                 height: width//vpx(274)
+                
+                anchors.centerIn: parent
+                
 
                 x: vpx(-9)
                 y: vpx(-9)
