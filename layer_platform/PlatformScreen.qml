@@ -173,17 +173,11 @@ FocusScope
                         Timer {
                             id: percentTimer
                             interval: 60000 // Run the timer every minute
-                            repeat: isNaN(api.device.batteryPercent) ? "" : showPercent
-                            running: isNaN(api.device.batteryPercent) ? "" : showPercent
+                            repeat: isNaN(api.device.batteryPercent) ? false : showPercent
+                            running: isNaN(api.device.batteryPercent) ? false : showPercent
                             triggeredOnStart: isNaN(api.device.batteryPercent) ? "" : showPercent
                             onTriggered: batteryPercentage.set()
                         }
-
-                        // anchors {
-                        //     verticalCenter: profileIcon.verticalCenter;
-                        //     //left: sysTime.right;
-                        //     right: parent.right; rightMargin: vpx(5)
-                        // }
 
                         color: theme.text
                         font.family: titleFont.name
@@ -193,12 +187,12 @@ FocusScope
                         horizontalAlignment: Text.Right
                         Component.onCompleted: font.capitalization = Font.SmallCaps
                         //font.capitalization: Font.SmallCaps
-                        visible: isNaN(api.device.batteryPercent) ? "" : showPercent
+                        visible: isNaN(api.device.batteryPercent) ? false : showPercent
                     }
 
                     BatteryIcon{
                         id: batteryIcon
-                        width: height * 2
+                        width: height * 1.5
                         height: sysTime.paintedHeight
                         layer.enabled: true
                         layer.effect: ColorOverlay {
@@ -220,22 +214,49 @@ FocusScope
                             onTriggered: batteryIcon.set()
                         }
 
-                        // anchors {
-                        //     verticalCenter: profileIcon.verticalCenter;
-                        //     right: parent.right;
-                        // }
-
                         visible: isNaN(api.device.batteryPercent) ? false : true
+
+                        
                     }
+
+                    Image{
+                        id: chargingIcon
+
+                        property bool chargingStatus: api.device.batteryCharging
+
+                        width: height/2
+                        height: sysTime.paintedHeight
+                        fillMode: Image.PreserveAspectFit
+                        source: "../assets/images/charging.svg"
+                        sourceSize.width: 32
+                        sourceSize.height: 64
+                        smooth: true
+                        horizontalAlignment: Image.AlignLeft
+                        visible: chargingStatus && batteryIcon.level < 99
+                        layer.enabled: true
+                        layer.effect: ColorOverlay {
+                            color: theme.text
+                            antialiasing: true
+                            cached: true
+                        }
+
+                        function set() {
+                            chargingStatus = api.device.batteryCharging;
+                        }
+
+                        Timer {
+                            id: chargingIconTimer
+                            interval: 10000 // Run the timer every minute
+                            repeat: isNaN(api.device.batteryPercent) ? false : true
+                            running: isNaN(api.device.batteryPercent) ? false : true
+                            triggeredOnStart: isNaN(api.device.batteryPercent) ? false : true
+                            onTriggered: chargingIcon.set()
+                        }
+
+                    }
+
                 }
-                // ColorOverlay {
-                //     Layout.alignment: batteryIcon
-                //     source: batteryIcon
-                //     color: theme.text
-                //     antialiasing: true
-                //     cached: true
-                //     visible: true
-                // }
+             
             }
         }
 
