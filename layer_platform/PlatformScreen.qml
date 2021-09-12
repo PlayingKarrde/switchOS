@@ -93,18 +93,17 @@ FocusScope
                 sourceSize { width: 128; height:128 }
                 smooth: true
                 antialiasing: true
+                layer.enabled: false
+                layer.effect: DropShadow {
+                    transparentBorder: true
+                    horizontalOffset: 0
+                    verticalOffset: 2
+                    color: "#80000000"
+                    radius: 6.0
+                    samples: 6
+                    z: -2
+                }
             }
-
-            // DropShadow {
-            //     id: profileIconShadow
-            //     anchors.fill: profileIcon
-            //     horizontalOffset: 0
-            //     verticalOffset: 2
-            //     radius: 6.0
-            //     samples: 6
-            //     color: "#1F000000"
-            //     source: profileIcon
-            // }
 
             Text
                 {
