@@ -1,4 +1,5 @@
 import QtQuick 2.8
+import QtQuick.Layouts 1.11
 import QtGraphicalEffects 1.0
 
 FocusScope {
@@ -27,255 +28,103 @@ FocusScope {
 
     width: parent.width
     height: parent.height
-      
+
     Behavior on opacity { NumberAnimation { duration: 200 } }
-    
-    //button1 - Start
-    Image {
-      id: button1
-      width: Math.round(screenheight*0.04)
-      height: width
-      source: "../assets/images/controller/"+ processButtonArt(api.keys.accept) + ".png"
-      sourceSize.width: 64
-      sourceSize.height: 64
-      anchors {
-        verticalCenter: button1Txt.verticalCenter
-        right: button1Txt.left
-        rightMargin: vpx(5)
-      }
-    }
 
-    ColorOverlay {
-        anchors.fill: button1
-        source: button1
-        color: theme.text
-        cached: true
-    }
-
-    Item {
-      id: button1Txt
-      width: txt1.width
-      height: txt1.height
-      Text {
-        id: txt1
-        text: buttonText1
-        color: theme.text
-        font.pixelSize: Math.round(screenheight*0.025)
-        font.family: titleFont.name
-        font.bold: true
-      }
+    RowLayout {
       anchors {
         verticalCenter: parent.verticalCenter
         right: parent.right
         rightMargin: vpx(25)
       }
-    }
+      spacing: vpx(15)
+      layoutDirection: Qt.RightToLeft
 
-    //button2 - Back
-    Image {
-      id: button2
-      width: Math.round(screenheight*0.04)
-      height: width
-      source: "../assets/images/controller/"+ processButtonArt(api.keys.cancel) + ".png"
-      sourceSize.width: 64
-      sourceSize.height: 64
-      anchors {
-        verticalCenter: button2Txt.verticalCenter
-        right: button2Txt.left
-        rightMargin: vpx(5)
+      ControllerHelpButton {
+        id: buttonOK
+        button: processButtonArt(api.keys.accept)
+        label: 'OK'
+        Layout.fillWidth: true
+        Layout.minimumWidth: vpx(60)
+
+        //onClicked: {console.log("OK Clicked!")}
+
       }
-      visible: showBack
-    }
 
-    ColorOverlay {
-        anchors.fill: button2
-        source: button2
-        color: theme.text
-        cached: true
+      ControllerHelpButton {
+        id: buttonBack
+        button: processButtonArt(api.keys.cancel)
+        label: 'Back'
+        Layout.fillWidth: true
+        Layout.minimumWidth: vpx(75)
+
+        // anchors {
+        //   //verticalCenter: parent.verticalCenter
+        //   right: buttonOK.left
+        //   //rightMargin: vpx(75)
+        // }
+
+        //onClicked: {console.log("Back Clicked!")}
+
         visible: showBack
-    }
-
-    Item {
-      id: button2Txt
-      width: txt2.width
-      height: txt2.height
-      Text {
-        id: txt2
-        text: buttonText2
-        color: theme.text
-        font.pixelSize: Math.round(screenheight*0.025)
-        font.family: titleFont.name
-        font.bold: true
       }
-      anchors {
-        verticalCenter: parent.verticalCenter
-        right: button1.left
-        rightMargin: vpx(20)
-      }
-      visible: showBack
-    }
 
-    //Next Collection Button
-    Image {
-      id: button3
-      width: Math.round(screenheight*0.04)
-      height: width
-      source: "../assets/images/controller/"+ processButtonArt(api.keys.nextPage) + ".png"
-      sourceSize.width: 64
-      sourceSize.height: 64
-      anchors {
-        verticalCenter: button3Txt.verticalCenter
-        right: button3Txt.left
-        rightMargin: vpx(5)
-      }
-      visible: showCollControls
-    }
+      ControllerHelpButton {
+        id: buttonNext
+        button: processButtonArt(api.keys.nextPage)
+        label: 'Next Collection'
+        Layout.fillWidth: true
+        Layout.minimumWidth: vpx(175)
 
-    ColorOverlay {
-        anchors.fill: button3
-        source: button3
-        color: theme.text
-        cached: true
-        visible: showCollControls
-    }
+        // anchors {
+        //   verticalCenter: parent.verticalCenter
+        //   right: showBack ? buttonBack.left : buttonOK.left
+        //   rightMargin: showBack ? vpx(90) : vpx(75)
+        // }
 
-    Item {
-      id: button3Txt
-      width: txt3.width
-      height: txt3.height
-      Text {
-        id: txt3
-        text: "Next Collection"
-        color: theme.text
-        font.pixelSize: Math.round(screenheight*0.025)
-        font.family: titleFont.name
-        font.bold: true
-      }
-      anchors {
-        verticalCenter: parent.verticalCenter
-        right: showBack ? button2.left : button1.left
-        rightMargin: vpx(20)
-      }
-      visible: showCollControls
-    }
-
-    MouseArea {
-      anchors.fill: button3Txt
-      hoverEnabled: true
-      onEntered: {}
-      onExited: {}
-      onClicked: { 
-        nextColl();
-        if (currentCollection < api.collections.count-1) {
-            nextCollection++;
-        } else {
-            nextCollection = -1;
+        onClicked: {
+          turnOnSfx.play();
+          nextColl();
+          if (currentCollection < api.collections.count-1) {
+              nextCollection++;
+          } else {
+              nextCollection = -1;
+          }
         }
-      }
-    }
 
-    //Prev Collection Button
-    Image {
-      id: button4
-      width: Math.round(screenheight*0.04)
-      height: width
-      source: "../assets/images/controller/"+ processButtonArt(api.keys.prevPage) + ".png"
-      sourceSize.width: 64
-      sourceSize.height: 64
-      anchors {
-        verticalCenter: button3Txt.verticalCenter
-        right: button4Txt.left
-        rightMargin: vpx(5)
-      }
-      visible: showCollControls
-    }
-
-    ColorOverlay {
-        anchors.fill: button4
-        source: button4
-        color: theme.text
-        cached: true
         visible: showCollControls
-    }
-
-    Item {
-      id: button4Txt
-      width: txt4.width
-      height: txt4.height
-      Text {
-        id: txt4
-        text: "Prev Collection"
-        color: theme.text
-        font.pixelSize: Math.round(screenheight*0.025)
-        font.family: titleFont.name
-        font.bold: true
       }
-      anchors {
-        verticalCenter: parent.verticalCenter
-        right: button3.left
-        rightMargin: vpx(20)
-      }
-      visible: showCollControls
-    }
 
-    MouseArea {
-      anchors.fill: button4Txt
-      hoverEnabled: true
-      onEntered: {}
-      onExited: {}
-      onClicked: {
-        prevCollection();
-        if (currentCollection == -1) {
+      //Previous Collection Button
+      ControllerHelpButton {
+        id: buttonPrev
+        button: processButtonArt(api.keys.nextPage)
+        label: 'Prev Collection'
+        Layout.fillWidth: true
+        Layout.minimumWidth: vpx(160)
+
+        // anchors {
+        //   verticalCenter: parent.verticalCenter
+        //   right: buttonNext.left
+        //   rightMargin: vpx(200)
+        // }
+
+        onClicked: {
+          turnOffSfx.play();
+          prevCollection();
+          if (currentCollection == -1) {
             nextCollection = api.collections.count-1;
-        } else{ 
+          } else{ 
             nextCollection--;
+          }
         }
+
+        visible: showCollControls
       }
+
     }
 
-    /*//Theme Button
-    Image {
-      id: button5
-      width: Math.round(screenheight*0.04)
-      height: width
-      source: "../assets/images/controller/"+ processButtonArt(api.keys.filters) + ".png"
-      sourceSize.width: 64
-      sourceSize.height: 64
-      anchors {
-        verticalCenter: button3Txt.verticalCenter
-        right: button5Txt.left
-        rightMargin: vpx(5)
-      }
-      visible: !showBack
-    }
-
-    ColorOverlay {
-        anchors.fill: button5
-        source: button5
-        color: theme.text
-        cached: true
-        visible: !showBack
-    }
-
-    Item {
-      id: button5Txt
-      width: txt5.width
-      height: txt5.height
-      Text {
-        id: txt5
-        text: filterText
-        color: theme.text
-        font.pixelSize: Math.round(screenheight*0.025)
-        font.family: titleFont.name
-        font.bold: true
-      }
-      anchors {
-        verticalCenter: parent.verticalCenter
-        right: button4.left
-        rightMargin: vpx(20)
-      }
-      visible: !showBack
-    }*/
+    
 
   }//background
 }//root
