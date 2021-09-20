@@ -121,7 +121,7 @@ id: root
                 hoverEnabled: false
                 onEntered: {}
                 onExited: {}
-                onClicked: showHomeScreen();
+                onClicked: {}
             }
 
         // Line

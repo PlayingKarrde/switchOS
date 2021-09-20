@@ -199,14 +199,12 @@ FocusScope
                 cached: true
             }
 
-            
-
             MouseArea {
                 anchors.fill: headerIcon
                 hoverEnabled: true
                 onEntered: {}
                 onExited: {}
-                onClicked: showHomeScreen();
+                onClicked: {}
             }
 
             // Line

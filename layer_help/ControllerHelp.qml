@@ -58,13 +58,7 @@ FocusScope {
         Layout.fillWidth: true
         Layout.minimumWidth: vpx(75)
 
-        // anchors {
-        //   //verticalCenter: parent.verticalCenter
-        //   right: buttonOK.left
-        //   //rightMargin: vpx(75)
-        // }
-
-        //onClicked: {console.log("Back Clicked!")}
+        onClicked: { showHomeScreen(); }
 
         visible: showBack
       }
@@ -75,12 +69,6 @@ FocusScope {
         label: 'Next Collection'
         Layout.fillWidth: true
         Layout.minimumWidth: vpx(175)
-
-        // anchors {
-        //   verticalCenter: parent.verticalCenter
-        //   right: showBack ? buttonBack.left : buttonOK.left
-        //   rightMargin: showBack ? vpx(90) : vpx(75)
-        // }
 
         onClicked: {
           turnOnSfx.play();
@@ -102,12 +90,6 @@ FocusScope {
         label: 'Prev Collection'
         Layout.fillWidth: true
         Layout.minimumWidth: vpx(160)
-
-        // anchors {
-        //   verticalCenter: parent.verticalCenter
-        //   right: buttonNext.left
-        //   rightMargin: vpx(200)
-        // }
 
         onClicked: {
           turnOffSfx.play();
