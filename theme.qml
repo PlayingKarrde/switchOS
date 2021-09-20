@@ -78,7 +78,7 @@ FocusScope
     }
 
     function jumpToCollection(idx) {
-        api.memory.set('gameCollIndex' + collectionIndex, currentGameIndex); // save game index of current collection
+        //api.memory.set('gameCollIndex' + collectionIndex, currentGameIndex); // save game index of current collection
         collectionIndex = modulo(idx, api.collections.count); // new collection index
         currentGameIndex = 0; // Jump to the top of the list each time collection is changed
     }
@@ -144,7 +144,8 @@ FocusScope
             highlight: "white",
             text: "#2C2C2C",
             button: "white",
-            icon: "#7e7e7e"
+            icon: "#7e7e7e",
+            press: "#7Fc0f0f3"
         }
     }
 
@@ -156,7 +157,8 @@ FocusScope
             highlight: "black",
             text: "white",
             button: "#515151",
-            icon: "white"
+            icon: "white",
+            press: "#591d9bf3"
         }
     }
 
