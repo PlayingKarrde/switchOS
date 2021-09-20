@@ -67,8 +67,8 @@ FocusScope
 
         SequentialAnimation {
             id: na
-            ColorAnimation { target: sortButton; property: "color"; from: sortButton.color; to: theme.accent; duration: 150; easing.type: Easing.OutQuad }
-            ColorAnimation { target: sortButton; property: "color"; from: theme.accent; to: sortButton.color; duration: 150; easing.type: Easing.OutQuad }
+            ColorAnimation { target: sortButton; property: "color"; from: sortButton.color; to: theme.press; duration: 100; easing.type: Easing.OutQuad }
+            ColorAnimation { target: sortButton; property: "color"; from: theme.press; to: sortButton.color; duration: 200; easing.type: Easing.InQuad }
             }
 
         // Top bar
@@ -269,9 +269,9 @@ FocusScope
             cellHeight: cellWidth
             preferredHighlightBegin: Math.round(screenheight*0.1388)
             preferredHighlightEnd: Math.round(screenheight*0.6527)
-            highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
+            highlightRangeMode: ListView.ApplyRange//StrictlyEnforceRange // Highlight never moves outside the range
             snapMode: ListView.NoSnap
-            highlightMoveDuration: 150 //150 is default
+            highlightMoveDuration: 100//200 //150 is default
 
             
             model: softwareList[sortByIndex].games //api.collections.get(collectionIndex).games
