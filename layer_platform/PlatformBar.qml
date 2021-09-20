@@ -20,7 +20,7 @@ ListView {
     preferredHighlightEnd: vpx(1077)
     highlightRangeMode: ListView.StrictlyEnforceRange // Highlight never moves outside the range
     snapMode: ListView.SnapToItem
-    highlightMoveDuration: 200
+    highlightMoveDuration: 100
     highlightMoveVelocity: -1
     keyNavigationWraps: true
     
