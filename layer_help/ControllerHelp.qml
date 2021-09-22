@@ -72,7 +72,6 @@ FocusScope {
 
         onClicked: {
           turnOnSfx.play();
-          nextColl();
           if (currentCollection < api.collections.count-1) {
               nextCollection++;
           } else {
@@ -93,7 +92,6 @@ FocusScope {
 
         onClicked: {
           turnOffSfx.play();
-          prevCollection();
           if (currentCollection == -1) {
             nextCollection = api.collections.count-1;
           } else{ 

@@ -258,7 +258,6 @@ ListView {
 
     function gotoSoftware()
     {
-            jumpToCollection(currentCollection);
             showSoftwareScreen();
     }
 

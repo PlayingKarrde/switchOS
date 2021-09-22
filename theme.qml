@@ -65,24 +65,6 @@ FocusScope
     property real helpbarheight: Math.round(screenheight * 0.1041) // Calculated manually based on mockup
     property bool darkThemeActive
 
-    function modulo(a,n) {
-        return (a % n + n) % n;
-    }
-
-    function nextColl() {
-        jumpToCollection(collectionIndex + 1);
-    }
-
-    function prevCollection() {
-        jumpToCollection(collectionIndex - 1);
-    }
-
-    function jumpToCollection(idx) {
-        //api.memory.set('gameCollIndex' + collectionIndex, currentGameIndex); // save game index of current collection
-        collectionIndex = modulo(idx, api.collections.count); // new collection index
-        currentGameIndex = 0; // Jump to the top of the list each time collection is changed
-    }
-
     function showSoftwareScreen()
     {
         /*platformScreen.visible = false;
@@ -300,7 +282,6 @@ FocusScope
         if (api.keys.isNextPage(event) && !event.isAutoRepeat) {
             event.accepted = true;
             turnOnSfx.play();
-            nextColl();
             if (currentCollection < api.collections.count-1) {
                 nextCollection++;
             } else {
@@ -312,7 +293,6 @@ FocusScope
         if (api.keys.isPrevPage(event) && !event.isAutoRepeat) {
             event.accepted = true;
             turnOffSfx.play();
-            prevCollection();
             if (currentCollection == -1) {
                 nextCollection = api.collections.count-1;
             } else{ 
