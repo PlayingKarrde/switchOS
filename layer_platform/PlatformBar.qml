@@ -123,6 +123,8 @@ ListView {
                             return Utils.logo(gameData) ? Utils.logo(gameData) : "" //root.logo(gameData);
                         else if (gameData.assets.tile != "")
                             return "";
+                        else if (gameBG == gameData.assets.boxFront)
+                            return "";
                         else
                             return gameData.assets.logo;
                     } else {
@@ -135,8 +137,7 @@ ListView {
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
                 smooth: true
-                z: 10
-                visible: isGame && !(gameBG == gameData.assets.boxFront) ? true : false
+                // z: 10
             }
 
             ColorOverlay {
@@ -145,6 +146,7 @@ ListView {
                 color: theme.icon
                 antialiasing: true
                 cached: true
+                visible: !isGame
             }
 
 
