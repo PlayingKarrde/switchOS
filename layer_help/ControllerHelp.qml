@@ -79,7 +79,7 @@ FocusScope {
       //Previous Collection Button
       ControllerHelpButton {
         id: buttonPrev
-        button: processButtonArt(api.keys.nextPage)
+        button: processButtonArt(api.keys.prevPage)
         label: 'Prev Collection'
         Layout.fillWidth: true
         Layout.minimumWidth: vpx(160)
