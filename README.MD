@@ -1,4 +1,4 @@
-# skylineOS v0.11
+# skylineOS v0.12
 
 A clean and simple theme that aims to recreate the experience of Nintendo's Switch console. skylineOS is a theme for [Pegasus Frontend](http://pegasus-frontend.org/) forked from switchOS.
 
@@ -13,6 +13,13 @@ Simply download the theme and place it in your [Pegasus theme directory](http://
 See [wiki](https://github.com/RBertoCases/skylineOS/wiki) for more information.
 
 ## Version history
+
+v0.12
+
+- Made Back button controller prompt functional
+- Changed button icons to work better with new ability to remap controllers in Pegasus
+- Changed Settings Icon
+- General system stability improvements have been made to enhance the user's experience
 
 v0.11
 
