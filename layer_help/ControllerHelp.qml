@@ -39,7 +39,7 @@ FocusScope {
         button: processButtonArt(api.keys.accept)
         label: 'OK'
         Layout.fillWidth: true
-        Layout.minimumWidth: vpx(60)
+        Layout.minimumWidth: vpx(65)
 
         //onClicked: {console.log("OK Clicked!")}
 
@@ -62,7 +62,7 @@ FocusScope {
         button: processButtonArt(api.keys.nextPage)
         label: 'Next Collection'
         Layout.fillWidth: true
-        Layout.minimumWidth: vpx(175)
+        Layout.minimumWidth: vpx(185)
 
         onClicked: {
           turnOnSfx.play();
@@ -82,7 +82,7 @@ FocusScope {
         button: processButtonArt(api.keys.prevPage)
         label: 'Prev Collection'
         Layout.fillWidth: true
-        Layout.minimumWidth: vpx(160)
+        Layout.minimumWidth: vpx(170)
 
         onClicked: {
           turnOffSfx.play();
