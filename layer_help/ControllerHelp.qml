@@ -4,12 +4,6 @@ import QtGraphicalEffects 1.0
 
 FocusScope {
   id: root
-  property string buttonText1: "OK"
-  property string controllerButton1: "A"
-  property string buttonText2: "Back"
-  property string controllerButton2: "B"
-  property string filterText: showBack ? "Sort" : "Theme"
-
   property bool showBack: true
   property bool showCollControls: true
 
