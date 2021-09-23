@@ -151,7 +151,7 @@ FocusScope
 
                     anchors {
                         left: sortIcon.right
-                        leftMargin: vpx(3); rightMargin: vpx(17)
+                        leftMargin: vpx(5); rightMargin: vpx(17)
                         verticalCenter: sortIcon.verticalCenter
                     }
 
