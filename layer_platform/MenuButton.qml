@@ -17,13 +17,13 @@ Item {
         //z: 5
         radius:width/2
         color: theme.button
-        layer.enabled: false//enableDropShadows
+        layer.enabled: enableDropShadows
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 0
             verticalOffset: 0
             color: "#1F000000"
-            radius: 6.0
+            radius: 3.0
             samples: 6
             z: -2
         }
@@ -61,9 +61,9 @@ Item {
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 0
-            verticalOffset: 2
-            color: "#80000000"
-            radius: 6.0
+            verticalOffset: 0
+            color: "#1F000000"
+            radius: 3.0
             samples: 6
             z: -2
         }

@@ -308,15 +308,15 @@ FocusScope
                         source: modelData.collections.get(0).shortName === "steam" ? modelData.assets.screenshot : gameBG
                         sourceSize { width: 256; height: 256 }
                         fillMode: (gameBG == modelData.assets.boxFront) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
-                        layer.enabled: false //FIXME: disabled because it blurs the gameImages.
+                        layer.enabled: enableDropShadows //FIXME: disabled because it blurs the gameImages.
                         layer.effect: DropShadow {
                             transparentBorder: true
                             horizontalOffset: 0
-                            verticalOffset: 2
+                            verticalOffset: 0
                             color: "#1F000000"
-                            radius: 6.0
+                            radius: 3.0
                             samples: 6
-                            z: -2
+                            z: -2 * currentIndex
                         }
                     }
 

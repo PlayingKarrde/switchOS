@@ -93,13 +93,13 @@ FocusScope
                 sourceSize { width: 128; height:128 }
                 smooth: true
                 antialiasing: true
-                layer.enabled: false
+                layer.enabled: enableDropShadows
                 layer.effect: DropShadow {
                     transparentBorder: true
                     horizontalOffset: 0
-                    verticalOffset: 2
-                    color: "#80000000"
-                    radius: 6.0
+                    verticalOffset: 0
+                    color: "#1F000000"
+                    radius: 3.0
                     samples: 6
                     z: -2
                 }

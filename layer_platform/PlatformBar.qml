@@ -59,13 +59,13 @@ ListView {
                 radius: isGame ? 0 : width
                 opacity: 1
                 color: theme.button
-                layer.enabled: false//enableDropShadows && !selected && idx > -3 //disabled on All Software button to avoid graphical glitch
+                layer.enabled: enableDropShadows
                 layer.effect: DropShadow {
                     transparentBorder: true
                     horizontalOffset: 0
-                    verticalOffset: 2
+                    verticalOffset: 0
                     color: "#1F000000"
-                    radius: 6.0
+                    radius: 3.0
                     samples: 6
                     z: -2
                 }
