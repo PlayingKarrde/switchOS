@@ -7,7 +7,7 @@ import "qrc:/qmlutils" as PegasusUtils
 
 
 ListView {
-    id: platformLayout
+    id: homeLayout
     //anchors.fill: parent
     property int _index: 0
     spacing: vpx(14)
@@ -27,10 +27,10 @@ ListView {
     NumberAnimation { id: anim; property: "scale"; to: 0.7; duration: 100 }
 
     model: gamesListModel
-    delegate: platformBarDelegate
+    delegate: homeBarDelegate
 
     Component {
-        id: platformBarDelegate
+        id: homeBarDelegate
         Rectangle {
             id: wrapper
 
@@ -46,7 +46,7 @@ ListView {
                 currentScreenID = idx;
             }
 
-            width: platformLayout.height//isGame ? platformLayout.height : platformLayout.height*0.7
+            width: homeLayout.height//isGame ? homeLayout.height : homeLayout.height*0.7
             height: width
             color: "transparent"
 
@@ -54,7 +54,7 @@ ListView {
 
             Rectangle{
                 id: background
-                width: isGame ? platformLayout.height : platformLayout.height*0.7
+                width: isGame ? homeLayout.height : homeLayout.height*0.7
                 height: width
                 radius: isGame ? 0 : width
                 opacity: 1
@@ -88,7 +88,7 @@ ListView {
 
             Image {
                 id: gameImage
-                width: isGame ? platformLayout.height : platformLayout.height*0.7//.width
+                width: isGame ? homeLayout.height : homeLayout.height*0.7//.width
                 height: width
                 smooth: true
                 fillMode: (gameBG == gameData.assets.boxFront) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
@@ -183,8 +183,8 @@ ListView {
                     }
                     else
                         navSound.play();
-                        platformSwitcher.currentIndex = index
-                        platformSwitcher.focus = true
+                        homeSwitcher.currentIndex = index
+                        homeSwitcher.focus = true
                         buttonMenu.focus = false
 
                 }
@@ -255,7 +255,7 @@ ListView {
         _index = currentIndex;
         navSound.play();
         themeButton.focus = true
-        platformSwitcher.currentIndex = -1
+        homeSwitcher.currentIndex = -1
     }
 
     function gotoSoftware()

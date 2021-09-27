@@ -61,7 +61,7 @@ FocusScope
 
     Item
     {
-        id: platformScreenContainer
+        id: homeScreenContainer
         width: parent.width
         height: parent.height
 
@@ -166,7 +166,7 @@ FocusScope
                         id: batteryPercentage
 
                         function set() {
-                            batteryPercentage.text = platformScreenContainer.batteryStatus+"%";
+                            batteryPercentage.text = homeScreenContainer.batteryStatus+"%";
                         }
 
                         Timer {
@@ -201,7 +201,7 @@ FocusScope
                         }
 
                         function set() {
-                            batteryIcon.level = platformScreenContainer.batteryStatus;
+                            batteryIcon.level = homeScreenContainer.batteryStatus;
                         }
 
                         Timer {
@@ -260,10 +260,10 @@ FocusScope
         }
 
 
-        // Platform menu
-        PlatformBar
+        // Home menu
+        HomeBar
         {
-            id: platformSwitcher
+            id: homeSwitcher
             anchors
             {
                 left: parent.left; leftMargin: vpx(98)
@@ -281,14 +281,14 @@ FocusScope
             spacing: vpx(22)
 
             anchors {
-                top: platformSwitcher.bottom;
+                top: homeSwitcher.bottom;
                 bottom: parent.bottom
             }
 
             Keys.onUpPressed: {
                 navSound.play();
-                platformSwitcher.focus = true
-                platformSwitcher.currentIndex = platformSwitcher._index
+                homeSwitcher.focus = true
+                homeSwitcher.currentIndex = homeSwitcher._index
             }
 
             Keys.onDownPressed:{
@@ -329,7 +329,7 @@ FocusScope
                     else
                         themeButton.focus = true;
                         navSound.play();
-                        platformSwitcher.currentIndex = -1;
+                        homeSwitcher.currentIndex = -1;
                 }
             }
 
@@ -363,7 +363,7 @@ FocusScope
                     else
                         settingsButton.focus = true;
                         navSound.play();
-                        platformSwitcher.currentIndex = -1;
+                        homeSwitcher.currentIndex = -1;
                 }
                 visible: true
             }
