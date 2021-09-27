@@ -19,19 +19,23 @@ import SortFilterProxyModel 0.2
 
 Item {
 id: root
-    
-    readonly property alias games: gamesFiltered
-    function currentGame(index) { return api.allGames.get(publisherGames.mapToSource(index)) }
-    property int max: publisherGames.count
 
-    property string publisher: "Nintendo"
+    readonly property alias games: gamesFiltered
+    //function currentGame(index) { return api.allGames.get(publisherGames.mapToSource(index)) }
+    function currentGame(index) {
+        if (currentCollection == -1)
+            return api.allGames.get(publisherGames.mapToSource(index));
+        else
+            return api.collections.get(currentCollection).games.get(publisherGames.mapToSource(index));
+    }
+
+    property int max: publisherGames.count
 
     SortFilterProxyModel {
     id: publisherGames
 
-        sourceModel: api.allGames
-        filters: RegExpFilter { roleName: "publisher"; pattern: publisher; caseSensitivity: Qt.CaseInsensitive; }
-        sorters: RoleSorter { roleName: "rating"; sortOrder: Qt.DescendingOrder }
+        sourceModel: (currentCollection == -1) ? api.allGames : api.collections.get(currentCollection).games
+        sorters: RoleSorter { roleName: "publisher"; sortOrder: Qt.AscendingOrder }
     }
 
     SortFilterProxyModel {
@@ -43,7 +47,7 @@ id: root
 
     property var collection: {
         return {
-            name:       "Top Games by " + publisher,
+            name:       "Games By Publisher",
             shortName:  "publisher",
             games:      gamesFiltered
         }

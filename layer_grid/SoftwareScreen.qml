@@ -17,9 +17,11 @@ FocusScope
             case 0:
                 return "By Time Last Played";
             case 1:
-                return "By Title";
-            case 2:
                 return "By Total Play Time";
+            case 2:
+                return "By Title";
+            case 3:
+                return "By Publisher";
             default:
                 return ""
         }
@@ -112,7 +114,6 @@ FocusScope
 
 
             // Nintendo's Sort Options: "By Time Last Played", "By Total Play Time", "By Title", "By Publisher"
-            // Probably won't do "By Publisher"
             Rectangle {
                 id: sortButton
 
@@ -446,7 +447,7 @@ FocusScope
 
                         Text {
                             id: gameTitle
-                            text: modelData.title
+                            text: sortByIndex == 3 ? modelData.publisher + " / " + modelData.title : modelData.title
                             color: theme.accent
                             font.pixelSize: Math.round(screenheight*0.0222)
                             font.bold: true
