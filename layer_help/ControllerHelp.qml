@@ -6,6 +6,7 @@ FocusScope {
   id: root
   property bool showBack: true
   property bool showCollControls: true
+  property string collectionShortName: api.collections.get(currentCollection).shortName
 
   function processButtonArt(buttonModel) {
     var i;
@@ -24,6 +25,31 @@ FocusScope {
     height: parent.height
 
     Behavior on opacity { NumberAnimation { duration: 200 } }
+
+    Image {
+      id: controllerIcon
+      width: vpx(100)
+      height: vpx(70)
+      horizontalAlignment: Image.AlignLeft
+      fillMode: Image.PreserveAspectFit
+      source: "../assets/images/controllers/" +
+      (currentCollection == -1 ? "switch" : collectionShortName) + ".svg"
+      visible: false
+
+      anchors {
+        verticalCenter: parent.verticalCenter
+        left: parent.left
+        leftMargin: vpx(25)
+      }
+    }
+
+    ColorOverlay {
+      anchors.fill: controllerIcon
+      source: controllerIcon
+      color: theme.text
+      smooth: true
+      cached: true
+    }
 
     RowLayout {
       anchors {
@@ -97,6 +123,31 @@ FocusScope {
       }
 
     }
+
+    // Image{
+    //   id: profileIcon
+    //   anchors
+    //   {
+    //       top: parent.top;
+    //       left: parent.left;
+    //   }
+    //   width: Math.round(screenheight * 0.0833)
+    //   height: width
+    //   source: "../assets/images/logos/Nintendo - Switch.png"
+    //   sourceSize { width: 128; height:128 }
+    //   smooth: true
+    //   antialiasing: true
+    //   layer.enabled: enableDropShadows
+    //   layer.effect: DropShadow {
+    //       transparentBorder: true
+    //       horizontalOffset: 0
+    //       verticalOffset: 0
+    //       color: "#1F000000"
+    //       radius: 3.0
+    //       samples: 6
+    //       z: -2
+    //   }
+    // }
 
     
 

@@ -130,7 +130,7 @@ FocusScope
                     id: sortIcon
                     width: Math.round(screenheight*0.04)
                     height: width
-                    source: "../assets/images/controller/"+ processButtonArt(api.keys.filters) + ".png"
+                    source: "../assets/images/navigation/"+ processButtonArt(api.keys.filters) + ".png"
                     sourceSize.width: 64
                     sourceSize.height: 64
                     anchors {
@@ -317,7 +317,7 @@ FocusScope
                             color: "#1F000000"
                             radius: 3.0
                             samples: 6
-                            z: -2 * currentIndex
+                            z: -200
                         }
                     }
 
