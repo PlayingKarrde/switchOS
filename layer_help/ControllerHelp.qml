@@ -1,12 +1,13 @@
 import QtQuick 2.8
 import QtQuick.Layouts 1.11
 import QtGraphicalEffects 1.0
+import "../utils.js" as Utils
 
 FocusScope {
   id: root
   property bool showBack: true
   property bool showCollControls: true
-  property string collectionShortName: api.collections.get(currentCollection).shortName
+  property string collectionShortName: Utils.processPlatformName(api.collections.get(currentCollection).shortName)
 
   function processButtonArt(buttonModel) {
     var i;
