@@ -230,7 +230,7 @@ FocusScope
         }
         
         // Game grid
-        GridView 
+        GridView
         {
             id: gameGrid
             focus: true
@@ -274,7 +274,7 @@ FocusScope
 
             
             model: softwareList[sortByIndex].games //api.collections.get(collectionIndex).games
-            delegate: gameGridDelegate            
+            delegate: gameGridDelegate
 
             Component 
             {
@@ -284,6 +284,12 @@ FocusScope
                 {
                     id: delegateContainer
                     property bool selected: delegateContainer.GridView.isCurrentItem
+                    onSelectedChanged: { if (selected) updateData() }
+
+                    function updateData() {
+                        currentGame = modelData;
+                    }
+
                     width: gameGrid.cellWidth - vpx(10)
                     height: width
                     z: selected ? 10 : 0

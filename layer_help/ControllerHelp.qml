@@ -7,7 +7,13 @@ FocusScope {
   id: root
   property bool showBack: true
   property bool showCollControls: true
-  property string collectionShortName: Utils.processPlatformName(api.collections.get(currentCollection).shortName)
+  property var gameData: softwareList[sortByIndex].currentGame(currentScreenID)
+  property string collectionShortName: {
+    if (currentCollection == -1)
+      Utils.processPlatformName(currentGame.collections.get(0).shortName)
+    else
+      Utils.processPlatformName(api.collections.get(currentCollection).shortName)
+  }
 
   function processButtonArt(buttonModel) {
     var i;
@@ -25,16 +31,15 @@ FocusScope {
     width: parent.width
     height: parent.height
 
-    Behavior on opacity { NumberAnimation { duration: 200 } }
+    Behavior on opacity { NumberAnimation { duration: 200 }}
 
     Image {
       id: controllerIcon
-      width: vpx(100)
+      width: vpx(80)
       height: vpx(70)
       horizontalAlignment: Image.AlignLeft
       fillMode: Image.PreserveAspectFit
-      source: "../assets/images/controllers/" +
-      (currentCollection == -1 ? "switch" : collectionShortName) + ".svg"
+      source: "../assets/images/controllers/" + collectionShortName + ".svg"
       visible: false
 
       anchors {

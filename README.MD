@@ -18,7 +18,7 @@ v0.13
 
 - Adjusted ControllerHelpButton spacing for 16:10 resolutions
 - Added By Publisher Sort Option
-- Added a controller icon on the help bar that is responsive to the current collection
+- Added a controller icon on the help bar that is responsive to the selected game
 - General system stability improvements have been made to enhance the user's experience
 
 v0.12
