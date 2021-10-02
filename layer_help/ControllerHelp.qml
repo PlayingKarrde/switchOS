@@ -130,32 +130,5 @@ FocusScope {
 
     }
 
-    // Image{
-    //   id: profileIcon
-    //   anchors
-    //   {
-    //       top: parent.top;
-    //       left: parent.left;
-    //   }
-    //   width: Math.round(screenheight * 0.0833)
-    //   height: width
-    //   source: "../assets/images/logos/Nintendo - Switch.png"
-    //   sourceSize { width: 128; height:128 }
-    //   smooth: true
-    //   antialiasing: true
-    //   layer.enabled: enableDropShadows
-    //   layer.effect: DropShadow {
-    //       transparentBorder: true
-    //       horizontalOffset: 0
-    //       verticalOffset: 0
-    //       color: "#1F000000"
-    //       radius: 3.0
-    //       samples: 6
-    //       z: -2
-    //   }
-    // }
-
-    
-
   }//background
 }//root
