@@ -26,8 +26,8 @@ FocusScope {
         width: Math.round(screenheight*0.04)
         height: width
         source: "../assets/images/navigation/"+ button + ".png"
-        sourceSize.width: 64
-        sourceSize.height: 64
+        sourceSize.width: 128
+        sourceSize.height: 128
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left; leftMargin: vpx(10)
