@@ -98,7 +98,7 @@ FocusScope
                     transparentBorder: true
                     horizontalOffset: 0
                     verticalOffset: 0
-                    color: "#1F000000"
+                    color: "#4D000000"
                     radius: 3.0
                     samples: 6
                     z: -2
